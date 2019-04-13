@@ -4,42 +4,6 @@ import React, { Component } from "react";
 import Question from './Question';
 import Hls from "hls.js";
 
-// class App extends Component {
-//   // state = {};
-
-//   componentDidMount() {
-//     if (Hls.isSupported() && this.player) {
-//       const video = this.player;
-//       const hls = new Hls();
-//       hls.loadSource(
-//         "http://localhost:8080/hls/stream.m3u8"
-//       );
-
-//       hls.attachMedia(video);
-//       hls.on(Hls.Events.MANIFEST_PARSED, function () {
-//         video.play();
-//       });
-//     }
-//   }
-
-//   render() {
-//     return (
-
-//       <div className = "container-full">
-//         <video
-//           preload="none"
-//           className="videoCanvas"
-//           ref={player => (this.player = player)}
-//           autoPlay={true}
-//         />
-//         <div className= "queation"> Test Question</div>
-//       </div>
-//     );
-//   }
-// }
-// export default App;
-
-
 class App extends Component {
   constructor(props) {
     super(props);
@@ -74,13 +38,14 @@ class App extends Component {
     ));
     return (
       <div className="container-full">
-        <video
+        {/* <video
           preload="none"
           className="videoCanvas"
           ref={player => (this.player = player)}
           autoPlay={true}
-        />
-        <div className="queation">
+        /> */}
+
+        <div className="question">
           <ul className="question-list">
             {listItems}
           </ul>

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Button } from 'react-bootstrap';
 
 // Employee Component
 class Question extends Component {
@@ -9,13 +10,13 @@ class Question extends Component {
                     <b>Title:</b> {this.props.title}
                 </div>
                 <div>
-                    <b>A:</b> {this.props.QA}
+                    <Button variant="outline-primary">A. {this.props.QA}</Button>
                 </div>
                 <div>
-                    <b>B:</b> {this.props.QB}
+                    <Button variant="outline-primary">B. {this.props.QB}</Button>
                 </div>
                 <div>
-                    <b>C:</b> {this.props.QC}
+                    <Button variant="outline-primary">C. {this.props.QC}</Button>
                 </div>
             </li>
         );
