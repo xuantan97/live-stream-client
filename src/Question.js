@@ -10,13 +10,13 @@ class Question extends Component {
                     <b>Title:</b> {this.props.title}
                 </div>
                 <div>
-                    <Button variant="outline-primary">A. {this.props.QA}</Button>
+                    <Button variant="outline-primary">A. {this.props.A}</Button>
                 </div>
                 <div>
-                    <Button variant="outline-primary">B. {this.props.QB}</Button>
+                    <Button variant="outline-primary">B. {this.props.B}</Button>
                 </div>
                 <div>
-                    <Button variant="outline-primary">C. {this.props.QC}</Button>
+                    <Button variant="outline-primary">C. {this.props.C}</Button>
                 </div>
             </li>
         );
