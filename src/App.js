@@ -51,10 +51,24 @@ class App extends Component {
           ref={player => (this.player = player)}
           autoPlay={true}
         /> */}
-        <div className="question">
-          <ul className="question-list">
-            { <Question key={qt.id} title={qt.title} A={qt.A} B={qt.B} C={qt.C} /> }
-          </ul>
+
+        <div className="navbar">
+          <div className="topnav" id="myTopnav">
+            <a href="#home" className="active">Home</a>
+            <a href="#news">News</a>
+            <a href="#contact">Contact</a>
+            <a href="#about">About</a>
+          </div>
+        </div>
+
+        <div className="content">
+          <div className="video">video</div>
+
+          <div className="question">
+            <ul className="question-list">
+              { <Question key={qt.id} title={qt.title} A={qt.A} B={qt.B} C={qt.C} /> }
+            </ul>
+          </div>
         </div>
       </div>
     );
