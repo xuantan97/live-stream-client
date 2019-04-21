@@ -16,7 +16,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    fetch('http://bonddemo.tk/v1/question/render-question?difficulty=1',{
+    fetch('http://bonddemo.tk/v1/question/render-question?difficulty=2',{
         method: 'GET',
         headers: {
             'Authorization': 'Bearer lyWyy7-2EqXt6JOjKXnQV90Ghv94ie_5vO20rHFP',
@@ -66,7 +66,7 @@ class App extends Component {
 
           <div className="question">
             <ul className="question-list">
-              { <Question key={qt.id} title={qt.title} A={qt.A} B={qt.B} C={qt.C} /> }
+              { <Question key={qt.id} title={qt.title} QA={qt.A} QB={qt.B} QC={qt.C} /> }
             </ul>
           </div>
         </div>
