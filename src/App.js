@@ -1,5 +1,5 @@
 
-
+import io from 'socket.io-client';
 import React, { Component } from "react";
 import Question from './Question';
 
@@ -11,31 +11,27 @@ class App extends Component {
       title: "",
       A: "",
       B: "",
-      C: ""
+      C: "",
+      endpoint: "localhost:1235"
     };
   }
 
   componentDidMount() {
-    fetch('http://bonddemo.tk/v1/question/render-question?difficulty=2',{
-        method: 'GET',
-        headers: {
-            'Authorization': 'Bearer lyWyy7-2EqXt6JOjKXnQV90Ghv94ie_5vO20rHFP',
-            'Content-Type': 'text/plain'
-        },
-    })
-    .then(res => res.json())
-    .then(response => {
-      response.body = JSON.parse(response.body);
+    //connect to socket.io server
+    const socket = io(this.state.endpoint);
+
+    //listen event server broadcast question and show
+    socket.on('BROADCAST_QUESTION_TO_CLIENT', (dataAPI) => {
+      dataAPI.body = JSON.parse(dataAPI.body);
       this.setState({
-        id : response.id, 
-        title : response.title, 
-        A : response.body.A, 
-        B : response.body.B, 
-        C : response.body.C
+        id : dataAPI.id, 
+        title : dataAPI.title, 
+        A : dataAPI.body.A, 
+        B : dataAPI.body.B, 
+        C : dataAPI.body.C
       });
-      
     })
-    .catch(error => console.log(error));
+
   }
 
 
