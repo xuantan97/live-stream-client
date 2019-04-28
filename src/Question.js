@@ -11,15 +11,15 @@ class Question extends Component {
                 </div>
                 <div>
                     {/* <Button variant="outline-primary">A. {this.props.QA}</Button> */}
-                    <Button>{this.props.QA}</Button>
+                    <Button>A. {this.props.QA}</Button>
                 </div>
                 <div>
                     {/* <Button variant="outline-primary">B. {this.props.QB}</Button> */}
-                    <Button>{this.props.QB}</Button>
+                    <Button>B. {this.props.QB}</Button>
                 </div>
                 <div>
                     {/* <Button variant="outline-primary">C. {this.props.QC}</Button> */}
-                    <Button>{this.props.QC}</Button>
+                    <Button>C. {this.props.QC}</Button>
                 </div>
             </li>
         );
