@@ -2,6 +2,8 @@
 
 import React, { Component } from "react";
 import Question from './Question';
+import WebRTCVideo from './WebRTC';
+
 
 class App extends Component {
   constructor(props) {
@@ -62,7 +64,7 @@ class App extends Component {
         </div>
 
         <div className="content">
-          <div className="video">video</div>
+          <div className="video">{<WebRTCVideo/>}</div>
 
           <div className="question">
             <ul className="question-list">
