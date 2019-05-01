@@ -15,11 +15,36 @@ class WebRTCVideo extends React.Component {
         // this.userMedia;
     }
     // server = "103.89.85.105:1234/";
+    // {
+    // config: {'iceServers': [
+    //   { url: 'turn:admin@103.89.85.105:3478', credential: 'admin' }
+    // ]}
+    //  }
     async componentDidMount() {
         let socket = io.connect('http://103.89.85.105:1321', { transports: ['websocket'] });
         socket.emit('getBroadcastList', (data) => {
             if (data.length > 0) {
-                var peer = new Peer(this.PEER_SERVER);
+                var peer = new Peer(this.PEER_SERVER, {
+                    config: {
+                        'iceServers': [
+                            { url: 'turn:103.89.85.105:3478', username: 'admin', credential: 'admin' },
+                            { url: 'stun.l.google.com:19302' },
+                            { url: 'stun1.l.google.com:19302' },
+                            { url: 'stun2.l.google.com:19302' },
+                            { url: 'stun3.l.google.com:19302' },
+                            { url: 'stun4.l.google.com:19302' },
+                            { url: 'stun.ekiga.net' },
+                            { url: 'stun.ideasip.com' },
+                            { url: 'stun.rixtelecom.se' },
+                            { url: 'stun.schlund.de' },
+                            { url: 'stun.stunprotocol.org:3478' },
+                            { url: 'stun.voiparound.com' },
+                            { url: 'stun.voipbuster.com' },
+                            { url: 'stun.voipstunt.com' },
+                            { url: 'stun.voxgratia.org' }
+                        ]
+                    }
+                });
                 var conn = peer.connect(data[0]);
                 conn.on('open', () => {
                     console.log('connection opened, ' + peer.id);
@@ -40,7 +65,7 @@ class WebRTCVideo extends React.Component {
                             };
 
                         }
-                        
+
                     });
                 });
             }
@@ -49,10 +74,11 @@ class WebRTCVideo extends React.Component {
 
     render() {
         return (
-            <div>
+            <div style={{display: 'flex',  justifyContent:'center', height: '100vh'}}>
                 {
                     this.state.isStream == true && <video id={'broadcast-video'}
                         ref={this.video}
+                        height={400}
                     ></video>
                 }
             </div>
