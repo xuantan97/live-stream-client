@@ -7,6 +7,7 @@ class WebRTCVideo extends React.Component {
         host: '103.89.85.105', port: '1234', path: '/peerjs', key: 'peerjs',
         config: {
             'iceServers': [
+                { url: 'stun:103.89.85.105:3478' },
                 { url: 'turn:103.89.85.105:3478', username: 'admin', credential: 'admin' },
                 { url: 'stun:stun.l.google.com:19302' },
                 { url: 'stun:stun1.l.google.com:19302' },
