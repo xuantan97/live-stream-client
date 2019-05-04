@@ -1,8 +1,30 @@
 import React, { Component } from "react";
 import { Button } from 'react-bootstrap';
 
-// Employee Component
+// Question Component
 class Question extends Component {
+
+    submitAnswer(event) {
+        var form = new FormData();
+        form.append('email', 'tanphan0805@gmail.com');
+        form.append('answer', event.target.value);
+
+        fetch('http://bonddemo.tk/v1/question/check-answer', {
+            method: 'POST',
+            headers: {
+                'Authorization': 'Bearer lyWyy7-2EqXt6JOjKXnQV90Ghv94ie_5vO20rHFP',
+            },
+            body: form
+        })
+        .then(res => {
+            res.json().then(response => {
+                console.log(response);
+            })
+        })
+        .catch(error => console.log(error));
+    }
+
+
     render() {
         return (
             <li className="question" style={{listStyle: 'none'}}>
@@ -10,16 +32,13 @@ class Question extends Component {
                     <b>Title:</b> {this.props.title}
                 </div>
                 <div>
-                    {/* <Button variant="outline-primary">A. {this.props.QA}</Button> */}
-                    <Button>A. {this.props.QA}</Button>
+                    <Button onClick={(event)=> this.submitAnswer(event)} value="A">A. {this.props.QA}</Button>
                 </div>
                 <div>
-                    {/* <Button variant="outline-primary">B. {this.props.QB}</Button> */}
-                    <Button>B. {this.props.QB}</Button>
+                    <Button onClick={(event)=> this.submitAnswer(event)} value="B">B. {this.props.QB}</Button>
                 </div>
                 <div>
-                    {/* <Button variant="outline-primary">C. {this.props.QC}</Button> */}
-                    <Button>C. {this.props.QC}</Button>
+                    <Button onClick={(event)=> this.submitAnswer(event)} value="C">C. {this.props.QC}</Button>
                 </div>
             </li>
         );

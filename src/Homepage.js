@@ -1,4 +1,4 @@
-
+import $ from "jquery";
 import io from 'socket.io-client';
 import React, { Component } from "react";
 import Question from './Question';
@@ -14,7 +14,7 @@ class Homepage extends Component {
       A: "",
       B: "",
       C: "",
-      endpoint: "localhost:1235"
+      endpoint: "103.89.85.105:1235"
     };
   }
 
@@ -33,6 +33,16 @@ class Homepage extends Component {
         C : dataAPI.body.C
       });
     })
+
+    //listen event close question
+   
+    // socket.on('CLOSE_QUESTION', () => {
+    //   console.log("CLOSE_QUESTION");
+    //   $(".question").remove();
+    // });
+    // setTimeout(function () {
+      //   $(".question").remove();
+    // }, 10000)
 
   }
 
