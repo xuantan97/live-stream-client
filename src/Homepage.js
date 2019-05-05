@@ -15,6 +15,7 @@ class Homepage extends Component {
       B: "",
       C: "",
       endpoint: "103.89.85.105:1235"
+      //endpoint: "localhost:1235"
     };
   }
 
@@ -24,6 +25,7 @@ class Homepage extends Component {
 
     //listen event server broadcast question and show
     socket.on('BROADCAST_QUESTION_TO_CLIENT', (dataAPI) => {
+      $(".question").show();
       dataAPI.body = JSON.parse(dataAPI.body);
       this.setState({
         id : dataAPI.id, 
@@ -35,11 +37,11 @@ class Homepage extends Component {
     })
 
     //listen event close question
-   
-    // socket.on('CLOSE_QUESTION', () => {
-    //   console.log("CLOSE_QUESTION");
-    //   $(".question").remove();
-    // });
+    socket.on('CLOSE_QUESTION', () => {
+      console.log("CLOSE_QUESTION");
+      $(".question").hide();
+    });
+
     // setTimeout(function () {
       //   $(".question").remove();
     // }, 10000)

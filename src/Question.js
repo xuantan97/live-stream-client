@@ -6,8 +6,8 @@ class Question extends Component {
 
     submitAnswer(event) {
         var form = new FormData();
-        form.append('email', 'tanphan0805@gmail.com');
-        form.append('answer', event.target.value);
+        form.append('email', 'user@example.com');
+        form.append('answer', 'A');
 
         fetch('http://bonddemo.tk/v1/question/check-answer', {
             method: 'POST',
