@@ -76,7 +76,7 @@ class Homepage extends Component {
 
           <div className="question">
             <ul className="question-list">
-              { <Question key={qt.id} title={qt.title} QA={qt.A} QB={qt.B} QC={qt.C} /> }
+              { <Question id={qt.id} key={qt.id} title={qt.title} QA={qt.A} QB={qt.B} QC={qt.C} /> }
             </ul>
           </div>
         </div>

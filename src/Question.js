@@ -4,10 +4,13 @@ import { Button } from 'react-bootstrap';
 // Question Component
 class Question extends Component {
 
+    
+
     submitAnswer(event) {
         var form = new FormData();
         form.append('email', 'user@example.com');
-        form.append('answer', 'A');
+        form.append('answer', event.target.value);
+        form.append('id', this.props.id);
 
         fetch('http://bonddemo.tk/v1/question/check-answer', {
             method: 'POST',
