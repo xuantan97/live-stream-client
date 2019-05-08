@@ -34,13 +34,15 @@ class Homepage extends Component {
         B : dataAPI.body.B, 
         C : dataAPI.body.C
       });
+
+      localStorage.setItem('idQuestion',dataAPI.id);
     })
 
     //listen event close question
-    socket.on('CLOSE_QUESTION', () => {
-      console.log("CLOSE_QUESTION");
-      $(".question").hide();
-    });
+    // socket.on('CLOSE_QUESTION', () => {
+    //   console.log("CLOSE_QUESTION");
+    //   $(".question").hide();
+    // });
 
     // setTimeout(function () {
       //   $(".question").remove();
@@ -76,7 +78,7 @@ class Homepage extends Component {
 
           <div className="question">
             <ul className="question-list">
-              { <Question id={qt.id} key={qt.id} title={qt.title} QA={qt.A} QB={qt.B} QC={qt.C} /> }
+              { <Question key={qt.id} title={qt.title} QA={qt.A} QB={qt.B} QC={qt.C} /> }
             </ul>
           </div>
         </div>
