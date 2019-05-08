@@ -41,12 +41,10 @@ class Question extends Component {
                         });
                         if(response.result === "InCorrect"){
                             this.setState({
-                                showResult: true,
                                 result: "Rất tiếc bạn đã trả lời sai !!!",
                             })
                         }else{
                             this.setState({
-                                showResult: true,
                                 result: "Chúc mừng bạn đã trả lời đúng !!!",
                             })
                         }
@@ -68,8 +66,8 @@ class Question extends Component {
             console.log("CLOSE_QUESTION");
             // $(".question").hide();
             this.setState({
+                showResult: true,
                 exeConfirm: false,
-                result: ""
             });
         });
     }
