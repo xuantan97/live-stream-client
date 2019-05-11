@@ -13,18 +13,18 @@ class Homepage extends Component {
       title: "",
       A: "",
       B: "",
-      C: "",
-      endpoint: "103.89.85.105:1235"
-      //endpoint: "localhost:1235"
+      C: ""
     };
   }
 
+  //connect to socket.io server
+  //socket = io("localhost:1235");
+  socket = io("103.89.85.105:1235");
+  
   componentDidMount() {
-    //connect to socket.io server
-    const socket = io(this.state.endpoint);
 
     //listen event server broadcast question and show
-    socket.on('BROADCAST_QUESTION_TO_CLIENT', (dataAPI) => {
+    this.socket.on('BROADCAST_QUESTION_TO_CLIENT', (dataAPI) => {
       $(".question").show();
       dataAPI.body = JSON.parse(dataAPI.body);
       this.setState({
@@ -38,6 +38,10 @@ class Homepage extends Component {
       localStorage.setItem('idQuestion',dataAPI.id);
     })
 
+    this.socket.on("SERVER_CHAT", (data) => {
+      $("#content").append("<div style='color:white'>"+ data[1] + ": "+ data[0] +"</div>")
+    });
+
     //listen event close question
     // socket.on('CLOSE_QUESTION', () => {
     //   console.log("CLOSE_QUESTION");
@@ -48,6 +52,11 @@ class Homepage extends Component {
       //   $(".question").remove();
     // }, 10000)
 
+  }
+
+  sendMessage(data) {
+    this.socket.emit("CLIENT_CHAT", data);
+    $("#txtChat").val("");
   }
 
 
@@ -80,6 +89,15 @@ class Homepage extends Component {
             <ul className="question-list">
               { <Question key={qt.id} title={qt.title} QA={qt.A} QB={qt.B} QC={qt.C} /> }
             </ul>
+          </div>
+        </div>
+
+        <div id="right">
+          <input id="txtChat"  type="text"/>
+          <input id="btnChat" type="button" value="Send" onClick={()=>this.sendMessage([$("#txtChat").val(), localStorage.getItem('email')])}/>
+
+          <div id="content">
+            
           </div>
         </div>
       </div>
