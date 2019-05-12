@@ -8,8 +8,8 @@ class Question extends Component {
         this.state={
             answerReturn:"",
             value: "",
-            endpoint: "103.89.85.105:1235",
-            //endpoint: "localhost:1235",
+            // endpoint: "103.89.85.105:1235",
+            endpoint: "localhost:1235",
             exeConfirm: true,
             result: "",
             showResult: false,
@@ -73,6 +73,10 @@ class Question extends Component {
     }
 
     render() {
+        let result = '';
+        if(this.state.showResult) {
+            result += 'result';
+        }
         return (
             <li className="question" style={{listStyle: 'none'}}>
                 <div className="question-content">
@@ -87,8 +91,10 @@ class Question extends Component {
                 <div>
                     <Button onClick={(event)=> this.submitAnswer(event)} value="C">C. {this.props.QC}</Button>
                 </div>
-                {!this.state.exeConfirm && <div><span style={{color: '#ae5856'}}>Câu trả lời đúng : {this.state.answerReturn}</span></div>}
-                {this.state.showResult && <span style={{color: '#ae5856'}}>{this.state.result}</span>}
+                <div className={result}>
+                    {!this.state.exeConfirm && <div><span style={{fontSize: '50px'}}>{this.state.answerReturn}</span></div>}
+                    {this.state.showResult && <span>{this.state.result}</span>}
+                </div>
             </li>
         );
     }

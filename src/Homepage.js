@@ -39,7 +39,7 @@ class Homepage extends Component {
     })
 
     this.socket.on("SERVER_CHAT", (data) => {
-      $("#content").append("<div style='color:white'>"+ data[1] + ": "+ data[0] +"</div>")
+      $("#content").append("<div style='color:#ff0'>"+ data[1] + ": <span style='color:white'>"+ data[0] +"</span></div>")
     });
 
     //listen event close question
@@ -82,22 +82,27 @@ class Homepage extends Component {
           </div>
         </div>
 
-        <div className="content">
-          <div className="video">{<WebRTCVideo/>}</div>
+        <div className="main">
+          <div className="left">
+            <div className="content">
+              <div className="video">{<WebRTCVideo/>}</div>
 
-          <div className="question">
-            <ul className="question-list">
-              { <Question key={qt.id} title={qt.title} QA={qt.A} QB={qt.B} QC={qt.C} /> }
-            </ul>
+              <div className="question">
+                <ul className="question-list">
+                  { <Question key={qt.id} title={qt.title} QA={qt.A} QB={qt.B} QC={qt.C} /> }
+                </ul>
+              </div>
+            </div>
           </div>
-        </div>
 
-        <div id="right">
-          <input id="txtChat"  type="text"/>
-          <input id="btnChat" type="button" value="Send" onClick={()=>this.sendMessage([$("#txtChat").val(), localStorage.getItem('username')])}/>
-
-          <div id="content">
-            
+          <div id="right">
+            <div className="chat-content">
+              <div id="content"></div>
+            </div>
+            <div className="input-content">
+              <input id="txtChat"  type="text" placeholder="Comment..."/>
+              <input id="btnChat" type="button" value="Send" onClick={()=>this.sendMessage([$("#txtChat").val(), localStorage.getItem('username')])}/>
+            </div>
           </div>
         </div>
       </div>

@@ -61,54 +61,62 @@ class Register extends Component {
     };
     render() {
         const {data,errors} = this.state;
-        return(
-            <div className="container-full">
-                <div style={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    height: '85vh',
-                    width: '600px',
-                    margin: '20px',
-                    backgroundColor:'white'
-                }}>
+        let userName = '';
+        let email = '';
+        let password = '';
+        let passwordConfirm = '';
+        if(errors.username) {
+            userName += 'error';
+        }
+        if(errors.email) {
+            email += 'error';
+        }
+        if(errors.password) {
+            password += 'error';
+        }
+        if(errors.passwordConfirm) {
+            passwordConfirm += 'error';
+        }
 
-                    <Form style={{
-                        height: '60vh',
-                        width: '500px',
-                    }}
-                          onSubmit={this.onSubmit}
-                    >
+        return(
+            <div className="container-form">
+                <div className="container">
+
+                    <Form onSubmit={this.onSubmit}>
                         <h1>
                             Register
                         </h1>
 
                         <Form.Group>
                             <Form.Label>Username</Form.Label>
-                            <Form.Control type="text" id="username" name="username" placeholder="Enter username" value={data.username} onChange={this.onChange}/>
-                            {errors.username && <span style={{color: '#ae5856'}}>{errors.username}</span>}
+                            {errors.username && <span style={{color: '#ae5856', float: 'right'}}>{errors.username}</span>}
+                            <Form.Control className={userName} type="text" id="username" name="username" placeholder="Love_cat" value={data.username} onChange={this.onChange}/>
+                            
                         </Form.Group>
 
                         <Form.Group>
                             <Form.Label>Email address</Form.Label>
-                            <Form.Control type="email" id="email" name="email" placeholder="Enter email" value={data.email} onChange={this.onChange}/>
-                            {errors.email && <span style={{color: '#ae5856'}}>{errors.email}</span>}
+                            {errors.email && <span style={{color: '#ae5856', float: 'right'}}>{errors.email}</span>}
+                            <Form.Control className={email} type="email" id="email" name="email" placeholder="abc@gmail.com" value={data.email} onChange={this.onChange}/>
+                            
                         </Form.Group>
 
                         <Form.Group>
                             <Form.Label>Password</Form.Label>
-                            <Form.Control type="password" id="password" name="password" placeholder="Password" value={data.password} onChange={this.onChange}/>
-                            {errors.password && <span style={{color: '#ae5856'}}>{errors.password}</span>}
+                            {errors.password && <span style={{color: '#ae5856', float: 'right'}}>{errors.password}</span>}
+                            <Form.Control className={password} type="password" id="password" name="password" placeholder="123456" value={data.password} onChange={this.onChange}/>
+                            
                         </Form.Group>
 
                         <Form.Group>
                             <Form.Label>Password Confirmation</Form.Label>
-                            <Form.Control type="password" id="passwordConfirm" name="passwordConfirm" placeholder="Password" value={data.passwordConfirm} onChange={this.onChange}/>
-                            {errors.passwordConfirm && <span style={{color: '#ae5856'}}>{errors.passwordConfirm}</span>}
+                            {errors.passwordConfirm && <span style={{color: '#ae5856', float: 'right'}}>{errors.passwordConfirm}</span>}
+                            <Form.Control className={passwordConfirm} type="password" id="passwordConfirm" name="passwordConfirm" placeholder="enter password" value={data.passwordConfirm} onChange={this.onChange}/>
+                            
                         </Form.Group>
 
-                        <Button variant="primary" onClick={()=>this.onSubmit()}>
-                            Submit
+                        <Button className="submit" variant="primary" onClick={()=>this.onSubmit()}>
+                            Sign Up
                         </Button>
                     </Form>
                 </div>

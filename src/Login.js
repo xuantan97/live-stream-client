@@ -57,44 +57,41 @@ class Login extends Component {
     };
     render() {
         const {data,errors} = this.state;
+        let email = '';
+        let password = '';
+        if(errors.email) {
+            email += 'error';
+        }
+        if(errors.password) {
+            password += 'error';
+        }
         return(
-            <div className="container-full">
-                <div style={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    height: '60vh',
-                    width: '600px',
-                    margin: '20px',
-                    backgroundColor:'white'
-                }}>
+            <div className="container-form">
+                <div className="container">
 
-                    <Form style={{
-                        height: '50vh',
-                        width: '500px',
-                        }}
-                        onSubmit={this.onSubmit}
-                    >
+                    <Form onSubmit={this.onSubmit}>
                         <h1>
                             Login
                         </h1>
                         <Form.Group>
                             <Form.Label>Email address</Form.Label>
-                            <Form.Control type="email" id="email" name="email" placeholder="Enter email" value={data.email} onChange={this.onChange}/>
-                            {errors.email && <span style={{color: '#ae5856'}}>{errors.email}</span>}
+                            {errors.email && <span style={{color: '#ae5856', float: 'right'}}>{errors.email}</span>}
+                            <Form.Control className={email} type="email" id="email" name="email" placeholder="abc@gmail.com" value={data.email} onChange={this.onChange}/>
                         </Form.Group>
 
                         <Form.Group>
                             <Form.Label>Password</Form.Label>
-                            <Form.Control type="password" id="password" name="password" placeholder="Password" value={data.password} onChange={this.onChange}/>
-                            {errors.password && <span style={{color: '#ae5856'}}>{errors.password}</span>}
+                            {errors.password && <span style={{color: '#ae5856', float: 'right'}}>{errors.password}</span>}
+                            <Form.Control className={password} type="password" id="password" name="password" placeholder="123456" value={data.password} onChange={this.onChange}/>
                         </Form.Group>
-                        <Button variant="primary" onClick={()=>this.onSubmit()}>
-                            Submit
+                        <Button className="submit" variant="primary" onClick={()=>this.onSubmit()}>
+                            Login
                         </Button>
-                        <Button variant="primary" href="/register">
+                        <br/>
+                        <span style={{userSelect:"none"}}>Don't have account?&nbsp;</span>
+                        <a variant="primary" href="/register">
                             Register
-                        </Button>
+                        </a>
                     </Form>
                 </div>
             </div>
