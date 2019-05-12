@@ -46,8 +46,8 @@ class Login extends Component {
                     if(response === "fail"){
                         alert("Login fail !!!");
                     }else{
-                        localStorage.setItem('email',this.state.data.email);
-                        localStorage.setItem('token',response);
+                        localStorage.setItem('username', response.username);
+                        localStorage.setItem('token', response.token);
                         this.props.history.push('/homepage');
                     }
                 })

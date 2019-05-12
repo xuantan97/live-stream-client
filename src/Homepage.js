@@ -18,9 +18,9 @@ class Homepage extends Component {
   }
 
   //connect to socket.io server
-  //socket = io("localhost:1235");
-  socket = io("103.89.85.105:1235");
-  
+  socket = io("localhost:1235");
+  //socket = io("103.89.85.105:1235");
+
   componentDidMount() {
 
     //listen event server broadcast question and show
@@ -94,7 +94,7 @@ class Homepage extends Component {
 
         <div id="right">
           <input id="txtChat"  type="text"/>
-          <input id="btnChat" type="button" value="Send" onClick={()=>this.sendMessage([$("#txtChat").val(), localStorage.getItem('email')])}/>
+          <input id="btnChat" type="button" value="Send" onClick={()=>this.sendMessage([$("#txtChat").val(), localStorage.getItem('username')])}/>
 
           <div id="content">
             
