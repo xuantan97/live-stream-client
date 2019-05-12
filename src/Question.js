@@ -9,6 +9,7 @@ class Question extends Component {
             answerReturn:"",
             value: "",
             endpoint: "103.89.85.105:1235",
+            //endpoint: "localhost:1235",
             exeConfirm: true,
             result: "",
             showResult: false,
@@ -17,12 +18,11 @@ class Question extends Component {
 
     submitAnswer(event) {
         if(this.state.exeConfirm === true) {
-            console.log(localStorage.getItem('email'));
             this.setState({
                 value: event.target.value,
             });
             var form = new FormData();
-            form.append('email', 'webmaster@example.com');
+            form.append('email', localStorage.getItem('email'));
             form.append('answer', event.target.value);
             form.append('id',localStorage.getItem('idQuestion'));
 
