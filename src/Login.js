@@ -66,7 +66,7 @@ class Login extends Component {
             password += 'error';
         }
         return(
-            <div className="container-form">
+            <div className="container-form" style={{background: "url('/bg.jpg')", backgroundSize: "cover"}}>
                 <div className="container">
 
                     <Form onSubmit={this.onSubmit}>

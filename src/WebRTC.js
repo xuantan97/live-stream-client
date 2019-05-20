@@ -76,7 +76,8 @@ class WebRTCVideo extends React.Component {
 
     render() {
         return (
-            <div style={{ display: 'flex', justifyContent: 'center', height: '100vh' }}>
+            <div>
+            {/*<div style={{ display: 'flex', justifyContent: 'center', height: '100vh' }}>*/}
                 {
                     this.state.isStream == true && <video id={'broadcast-video'}
                         ref={this.video}
