@@ -73,6 +73,15 @@ class Homepage extends Component {
   }
 
 
+  handleKeyPress(event) {
+    if(event.key === 'Enter') {
+      var data = [$("#txtChat").val(), localStorage.getItem('username')];
+      this.socket.emit("CLIENT_CHAT", data);
+      $("#txtChat").val("");
+    }
+  }
+
+
   render() {
     // Array of <Question>
     const qt = this.state;
@@ -146,7 +155,7 @@ class Homepage extends Component {
         </div>
         
         <div style={{width: '100%', height: '50px', marginTop: '10px', textAlign: 'center'}}>
-          <img src="/line.png" style={{height: '50px'}}/>
+          <img src="/line.png" alt="" style={{height: '50px'}}/>
         </div>
 
         <div className="chat">
@@ -156,7 +165,7 @@ class Homepage extends Component {
             <div id="content"></div>
           </div>
           <div className="input-content">
-            <input id="txtChat"  type="text" placeholder="Comment..."/>
+            <input id="txtChat"  type="text" placeholder="Comment..." onKeyPress={(event)=>this.handleKeyPress(event)}/>
             <input id="btnChat" type="button" value="Comment" onClick={()=>this.sendMessage([$("#txtChat").val(), localStorage.getItem('username')])}/>
           </div>
           
