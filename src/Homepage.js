@@ -7,7 +7,7 @@ import { Navbar, Nav, NavDropdown, Form, FormControl, Button, } from 'react-boot
 import { Chat } from 'react-chat-popup';
 import ReactCountdownClock from 'react-countdown-clock';
 import { MDBCol, MDBContainer, MDBRow, MDBFooter } from "mdbreact";
-import { FaUserAlt } from 'react-icons/fa';
+import { FaUserAlt, FaCat } from 'react-icons/fa';
 
 
 class Homepage extends Component {
@@ -41,10 +41,10 @@ class Homepage extends Component {
       $(".main-content").addClass("main-content-1");
       dataAPI.body = JSON.parse(dataAPI.body);
       this.setState({
-        id : dataAPI.id, 
-        title : dataAPI.title, 
-        A : dataAPI.body.A, 
-        B : dataAPI.body.B, 
+        id : dataAPI.id,
+        title : dataAPI.title,
+        A : dataAPI.body.A,
+        B : dataAPI.body.B,
         C : dataAPI.body.C
       });
 
@@ -52,7 +52,7 @@ class Homepage extends Component {
     })
 
     this.socket.on("SERVER_CHAT", (data) => {
-      $("#content").append("<div style='color:#ff0'>"+ data[1] + ": <span style='color:white'>"+ data[0] +"</span></div>")
+      $("#content").append("<div style='color:#7c7c7d'>"+ data[1] + ": <span style='color:#000'>"+ data[0] +"</span></div>")
     });
 
     //listen event close question
@@ -76,22 +76,20 @@ class Homepage extends Component {
   render() {
     // Array of <Question>
     const qt = this.state;
-
     return (
       <div className="container-full">
+        {/* <div className="App" style={{position: 'relative'}}>
+          <Chat />
+        </div> */}
         {/* <video
           preload="none"
           className="videoCanvas"
           ref={player => (this.player = player)}
           autoPlay={true}
         /> */}
-        <div className="App" style={{position: 'relative'}}>
-          <Chat />
-        </div>
-        
         <div className="header" style={{width: '100%'}}>
           <Navbar bg="light" expand="lg">
-            <Navbar.Brand href="#home" style={{color: '#008afc'}}>Trivia Game</Navbar.Brand>
+            <Navbar.Brand href="#home" style={{color: '#008afc'}}><FaCat style={{fontSize: '22px', marginBottom: '0.5rem'}}/> &nbsp;Trivia Game</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav"/>
             <Navbar.Collapse id="basic-navbar-nav" style={{marginLeft: '25%'}}>
               <Nav className="mr-auto">
@@ -146,11 +144,23 @@ class Homepage extends Component {
             </div>         
           </div>
         </div>
+        
+        <div style={{width: '100%', height: '50px', marginTop: '10px', textAlign: 'center'}}>
+          <img src="/line.png" style={{height: '50px'}}/>
+        </div>
 
-        <div className="review">
-            <div>
-              
-            </div>
+        <div className="chat">
+          <div style={{border: 'none', borderBottom: '1px solid rgba(0, 0, 0, 0.1)', marginBottom: '15px'}}></div>
+          <div className="chat-title">COMMENT</div>
+          <div className="chat-content">
+            <div id="content"></div>
+          </div>
+          <div className="input-content">
+            <input id="txtChat"  type="text" placeholder="Comment..."/>
+            <input id="btnChat" type="button" value="Comment" onClick={()=>this.sendMessage([$("#txtChat").val(), localStorage.getItem('username')])}/>
+          </div>
+          
+          <div style={{border: 'none', borderBottom: '1px solid rgba(0, 0, 0, 0.1)', paddingTop: '15px'}}></div>
         </div>
         <div className="footer">
           <MDBFooter color="blue" className="font-small pt-4 mt-4">
@@ -207,7 +217,6 @@ class Homepage extends Component {
             </div>
           </MDBFooter>
         </div>
-        
       </div>
     );
   }

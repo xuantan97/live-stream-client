@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css?family=Suez+One&display=swap');
+/* @import url('https://fonts.googleapis.com/css?family=Suez+One&display=swap'); */
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
 body {
   margin: 0;
   padding: 0;
@@ -24,7 +25,7 @@ code {
 .container-full {
   margin: 0;
   padding: 0;
-  font-family: 'Suez One', serif;
+  font-family: 'Roboto', sans-serif;
 }
 
 .container-full .navbar {
@@ -43,6 +44,8 @@ code {
   color: #008afc;
   text-align: center;
   padding: 0.6rem;
+  user-select: none;
+  font-weight: 650;
 }
 
 .container-full .video {
@@ -131,6 +134,77 @@ code {
 
 .py-3 {
   padding: 0.3rem !important;
+}
+
+.chat {
+  height: 30rem;
+  width: 100%;
+  padding: 20px 0 80px 0;
+}
+
+.chat-title {
+  background: #f7f7f7;
+  font-size: 38px;
+  text-align: center;
+  color: #008afc;
+  padding: 0.6rem;
+  height: 20%;
+  user-select: none;
+  font-weight: 650;
+}
+
+.chat-content {
+  background: #fff;
+  padding: 20px;
+  height: 55%;
+  overflow-y: auto;
+  /* word-break:break-word; */
+  /* white-space: pre-wrap;
+  word-break: break-all; */
+  word-wrap: break-word;
+}
+
+.input-content {
+  display: grid;
+  grid-template-columns: 5fr 1fr;
+  grid-column-gap: 20px;
+  height: 25%;
+  padding: 20px;
+  background: #f7f7f7;
+}
+
+::placeholder {
+  opacity: 0.5;
+}
+
+.input-content #txtChat {
+  grid-column: 1;
+  padding: 0.5rem;
+  border: none;
+  border-bottom: 1.3px solid #afafaf;
+  outline: none;
+  background: transparent;
+}
+
+.input-content #btnChat {
+  grid-column: 2;
+  background: #f7f7f7;
+  border: none;
+  outline: none;
+  transition: 0.2s ease;
+  background: #94cba1;
+  color: #7c7c7d;
+  border-radius: 2px;
+  color: #fff;
+}
+
+.input-content #btnChat:hover {
+  background: #008afc;
+  color: #fff;
+}
+
+.input-content #btnChat:active {
+  background: #006fcb;
 }
 
 
@@ -247,5 +321,9 @@ label {
   .flex {
     display: flex;
     justify-content: space-between;
+  }
+  .chat {
+    width: 80%;
+    margin-left: 10%;
   }
 }
