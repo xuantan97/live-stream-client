@@ -79,7 +79,7 @@ class Register extends Component {
         }
 
         return(
-            <div className="container-form" style={{background: "url('/bg.jpg')", backgroundSize: "cover"}}>
+            <div className="container-form" style={{background: "url('/bg2.jpg')", backgroundSize: "cover"}}>
                 <div className="container">
 
                     <Form onSubmit={this.onSubmit}>

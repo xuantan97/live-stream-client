@@ -35,6 +35,27 @@ code {
   padding: 0.2rem 1rem;
 }
 
+a.nav-link {
+  color: #ccc !important;
+}
+
+a.nav-link:hover {
+  color: #fff !important;
+}
+
+a.nav-link:active {
+  color: #fff !important;
+}
+
+a.active {
+  color: #fff !important;
+}
+
+.navbar-toggler-icon {
+  background: url('/menu.png') !important;
+  background-size: cover !important;
+}
+
 .container-full .main img {
   width: 100%;
 }
@@ -72,13 +93,13 @@ code {
   border-radius: 2px;
   text-align: center;
   font-weight: 700;
-  border: 2px solid #7c7c7d;
+  border: 2px solid #333;
 }
 
 .question button {
   width: 100%;
   padding: 0.4rem;
-  border-color: #7c7c7d;
+  border: 1px solid #333;
   background-color: transparent;
   transition: 0.2s ease;
   font-size: 18px;
@@ -109,7 +130,39 @@ code {
 .footer {
   grid-column: 1 / span 3;
   grid-row: 5;
-  background: #dedfe0;
+  /* background: #dedfe0; */
+  background: #343a40;
+  color: #fff;
+}
+
+.py-3 {
+  /* padding: 0.3rem !important; */
+  padding: 1rem !important;
+}
+
+.title {
+  padding-bottom: 20px;
+  font-size: 25px;
+}
+
+.list-unstyled {
+  padding: 10px 0;
+}
+
+.list-unstyled a {
+  color: #999 !important;
+  text-decoration: none;
+}
+
+.list-unstyled a:hover {
+  color: #fff !important;
+}
+
+.img-responsive {
+  display: block;
+  /* max-width: 100%;
+  height: auto; */
+  width: 450%;
 }
 
 .full-video {
@@ -122,7 +175,7 @@ code {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 35px;
+  font-size: 38px;
   font-weight: 900;
   text-align: center;
   opacity: 0;
@@ -132,10 +185,6 @@ code {
   text-shadow: 0 0 12px #ff0;
 }
 
-.py-3 {
-  padding: 0.3rem !important;
-}
-
 .chat {
   height: 30rem;
   width: 100%;
@@ -143,7 +192,7 @@ code {
 }
 
 .chat-title {
-  background: #f7f7f7;
+  background: #eee;
   font-size: 38px;
   text-align: center;
   color: #008afc;
@@ -170,7 +219,7 @@ code {
   grid-column-gap: 20px;
   height: 25%;
   padding: 20px;
-  background: #f7f7f7;
+  background: #eee;
 }
 
 ::placeholder {
@@ -181,7 +230,7 @@ code {
   grid-column: 1;
   padding: 0.5rem;
   border: none;
-  border-bottom: 1.3px solid #afafaf;
+  border-bottom: 1.2px solid #999;
   outline: none;
   background: transparent;
 }
@@ -192,7 +241,7 @@ code {
   border: none;
   outline: none;
   transition: 0.2s ease;
-  background: #94cba1;
+  background: #25a042;
   color: #7c7c7d;
   border-radius: 2px;
   color: #fff;
@@ -286,8 +335,7 @@ label {
   }
 }
 
-
-@media (min-width: 1024px) {
+@media (min-width: 1150px) {
   .main {
     position: relative;
   }

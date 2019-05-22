@@ -8,8 +8,8 @@ class Question extends Component {
         this.state={
             answerReturn:"",
             value: "",
-            // endpoint: "103.89.85.105:1235",
-            endpoint: "localhost:1235",
+            endpoint: "103.89.85.105:1235",
+            // endpoint: "localhost:1235",
             exeConfirm: true,
             result: "",
             showResult: false,

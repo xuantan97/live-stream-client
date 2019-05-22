@@ -3,11 +3,11 @@ import io from 'socket.io-client';
 import React, { Component } from "react";
 import Question from './Question';
 import WebRTCVideo from './WebRTC';
-import { Navbar, Nav, NavDropdown, Form, FormControl, Button, } from 'react-bootstrap';
+import { Navbar, Nav, NavDropdown, Form, FormControl, Button } from 'react-bootstrap';
 import { Chat } from 'react-chat-popup';
 import ReactCountdownClock from 'react-countdown-clock';
 import { MDBCol, MDBContainer, MDBRow, MDBFooter } from "mdbreact";
-import { FaUserAlt, FaCat } from 'react-icons/fa';
+import { FaUserAlt, FaCat, FaYoutube, FaEnvelope, FaFacebookF } from 'react-icons/fa';
 
 
 class Homepage extends Component {
@@ -52,7 +52,7 @@ class Homepage extends Component {
     })
 
     this.socket.on("SERVER_CHAT", (data) => {
-      $("#content").append("<div style='color:#7c7c7d'>"+ data[1] + ": <span style='color:#000'>"+ data[0] +"</span></div>")
+      $("#content").append("<div style='color:#008afc; font-weight: 600; font-size: 20px'>"+ data[1] + ": <span style='color:#000; font-size: 18px'>"+ data[0] +"</span></div>")
     });
 
     //listen event close question
@@ -97,20 +97,21 @@ class Homepage extends Component {
           autoPlay={true}
         /> */}
         <div className="header" style={{width: '100%'}}>
-          <Navbar bg="light" expand="lg">
+          <Navbar bg="dark" expand="lg">
             <Navbar.Brand href="#home" style={{color: '#008afc'}}><FaCat style={{fontSize: '22px', marginBottom: '0.5rem'}}/> &nbsp;Trivia Game</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav"/>
-            <Navbar.Collapse id="basic-navbar-nav" style={{marginLeft: '25%'}}>
+            <Navbar.Collapse id="basic-navbar-nav" style={{marginLeft: '20%'}}>
               <Nav className="mr-auto">
                 <Nav.Link href="#home" style={{marginLeft: '15%'}}>Home</Nav.Link>
-                <Nav.Link href="#link" style={{marginLeft: '15%'}}>Link</Nav.Link>
-                <NavDropdown title="Dropdown" id="basic-nav-dropdown" style={{marginLeft: '15%'}}>
+                <Nav.Link href="#link" style={{marginLeft: '15%'}}>About</Nav.Link>
+                <Nav.Link href="#link" style={{marginLeft: '15%'}}>Contact</Nav.Link>
+                {/* <NavDropdown title="Dropdown" id="basic-nav-dropdown" style={{marginLeft: '15%'}}>
                   <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
                   <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
                   <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
                   <NavDropdown.Divider />
                   <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
-                </NavDropdown>
+                </NavDropdown> */}
 
                 <NavDropdown title={<FaUserAlt style={{fontSize: '20px'}}/>} id="basic-nav-dropdown" style={{marginLeft: '15%'}}>
                   <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
@@ -132,7 +133,7 @@ class Homepage extends Component {
         </div>
 
         <div className="main">
-          <img src="/bg.jpg"/>
+          <img src="/bg2.jpg"/>
           
           <div className="main-content">
             <div className="head-title">LIVE STREAM TRIVIA GAME</div>
@@ -159,7 +160,7 @@ class Homepage extends Component {
         </div>
 
         <div className="chat">
-          <div style={{border: 'none', borderBottom: '1px solid rgba(0, 0, 0, 0.1)', marginBottom: '15px'}}></div>
+          <div style={{border: 'none', borderBottom: '1px solid #333', marginBottom: '15px'}}></div>
           <div className="chat-title">COMMENT</div>
           <div className="chat-content">
             <div id="content"></div>
@@ -169,62 +170,71 @@ class Homepage extends Component {
             <input id="btnChat" type="button" value="Comment" onClick={()=>this.sendMessage([$("#txtChat").val(), localStorage.getItem('username')])}/>
           </div>
           
-          <div style={{border: 'none', borderBottom: '1px solid rgba(0, 0, 0, 0.1)', paddingTop: '15px'}}></div>
+          <div style={{border: 'none', borderBottom: '1px solid #333', paddingTop: '15px'}}></div>
         </div>
         <div className="footer">
-          <MDBFooter color="blue" className="font-small pt-4 mt-4">
-            <MDBContainer fluid className="text-center text-md-left">
-              <MDBRow>
-                <MDBCol md="5">
-                  <h5 className="title">FOOTER CONTENT</h5>
-                  <p>
-                    Here you can use rows and columns here to organize your footer
-                    content.
-                  </p>
-                </MDBCol>
-                <MDBCol md="3">
-                  <h5 className="title">LINKS</h5>
-                  <ul style={{padding: '0'}}>
+          <div style={{margin: '20px 10% 0 10%'}}>
+            <MDBFooter className="font-small pt-4 mt-4">
+              <MDBContainer fluid className="text-center text-md-left">
+                <MDBRow>
+                  <MDBCol md="4">
+                    <h5 className="title">TRIVIA GAME</h5>
+                    <ul className="w3_footer_grid_list" style={{padding: '0'}}>
+                      <li className="list-unstyled">
+                        <a href="#!">Home</a>
+                      </li>
+                      <li className="list-unstyled">
+                        <a href="#!">About</a>
+                      </li>
+                      <li className="list-unstyled">
+                        <a href="#!">Contact</a>
+                      </li>
+                    </ul>
+                  </MDBCol>
+                  <MDBCol md="4">
+                    <h5 className="title">CONTACT</h5>
+                    <ul style={{padding: '0'}}>
                     <li className="list-unstyled">
-                      <a href="#!">Link 1</a>
-                    </li>
-                    <li className="list-unstyled">
-                      <a href="#!">Link 2</a>
-                    </li>
-                    <li className="list-unstyled">
-                      <a href="#!">Link 3</a>
-                    </li>
-                    <li className="list-unstyled">
-                      <a href="#!">Link 4</a>
-                    </li>
-                  </ul>
-                </MDBCol>
+                        <a href="#!"><FaYoutube/>&nbsp; Trivia Game</a>
+                      </li>
+                      <li className="list-unstyled">
+                        <a href="#!"><FaEnvelope/>&nbsp; abc@gmail.com</a>
+                      </li>
+                      <li className="list-unstyled">
+                        <a href="#!"><FaFacebookF/>&nbsp; Trivia Game</a>
+                      </li>
+                    </ul>
+                  </MDBCol>
 
-                <MDBCol md="3">
-                  <h5 className="title">LINKS</h5>
-                  <ul style={{padding: '0'}}>
-                    <li className="list-unstyled">
-                      <a href="#!">Link 1</a>
-                    </li>
-                    <li className="list-unstyled">
-                      <a href="#!">Link 2</a>
-                    </li>
-                    <li className="list-unstyled">
-                      <a href="#!">Link 3</a>
-                    </li>
-                    <li className="list-unstyled">
-                      <a href="#!">Link 4</a>
-                    </li>
-                  </ul>
-                </MDBCol>
-              </MDBRow>
-            </MDBContainer>
-            <div className="footer-copyright text-center py-3" style={{background: '#cccfd1'}}>
-              <MDBContainer fluid>
-                &copy; {new Date().getFullYear()} Copyright: <a href="https://www.MDBootstrap.com"> MDBootstrap.com </a>
+                  <MDBCol md="4">
+                    <h5 className="title">MOBILE APPS</h5>
+                    <ul style={{padding: '0'}}>
+                      <li className="list-unstyled">
+                      <a href="#!">
+                        <div style={{width: '20%'}}>
+                          <img src="/Google_Play.svg" className="img-responsive"/>
+                        </div>
+                      </a>
+                        
+                      </li>
+                      <li className="list-unstyled">
+                        <a href="#!">
+                          <div style={{width: '20%'}}>
+                            <img src="/app.png" className="img-responsive"/>
+                          </div>
+                        </a>
+                      </li>
+                    </ul>
+                  </MDBCol>
+                </MDBRow>
               </MDBContainer>
-            </div>
-          </MDBFooter>
+              <div className="footer-copyright text-center py-3" style={{background: '#343a40', borderTop: '1px solid #999'}}>
+                <MDBContainer fluid>
+                  &copy; {new Date().getFullYear()} Copyright: <a href="https://www.MDBootstrap.com"> MDBootstrap.com </a>
+                </MDBContainer>
+              </div>
+            </MDBFooter>
+          </div>
         </div>
       </div>
     );
