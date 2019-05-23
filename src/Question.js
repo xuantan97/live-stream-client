@@ -5,70 +5,98 @@ import io from 'socket.io-client';
 class Question extends Component {
     constructor(props){
         super(props);
+        this.socket = io("localhost:1235");
+       //this.socket = io("103.89.85.105:1235");
         this.state={
             answerReturn:"",
             value: "",
-            endpoint: "103.89.85.105:1235",
-            // endpoint: "localhost:1235",
             exeConfirm: true,
             result: "",
             showResult: false,
+            answering: "",
+            current_id: ""
         }
     }
 
     submitAnswer(event) {
-        if(this.state.exeConfirm === true) {
-            this.setState({
-                value: event.target.value,
-            });
-            var form = new FormData();
-            form.append('email', localStorage.getItem('email'));
-            form.append('answer', event.target.value);
-            form.append('id',localStorage.getItem('idQuestion'));
+        
+        this.setState({
+            answering: event.target.value,
+        });
+        // if(this.state.exeConfirm === true) {
+        //     this.setState({
+        //         value: event.target.value,
+        //     });
+        //     var form = new FormData();
+        //     form.append('email', localStorage.getItem('email'));
+        //     form.append('answer', event.target.value);
+        //     form.append('id',localStorage.getItem('idQuestion'));
 
-            fetch('http://bonddemo.tk/v1/question/check-answer', {
-                method: 'POST',
-                headers: {
-                    'Authorization': 'Bearer lyWyy7-2EqXt6JOjKXnQV90Ghv94ie_5vO20rHFP',
-                },
-                body: form
-            })
-                .then(res => {
-                    res.json().then(response => {
-                        console.log(response);
-                        this.setState({
-                            answerReturn: response.answer,
-                        });
-                        if(response.result === "InCorrect"){
-                            this.setState({
-                                result: "Rất tiếc bạn đã trả lời sai !!!",
-                            })
-                        }else{
-                            this.setState({
-                                result: "Chúc mừng bạn đã trả lời đúng !!!",
-                            })
-                        }
-                    })
-                })
-                .catch(error => console.log(error));
-            console.log(localStorage.getItem('idQuestion'))
-        }else{
-            alert("Thời gian trả lời câu hỏi đã hết !!!");
-        }
+        //     fetch('http://bonddemo.tk/v1/question/check-answer', {
+        //         method: 'POST',
+        //         headers: {
+        //             'Authorization': 'Bearer lyWyy7-2EqXt6JOjKXnQV90Ghv94ie_5vO20rHFP',
+        //         },
+        //         body: form
+        //     })
+        //         .then(res => {
+        //             res.json().then(response => {
+        //                 console.log(response);
+        //                 this.setState({
+        //                     answerReturn: response.answer,
+        //                 });
+        //                 if(response.result === "InCorrect"){
+        //                     this.setState({
+        //                         result: "Rất tiếc bạn đã trả lời sai !!!",
+        //                     })
+        //                 }else{
+        //                     this.setState({
+        //                         result: "Chúc mừng bạn đã trả lời đúng !!!",
+        //                     })
+        //                 }
+        //             })
+        //         })
+        //         .catch(error => console.log(error));
+        //     console.log(localStorage.getItem('idQuestion'))
+        // }else{
+        //     alert("Thời gian trả lời câu hỏi đã hết !!!");
+        // }
     }
 
     componentDidMount(){
-        //connect to socket.io server
-        const socket = io(this.state.endpoint);
-
         //listen event close question
-        socket.on('CLOSE_QUESTION', () => {
+        this.socket.on('CLOSE_QUESTION', () => {
             console.log("CLOSE_QUESTION");
-            // $(".question").hide();
+            var email = localStorage.getItem('email');
+            var answer = this.state.answering;
+            var id = localStorage.getItem('idQuestion');
+            console.log(id);
+            console.log(answer);
+            var data = [email, answer, id];
+            this.setState({
+                current_id: id
+            });
+            this.socket.emit("CHECK_ANSWER", data);
+            
+        });
+
+
+        this.socket.on('RESPONSE_ANSWER_TO_CLIENT', (res_data) => {
             this.setState({
                 showResult: true,
                 exeConfirm: false,
+                answerReturn: res_data[0]
             });
+            if(this.state.answering === res_data[1] && this.state.current_id === res_data[0]) {
+                this.setState({
+                    result: "Chúc mừng bạn đã trả lời đúng !!!"
+                })
+            }
+            else {
+                this.setState({
+                    result: "Rất tiếc bạn đã trả lời sai !!!"
+                })
+            }
         });
     }
 
@@ -80,7 +108,7 @@ class Question extends Component {
         return (
             <li className="question" style={{listStyle: 'none'}}>
                 <div className="question-content">
-                    <b>Title:</b> {this.props.title}
+                    {this.props.title}
                 </div>
                 <div>
                     <Button onClick={(event)=> this.submitAnswer(event)} value="A">A. {this.props.QA}</Button>

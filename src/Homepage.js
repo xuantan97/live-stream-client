@@ -3,8 +3,7 @@ import io from 'socket.io-client';
 import React, { Component } from "react";
 import Question from './Question';
 import WebRTCVideo from './WebRTC';
-import { Navbar, Nav, NavDropdown, Form, FormControl, Button } from 'react-bootstrap';
-import { Chat } from 'react-chat-popup';
+import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import ReactCountdownClock from 'react-countdown-clock';
 import { MDBCol, MDBContainer, MDBRow, MDBFooter } from "mdbreact";
 import { FaUserAlt, FaCat, FaYoutube, FaEnvelope, FaFacebookF } from 'react-icons/fa';
@@ -13,6 +12,8 @@ import { FaUserAlt, FaCat, FaYoutube, FaEnvelope, FaFacebookF } from 'react-icon
 class Homepage extends Component {
   constructor(props) {
     super(props);
+    this.socket = io("localhost:1235");
+    //this.socket = io("103.89.85.105:1235");
     this.state = {
       id: "",
       title: "",
@@ -22,9 +23,6 @@ class Homepage extends Component {
     };
   }
 
-  //connect to socket.io server
-  // socket = io("localhost:1235");
-  socket = io("103.89.85.105:1235");
 
   componentDidMount() {
     $(".question").hide();
@@ -87,15 +85,6 @@ class Homepage extends Component {
     const qt = this.state;
     return (
       <div className="container-full">
-        {/* <div className="App" style={{position: 'relative'}}>
-          <Chat />
-        </div> */}
-        {/* <video
-          preload="none"
-          className="videoCanvas"
-          ref={player => (this.player = player)}
-          autoPlay={true}
-        /> */}
         <div className="header" style={{width: '100%'}}>
           <Navbar bg="dark" expand="lg">
             <Navbar.Brand href="#home" style={{color: '#008afc'}}><FaCat style={{fontSize: '22px', marginBottom: '0.5rem'}}/> &nbsp;Trivia Game</Navbar.Brand>
@@ -133,7 +122,7 @@ class Homepage extends Component {
         </div>
 
         <div className="main">
-          <img src="/bg2.jpg"/>
+          <img src="/bg2.jpg" alt=""/>
           
           <div className="main-content">
             <div className="head-title">LIVE STREAM TRIVIA GAME</div>
