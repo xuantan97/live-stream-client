@@ -200,7 +200,7 @@ class Homepage extends Component {
                     <ul style={{padding: '0'}}>
                       <li className="list-unstyled">
                       <a href="#!">
-                        <div style={{width: '20%'}}>
+                        <div>
                           <img src="/Google_Play.svg" className="img-responsive"/>
                         </div>
                       </a>
@@ -208,7 +208,7 @@ class Homepage extends Component {
                       </li>
                       <li className="list-unstyled">
                         <a href="#!">
-                          <div style={{width: '20%'}}>
+                          <div>
                             <img src="/app.png" className="img-responsive"/>
                           </div>
                         </a>
