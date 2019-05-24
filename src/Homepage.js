@@ -145,7 +145,7 @@ class Homepage extends Component {
         </div>
         
         <div style={{width: '100%', height: '50px', marginTop: '10px', textAlign: 'center'}}>
-          <img src="/line.png" alt="" style={{height: '50px'}}/>
+          <img src="/line.png" alt="" className="line" style={{height: '50px'}}/>
         </div>
 
         <div className="chat">

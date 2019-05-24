@@ -375,3 +375,31 @@ label {
     margin-left: 10%;
   }
 }
+
+@media (max-width: 700px) {
+  .input-content {
+    grid-template-columns: 1fr;
+    grid-template-rows: 60% auto;
+    height: auto;
+  }
+
+  .input-content #txtChat {
+    grid-column: 1;
+    grid-row: 1;
+    margin-bottom: 20px;
+  }
+
+  .input-content #btnChat {
+    grid-column: 1;
+    grid-row: 2;
+    padding: 10px;
+  }
+
+  .line {
+    width: 90%;
+  }
+
+  .chat {
+    margin-bottom: 4.5rem;
+  }
+}
