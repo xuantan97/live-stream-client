@@ -11,7 +11,7 @@ import { FaUserAlt, FaCat, FaYoutube, FaEnvelope, FaFacebookF } from 'react-icon
 class Homepage extends Component {
   constructor(props) {
     super(props);
-    //this.socket = io("localhost:1235");
+    // this.socket = io("localhost:1235");
     this.socket = io("103.89.85.105:1235");
     this.state = {
       id: "",
@@ -50,6 +50,7 @@ class Homepage extends Component {
         A : dataAPI.body.A,
         B : dataAPI.body.B,
         C : dataAPI.body.C,
+        answering: "",
       });
       localStorage.setItem('idQuestion',dataAPI.id);
     })
@@ -61,42 +62,44 @@ class Homepage extends Component {
 
 
     this.socket.on('CLOSE_QUESTION', () => {
-      console.log("CLOSE_QUESTION");
-      var email = localStorage.getItem('email');
-      var answer = this.state.answering;
-      var id = localStorage.getItem('idQuestion');
-      console.log(id);
-      console.log(answer);
-      var data = [email, answer, id];
-      this.setState({
-          current_id: id
-      });
-      this.socket.emit("CHECK_ANSWER", data);
+      //TODO
     });
 
 
-    this.socket.on('RESPONSE_ANSWER_TO_CLIENT', (res_data) => {
+    this.socket.on('RESPONSE_ANSWER_TO_CLIENT', (arrayAnswer) => {
        this.setState({
           showResult: true,
       });
-      console.log(res_data);
-      if(this.state.answering === res_data[1] && this.state.current_id === res_data[0]) {
-          this.setState({
-              answerReturn: res_data[1],
-              result: "Chúc mừng bạn đã trả lời đúng !!!",
-              isTrue: true
-          })
-      }
-      else {
-          this.setState({
-              answerReturn: res_data[1],
-              result: "Rất tiếc bạn đã trả lời sai !!!",
-              isTrue: false
-          })
-      }
-    });
+      console.log(this.state.id);
+      console.log(this.state.answering);
+      console.log(arrayAnswer);
 
-    this.socket.emit("SUMMARY", [this.state.id, this.state.isTrue]);
+      for (var i = 0; i < arrayAnswer.length; i++) { 
+        if(arrayAnswer[i].id === this.state.id) {
+          if(arrayAnswer[i].answer === this.state.answering){
+            console.log("Right");
+          }
+          else {
+            console.log("Stupid");
+          }
+        }
+      }
+
+      // if(this.state.answering === res_data[1] && this.state.current_id === res_data[0]) {
+      //     this.setState({
+      //         answerReturn: res_data[1],
+      //         result: "Chúc mừng bạn đã trả lời đúng !!!",
+      //         isTrue: true
+      //     })
+      // }
+      // else {
+      //     this.setState({
+      //         answerReturn: res_data[1],
+      //         result: "Rất tiếc bạn đã trả lời sai !!!",
+      //         isTrue: false
+      //     })
+      // }
+    });
   }
 
 
