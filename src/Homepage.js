@@ -1,9 +1,8 @@
 import $ from "jquery";
 import io from 'socket.io-client';
 import React, { Component } from "react";
-import Question from './Question';
 import WebRTCVideo from './WebRTC';
-import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
+import { Navbar, Nav, NavDropdown, Button } from 'react-bootstrap';
 import ReactCountdownClock from 'react-countdown-clock';
 import { MDBCol, MDBContainer, MDBRow, MDBFooter } from "mdbreact";
 import { FaUserAlt, FaCat, FaYoutube, FaEnvelope, FaFacebookF } from 'react-icons/fa';
@@ -12,14 +11,18 @@ import { FaUserAlt, FaCat, FaYoutube, FaEnvelope, FaFacebookF } from 'react-icon
 class Homepage extends Component {
   constructor(props) {
     super(props);
-    this.socket = io("localhost:1235");
-    //this.socket = io("103.89.85.105:1235");
+    //this.socket = io("localhost:1235");
+    this.socket = io("103.89.85.105:1235");
     this.state = {
       id: "",
       title: "",
       A: "",
       B: "",
-      C: ""
+      C: "",
+      answering: "",
+      current_id: "",
+      result: "",
+      showResult: false,
     };
   }
 
@@ -28,6 +31,7 @@ class Homepage extends Component {
     $(".question").hide();
     $(".video-question").addClass("full-video");
     $(".countdown").hide();
+
     //listen event server broadcast question and show
     this.socket.on('BROADCAST_QUESTION_TO_CLIENT', (dataAPI) => {
       $(".question").show();
@@ -37,33 +41,59 @@ class Homepage extends Component {
       $("#left").addClass("left");
       $("#right").addClass("right");
       $(".main-content").addClass("main-content-1");
+
       dataAPI.body = JSON.parse(dataAPI.body);
       this.setState({
         id : dataAPI.id,
         title : dataAPI.title,
         A : dataAPI.body.A,
         B : dataAPI.body.B,
-        C : dataAPI.body.C
+        C : dataAPI.body.C,
       });
-
       localStorage.setItem('idQuestion',dataAPI.id);
     })
+
 
     this.socket.on("SERVER_CHAT", (data) => {
       $("#content").append("<div style='color:#008afc; font-weight: 600; font-size: 20px'>"+ data[1] + ": <span style='color:#000; font-size: 18px'>"+ data[0] +"</span></div>")
     });
 
-    //listen event close question
-    // socket.on('CLOSE_QUESTION', () => {
-    //   console.log("CLOSE_QUESTION");
-    //   $(".question").hide();
-    // });
 
-    // setTimeout(function () {
-      //   $(".question").remove();
-    // }, 10000)
+    this.socket.on('CLOSE_QUESTION', () => {
+      console.log("CLOSE_QUESTION");
+      var email = localStorage.getItem('email');
+      var answer = this.state.answering;
+      var id = localStorage.getItem('idQuestion');
+      console.log(id);
+      console.log(answer);
+      var data = [email, answer, id];
+      this.setState({
+          current_id: id
+      });
+      this.socket.emit("CHECK_ANSWER", data);
+    });
 
+
+    this.socket.on('RESPONSE_ANSWER_TO_CLIENT', (res_data) => {
+       this.setState({
+          showResult: true,
+      });
+      console.log(res_data);
+      if(this.state.answering === res_data[1] && this.state.current_id === res_data[0]) {
+          this.setState({
+              answerReturn: res_data[1],
+              result: "Chúc mừng bạn đã trả lời đúng !!!"
+          })
+      }
+      else {
+          this.setState({
+              answerReturn: res_data[1],
+              result: "Rất tiếc bạn đã trả lời sai !!!"
+          })
+      }
+    });
   }
+
 
   sendMessage(data) {
     this.socket.emit("CLIENT_CHAT", data);
@@ -79,10 +109,18 @@ class Homepage extends Component {
     }
   }
 
+  async submitAnswer(event) {
+    await this.setState({
+        answering: event.target.value,
+    });
+}
+
 
   render() {
-    // Array of <Question>
-    const qt = this.state;
+    let result = '';
+    //if(this.state.showResult) {
+        result += 'result';
+    //}
     return (
       <div className="container-full">
         <div className="header" style={{width: '100%'}}>
@@ -94,13 +132,7 @@ class Homepage extends Component {
                 <Nav.Link href="#home" style={{marginLeft: '15%'}}>Home</Nav.Link>
                 <Nav.Link href="#link" style={{marginLeft: '15%'}}>About</Nav.Link>
                 <Nav.Link href="#link" style={{marginLeft: '15%'}}>Contact</Nav.Link>
-                {/* <NavDropdown title="Dropdown" id="basic-nav-dropdown" style={{marginLeft: '15%'}}>
-                  <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                  <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
-                  <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-                  <NavDropdown.Divider />
-                  <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
-                </NavDropdown> */}
+                
 
                 <NavDropdown title={<FaUserAlt style={{fontSize: '20px'}}/>} id="basic-nav-dropdown" style={{marginLeft: '15%'}}>
                   <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
@@ -111,7 +143,8 @@ class Homepage extends Component {
                 </NavDropdown>
               </Nav>
               <div className="countdown">
-                <ReactCountdownClock seconds={10}
+                <ReactCountdownClock 
+                  seconds={10}
                   color="#0cc"
                   alpha = {0.5}
                   size={50}
@@ -136,7 +169,24 @@ class Homepage extends Component {
               <div id="right">
                 <div className="question">
                     <ul className="question-list">
-                      { <Question key={qt.id} title={qt.title} QA={qt.A} QB={qt.B} QC={qt.C} /> }
+                    <li className="question" style={{listStyle: 'none'}}>
+                      <div className="question-content">
+                          {this.state.title}
+                      </div>
+                      <div>
+                          <Button onClick={(event)=> this.submitAnswer(event)} value="A">A. {this.state.A}</Button>
+                      </div>
+                      <div>
+                          <Button onClick={(event)=> this.submitAnswer(event)} value="B">B. {this.state.B}</Button>
+                      </div>
+                      <div>
+                          <Button onClick={(event)=> this.submitAnswer(event)} value="C">C. {this.state.C}</Button>
+                      </div>
+                      <div className={result}>
+                          {this.state.showResult && <div><span style={{fontSize: '50px'}}>{this.state.answerReturn}</span></div>}
+                          {this.state.showResult && <span>{this.state.result}</span>}
+                      </div>
+                  </li>
                     </ul>
                 </div>
               </div>
@@ -145,7 +195,7 @@ class Homepage extends Component {
         </div>
         
         <div style={{width: '100%', height: '50px', marginTop: '10px', textAlign: 'center'}}>
-          <img src="/line.png" alt="" className="line" style={{height: '50px'}}/>
+          <img src="/line.png" alt="" style={{height: '50px'}}/>
         </div>
 
         <div className="chat">
@@ -200,16 +250,16 @@ class Homepage extends Component {
                     <ul style={{padding: '0'}}>
                       <li className="list-unstyled">
                       <a href="#!">
-                        <div>
-                          <img src="/Google_Play.svg" className="img-responsive"/>
+                        <div style={{width: '20%'}}>
+                          <img src="/Google_Play.svg" className="img-responsive" alt=""/>
                         </div>
                       </a>
                         
                       </li>
                       <li className="list-unstyled">
                         <a href="#!">
-                          <div>
-                            <img src="/app.png" className="img-responsive"/>
+                          <div style={{width: '20%'}}>
+                            <img src="/app.png" className="img-responsive" alt=""/>
                           </div>
                         </a>
                       </li>
