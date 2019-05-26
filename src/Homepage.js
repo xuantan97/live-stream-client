@@ -23,6 +23,7 @@ class Homepage extends Component {
       current_id: "",
       result: "",
       showResult: false,
+      isTrue: false
     };
   }
 
@@ -82,16 +83,20 @@ class Homepage extends Component {
       if(this.state.answering === res_data[1] && this.state.current_id === res_data[0]) {
           this.setState({
               answerReturn: res_data[1],
-              result: "Chúc mừng bạn đã trả lời đúng !!!"
+              result: "Chúc mừng bạn đã trả lời đúng !!!",
+              isTrue: true
           })
       }
       else {
           this.setState({
               answerReturn: res_data[1],
-              result: "Rất tiếc bạn đã trả lời sai !!!"
+              result: "Rất tiếc bạn đã trả lời sai !!!",
+              isTrue: false
           })
       }
     });
+
+    this.socket.emit("SUMMARY", [this.state.id, this.state.isTrue]);
   }
 
 
