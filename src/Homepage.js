@@ -76,39 +76,23 @@ class Homepage extends Component {
     });
 
 
-    this.socket.on('RESPONSE_ANSWER_TO_CLIENT', (arrayAnswer) => {
+    this.socket.on('RESPONSE_ANSWER_TO_CLIENT', (response) => {
        this.setState({
           showResult: true,
       });
       console.log(this.state.id);
       console.log(this.state.answering);
-      console.log(arrayAnswer);
+      console.log(response);
 
-      for (var i = 0; i < arrayAnswer.length; i++) { 
-        if(arrayAnswer[i].id === this.state.id) {
-          if(arrayAnswer[i].answer === this.state.answering){
-            console.log("Right");
-          }
-          else {
-            console.log("Stupid");
-          }
+      if(response.id === this.state.id) {
+        if(response.answer === this.state.answering){
+          console.log("Right");
+        }
+        else {
+          console.log("Stupid");
         }
       }
-
-      // if(this.state.answering === res_data[1] && this.state.current_id === res_data[0]) {
-      //     this.setState({
-      //         answerReturn: res_data[1],
-      //         result: "Chúc mừng bạn đã trả lời đúng !!!",
-      //         isTrue: true
-      //     })
-      // }
-      // else {
-      //     this.setState({
-      //         answerReturn: res_data[1],
-      //         result: "Rất tiếc bạn đã trả lời sai !!!",
-      //         isTrue: false
-      //     })
-      // }
+      
     });
   }
 
