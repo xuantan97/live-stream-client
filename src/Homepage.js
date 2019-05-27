@@ -70,7 +70,8 @@ class Homepage extends Component {
 
 
     this.socket.on("SERVER_CHAT", (data) => {
-      $("#content").append("<div style='color:#008afc; font-weight: 600; font-size: 20px'>" + data[1] + ": <span style='color:#000; font-size: 18px'>" + data[0] + "</span></div>")
+      $("#content").append("<div style='color:#008afc; font-weight: 600; font-size: 20px'>" + data[1] + ": <span style='color:#000; font-size: 18px'>" + data[0] + "</span></div>");
+      $('.chat-content').animate({ scrollTop: $('.chat-content').get(0).scrollHeight }, 200);
     });
 
 
@@ -149,28 +150,29 @@ class Homepage extends Component {
     //if(this.state.showResult) {
     result += 'result';
     //}
+    
 
     return (
       <div className="container-full">
         <div className="header" style={{ width: '100%' }}>
-          <Navbar bg="dark" expand="lg">
+          <Navbar bg="dark" expand="lg" style={{display: 'flex', justifyContent: 'space-between'}}>
             <Navbar.Brand href="#home" style={{ color: '#008afc' }}><FaCat style={{ fontSize: '22px', marginBottom: '0.5rem' }} /> &nbsp;Trivia Game</Navbar.Brand>
-            <Navbar.Toggle aria-controls="basic-navbar-nav" />
-            <Navbar.Collapse id="basic-navbar-nav" style={{ marginLeft: '20%' }}>
-              <Nav className="mr-auto">
-                <Nav.Link href="#home" style={{ marginLeft: '15%' }}>Home</Nav.Link>
+            {/* <Navbar.Toggle aria-controls="basic-navbar-nav" /> */}
+            {/* <Navbar.Collapse id="basic-navbar-nav" style={{ marginLeft: '20%' }}> */}
+              {/* <Nav className="mr-auto"> */}
+                {/* <Nav.Link href="#home" style={{ marginLeft: '15%' }}>Home</Nav.Link>
                 <Nav.Link href="#link" style={{ marginLeft: '15%' }}>About</Nav.Link>
-                <Nav.Link href="#link" style={{ marginLeft: '15%' }}>Contact</Nav.Link>
+                <Nav.Link href="#link" style={{ marginLeft: '15%' }}>Contact</Nav.Link> */}
 
 
-                <NavDropdown title={<FaUserAlt style={{ fontSize: '20px' }} />} id="basic-nav-dropdown" style={{ marginLeft: '15%' }}>
-                  <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                  <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
-                  <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
+                <NavDropdown title={<FaUserAlt style={{ fontSize: '20px' }} />} id="basic-nav-dropdown">
+                  <NavDropdown.Item href="#action/3.1">Profile</NavDropdown.Item>
+                  {/* <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
+                  <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item> */}
                   <NavDropdown.Divider />
                   <NavDropdown.Item href="#" onClick={() => this.logout()}>Log out</NavDropdown.Item>
                 </NavDropdown>
-              </Nav>
+              {/* </Nav>
               <div className="countdown">
                 <ReactCountdownClock
                   seconds={10}
@@ -178,8 +180,8 @@ class Homepage extends Component {
                   alpha={0.5}
                   size={50}
                 />
-              </div>
-            </Navbar.Collapse>
+              </div> */}
+            {/* </Navbar.Collapse> */}
           </Navbar>
         </div>
 

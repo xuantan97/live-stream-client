@@ -56,6 +56,10 @@ a.active {
   background-size: cover !important;
 }
 
+.dropdown-menu {
+  margin-left: -100px;
+}
+
 .container-full .main img {
   width: 100%;
 }
@@ -72,7 +76,10 @@ a.active {
 .container-full .video {
   width: 100%;
   height: 25rem;
-  background-color: #262626;
+  /* background-color: #262626; */
+  background: transparent;
+  display: flex;
+  justify-content: center;
 }
 
 .question-list {
