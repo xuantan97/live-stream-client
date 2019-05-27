@@ -11,8 +11,8 @@ import { FaUserAlt, FaCat, FaYoutube, FaEnvelope, FaFacebookF } from 'react-icon
 class Homepage extends Component {
   constructor(props) {
     super(props);
-    // this.socket = io("localhost:1235");
-    this.socket = io("103.89.85.105:1235");
+    this.socket = io("localhost:1235");
+    // this.socket = io("103.89.85.105:1235");
     this.state = {
       id: "",
       title: "",
@@ -42,6 +42,16 @@ class Homepage extends Component {
       $("#left").addClass("left");
       $("#right").addClass("right");
       $(".main-content").addClass("main-content-1");
+
+      $('.question button').removeClass('button-focus');
+      $('.question button').prop('disabled', false);
+
+      $('.question button').mouseover(function(){
+        $(this).addClass('hover');
+      });
+      $('.question button').mouseout(function(){
+        $(this).removeClass('hover');
+      });
 
       dataAPI.body = JSON.parse(dataAPI.body);
       this.setState({
@@ -121,6 +131,13 @@ class Homepage extends Component {
     await this.setState({
         answering: event.target.value,
     });
+    // $('.question button').unbind('mouseover');
+    // $('.question button').unbind('mouseout');
+    $('.question button').removeClass('hover');
+    $(`button[value="${this.state.answering}"]`).addClass('button-focus').unbind('mouseover');
+    $(`button[value!="${this.state.answering}"]`).prop('disabled', true);
+
+    
 }
 
 
@@ -129,6 +146,7 @@ class Homepage extends Component {
     //if(this.state.showResult) {
         result += 'result';
     //}
+
     return (
       <div className="container-full">
         <div className="header" style={{width: '100%'}}>
@@ -182,13 +200,13 @@ class Homepage extends Component {
                           {this.state.title}
                       </div>
                       <div>
-                          <Button onClick={(event)=> this.submitAnswer(event)} value="A">A. {this.state.A}</Button>
+                          <button onClick={(event)=> this.submitAnswer(event)} value="A">A. {this.state.A}</button>
                       </div>
                       <div>
-                          <Button onClick={(event)=> this.submitAnswer(event)} value="B">B. {this.state.B}</Button>
+                          <button onClick={(event)=> this.submitAnswer(event)} value="B">B. {this.state.B}</button>
                       </div>
                       <div>
-                          <Button onClick={(event)=> this.submitAnswer(event)} value="C">C. {this.state.C}</Button>
+                          <button onClick={(event)=> this.submitAnswer(event)} value="C">C. {this.state.C}</button>
                       </div>
                       <div className={result}>
                           {this.state.showResult && <div><span style={{fontSize: '50px'}}>{this.state.answerReturn}</span></div>}
@@ -203,7 +221,7 @@ class Homepage extends Component {
         </div>
         
         <div style={{width: '100%', height: '50px', marginTop: '10px', textAlign: 'center'}}>
-          <img src="/line.png" alt="" style={{height: '50px'}}/>
+          <img className="line" src="/line.png" alt="" style={{height: '50px'}}/>
         </div>
 
         <div className="chat">
@@ -258,7 +276,7 @@ class Homepage extends Component {
                     <ul style={{padding: '0'}}>
                       <li className="list-unstyled">
                       <a href="#!">
-                        <div style={{width: '20%'}}>
+                        <div>
                           <img src="/Google_Play.svg" className="img-responsive" alt=""/>
                         </div>
                       </a>
@@ -266,7 +284,7 @@ class Homepage extends Component {
                       </li>
                       <li className="list-unstyled">
                         <a href="#!">
-                          <div style={{width: '20%'}}>
+                          <div>
                             <img src="/app.png" className="img-responsive" alt=""/>
                           </div>
                         </a>
