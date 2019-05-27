@@ -34,7 +34,7 @@ class WebRTCVideo extends React.Component {
         socket.emit('getBroadcastList', (data) => {
             if (data.length > 0) {
                 var peer = new Peer(this.PEER_SERVER);
-                var conn = peer.connect(data[0]);
+                var conn = peer.connect(data[data.length - 1]);
                 conn.on('open', () => {
                     console.log('connection opened, ' + peer.id);
                     conn.on('data', function (data) {
@@ -64,7 +64,7 @@ class WebRTCVideo extends React.Component {
     render() {
         return (
             <div>
-            {/*<div style={{ display: 'flex', justifyContent: 'center', height: '100vh' }}>*/}
+                {/*<div style={{ display: 'flex', justifyContent: 'center', height: '100vh' }}>*/}
                 {
                     this.state.isStream == true && <video id={'broadcast-video'}
                         ref={this.video}
