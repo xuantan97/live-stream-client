@@ -10,19 +10,6 @@ class WebRTCVideo extends React.Component {
                 { url: 'stun:103.89.85.105:3478' },
                 { url: 'turn:103.89.85.105:3478', username: 'admin', credential: 'admin' },
                 { url: 'stun:stun.l.google.com:19302' },
-                { url: 'stun:stun1.l.google.com:19302' },
-                { url: 'stun:stun2.l.google.com:19302' },
-                { url: 'stun:stun3.l.google.com:19302' },
-                { url: 'stun:stun4.l.google.com:19302' },
-                { url: 'stun:stun.ekiga.net' },
-                { url: 'stun:stun.ideasip.com' },
-                { url: 'stun:stun.rixtelecom.se' },
-                { url: 'stun:stun.schlund.de' },
-                { url: 'stun:stun.stunprotocol.org:3478' },
-                { url: 'stun:stun.voiparound.com' },
-                { url: 'stun:stun.voipbuster.com' },
-                { url: 'stun:stun.voipstunt.com' },
-                { url: 'stun:stun.voxgratia.org' }
             ]
         }
     };
