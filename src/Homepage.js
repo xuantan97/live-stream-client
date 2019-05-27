@@ -11,8 +11,8 @@ import { FaUserAlt, FaCat, FaYoutube, FaEnvelope, FaFacebookF } from 'react-icon
 class Homepage extends Component {
   constructor(props) {
     super(props);
-    this.socket = io("localhost:1235");
-    // this.socket = io("103.89.85.105:1235");
+    // this.socket = io("localhost:1235");
+    this.socket = io("103.89.85.105:1235");
     this.state = {
       id: "",
       title: "",
@@ -87,12 +87,22 @@ class Homepage extends Component {
       if(response.id === this.state.id) {
         if(response.answer === this.state.answering){
           console.log("Right");
+          this.setState({
+            isTrue: true,
+          });
         }
         else {
           console.log("Stupid");
+          this.setState({
+            isTrue: false,
+          });
         }
+
+        var dataSum = [this.state.id, this.state.isTrue];
+        this.socket.emit("SUMMARY", dataSum);
+        console.log(dataSum);
       }
-      
+
     });
   }
 
