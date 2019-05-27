@@ -76,7 +76,7 @@ class Homepage extends Component {
     });
 
 
-    this.socket.on('RESPONSE_ANSWER_TO_CLIENT', (response) => {
+    this.socket.on('RESPONSE_ANSWER_TO_CLIENT', async (response) => {
        this.setState({
           showResult: true,
       });
@@ -87,19 +87,19 @@ class Homepage extends Component {
       if(response.id === this.state.id) {
         if(response.answer === this.state.answering){
           console.log("Right");
-          this.setState({
+          await this.setState({
             isTrue: true,
           });
         }
         else {
           console.log("Stupid");
-          this.setState({
+          await this.setState({
             isTrue: false,
           });
         }
 
-        var dataSum = [this.state.id, this.state.isTrue];
-        this.socket.emit("SUMMARY", dataSum);
+        var dataSum = await [this.state.id, this.state.isTrue];
+        await this.socket.emit("SUMMARY", dataSum);
         console.log(dataSum);
       }
 
