@@ -47,6 +47,10 @@ class Homepage extends Component {
       $(".main-content").addClass("main-content-1");
 
       $('.question button').removeClass('button-focus');
+      $('.question button').removeClass('right-answer');
+      $('.question button').removeClass('wrong-answer');
+
+
       $('.question button').prop('disabled', false);
 
       $('.question button').mouseover(function () {
@@ -77,6 +81,8 @@ class Homepage extends Component {
 
     this.socket.on('CLOSE_QUESTION', () => {
       //TODO
+      $('.question button').removeClass('hover');
+      $('.question button').prop('disabled', true);
     });
 
 
@@ -91,12 +97,15 @@ class Homepage extends Component {
       if (response.id === this.state.id) {
         if (response.answer === this.state.answering) {
           console.log("Right");
+          $(`button[value="${response.answer}"]`).addClass('right-answer');
           await this.setState({
             isTrue: true,
           });
         }
         else {
           console.log("Stupid");
+          $(`button[value="${response.answer}"]`).addClass('right-answer');
+          $(`button[value="${this.state.answering}"]`).addClass('wrong-answer');
           await this.setState({
             isTrue: false,
           });

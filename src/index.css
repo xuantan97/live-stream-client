@@ -397,9 +397,12 @@ label {
   }
   .left {
     width: 58.5%;
+    animation: bounceInRight 0.5s linear;
   }
   .right {
     width: 38.5%;
+    animation: bounceInRight 0.5s linear;
+
   }
   .flex {
     display: flex;
@@ -439,4 +442,115 @@ label {
   .line {
     width: 90%;
   }
+}
+
+
+
+
+
+.wrong-answer {
+  background: #f00 !important;
+  border-color: #f00 !important;
+  color: #fff !important;
+}
+
+.right-answer {
+  background: #ff6 !important;
+  border-color: #ff6 !important;
+  transition: 0.5s ease;
+  animation: right-answer 1.5s linear;
+  animation-iteration-count: 2;
+}
+
+@keyframes right-answer {
+  0%, 20%, 40%, 60%, 80%, 100% {
+    background: #ff6;
+    border-color: #ff6;
+  }
+  10%, 30%, 50%, 70%, 90% {
+    background: #36f;
+    border-color: #36f;
+  }
+}
+
+
+@-webkit-keyframes bounceInRight {
+  from,
+  60%,
+  75%,
+  90%,
+  to {
+    -webkit-animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+
+  from {
+    opacity: 0;
+    -webkit-transform: translate3d(3000px, 0, 0);
+    transform: translate3d(3000px, 0, 0);
+  }
+
+  60% {
+    opacity: 1;
+    -webkit-transform: translate3d(-25px, 0, 0);
+    transform: translate3d(-25px, 0, 0);
+  }
+
+  75% {
+    -webkit-transform: translate3d(10px, 0, 0);
+    transform: translate3d(10px, 0, 0);
+  }
+
+  90% {
+    -webkit-transform: translate3d(-5px, 0, 0);
+    transform: translate3d(-5px, 0, 0);
+  }
+
+  to {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes bounceInRight {
+  from,
+  60%,
+  75%,
+  90%,
+  to {
+    -webkit-animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+
+  from {
+    opacity: 0;
+    -webkit-transform: translate3d(3000px, 0, 0);
+    transform: translate3d(3000px, 0, 0);
+  }
+
+  60% {
+    opacity: 1;
+    -webkit-transform: translate3d(-25px, 0, 0);
+    transform: translate3d(-25px, 0, 0);
+  }
+
+  75% {
+    -webkit-transform: translate3d(10px, 0, 0);
+    transform: translate3d(10px, 0, 0);
+  }
+
+  90% {
+    -webkit-transform: translate3d(-5px, 0, 0);
+    transform: translate3d(-5px, 0, 0);
+  }
+
+  to {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.bounceInRight {
+  -webkit-animation-name: bounceInRight;
+  animation-name: bounceInRight;
 }
