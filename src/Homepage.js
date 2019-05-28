@@ -6,6 +6,7 @@ import { Navbar, Nav, NavDropdown, Button } from 'react-bootstrap';
 import ReactCountdownClock from 'react-countdown-clock';
 import { MDBCol, MDBContainer, MDBRow, MDBFooter } from "mdbreact";
 import { FaUserAlt, FaCat, FaYoutube, FaEnvelope, FaFacebookF } from 'react-icons/fa';
+import 'css-doodle';
 
 
 class Homepage extends Component {
@@ -26,6 +27,7 @@ class Homepage extends Component {
       result: "",
       showResult: false,
       isTrue: false,
+      isWin: false
     };
   }
 
@@ -35,6 +37,7 @@ class Homepage extends Component {
     $(".question").hide();
     $(".video-question").addClass("full-video");
     $(".countdown").hide();
+    $('.win').hide();
 
     //listen event server broadcast question and show
     this.socket.on('BROADCAST_QUESTION_TO_CLIENT', (dataAPI) => {
@@ -143,8 +146,24 @@ class Homepage extends Component {
     $('.question button').removeClass('hover');
     $(`button[value="${this.state.answering}"]`).addClass('button-focus').unbind('mouseover');
     $(`button[value!="${this.state.answering}"]`).prop('disabled', true);
+  }
 
+  endGame() {
+    $(".question").hide();
+    $(".countdown").hide();
+    $(".video-question").addClass("full-video");
+    $(".video-question").removeClass("flex");
+    $("#left").removeClass("left");
+    $("#right").removeClass("right");
+    $(".main-content").removeClass("main-content-1");
 
+    if(this.state.isWin) {
+      var timeoutId = setTimeout(function() {
+        $('.win').show();
+      }, 4000);
+      $('.win').hide();
+      clearTimeout(timeoutId);
+    }
   }
 
   logout() {
@@ -315,6 +334,45 @@ class Homepage extends Component {
             </MDBFooter>
           </div>
         </div>
+
+        <div className="win">
+          <css-doodle grid="5">
+          {`
+          :doodle {
+            @grid: 10 / 100%; 
+          }
+          background: @pick(
+            #ff0, #ff6, #ffd700, #ee0
+          );
+
+          transform: translate(
+            @rand(-50vw, 50vw),
+            @rand(-50vh, 50vh)
+          );
+
+          @size: 3.5vmin;
+          @shape: star;
+          @place-cell: 50% 50%;
+
+          animation-name: explosion;
+          animation-iteration-count: infinite;
+          animation-direction: reverse;
+          animation-duration: calc(@rand(2s, 5s, .1));
+          animation-delay: calc(@rand(-5s, -1s, .1));
+          animation-timing-function: 
+            cubic-bezier(.84, .02, 1, 1);
+
+           @keyframes explosion {
+              0% { opacity: 0; }
+              70% { opacity: 1; }
+              100% { transform: translate(0, 0); }
+            }
+          `}
+          </css-doodle>
+        </div>
+
+
+
       </div>
     );
   }
