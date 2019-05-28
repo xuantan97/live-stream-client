@@ -2,8 +2,7 @@ import $ from "jquery";
 import io from 'socket.io-client';
 import React, { Component } from "react";
 import WebRTCVideo from './WebRTC';
-import { Navbar, Nav, NavDropdown, Button } from 'react-bootstrap';
-import ReactCountdownClock from 'react-countdown-clock';
+import { Navbar, NavDropdown } from 'react-bootstrap';
 import { MDBCol, MDBContainer, MDBRow, MDBFooter } from "mdbreact";
 import { FaUserAlt, FaCat, FaYoutube, FaEnvelope, FaFacebookF } from 'react-icons/fa';
 import 'css-doodle';
@@ -11,9 +10,7 @@ import 'css-doodle';
 
 class Homepage extends Component {
   constructor(props) {
-   
     super(props);
-
     // this.socket = io("localhost:1235");
     this.socket = io("103.89.85.105:1235");
     this.state = {
@@ -25,9 +22,8 @@ class Homepage extends Component {
       answering: "",
       current_id: "",
       result: "",
-      showResult: false,
       isTrue: false,
-      isWin: false
+      isWin: true
     };
   }
 
@@ -83,30 +79,20 @@ class Homepage extends Component {
 
 
     this.socket.on('CLOSE_QUESTION', () => {
-      //TODO
       $('.question button').removeClass('hover');
       $('.question button').prop('disabled', true);
     });
 
 
     this.socket.on('RESPONSE_ANSWER_TO_CLIENT', async (response) => {
-      this.setState({
-        showResult: true,
-      });
-      console.log(this.state.id);
-      console.log(this.state.answering);
-      console.log(response);
-
       if (response.id === this.state.id) {
         if (response.answer === this.state.answering) {
-          console.log("Right");
           $(`button[value="${response.answer}"]`).addClass('right-answer');
           await this.setState({
             isTrue: true,
           });
         }
         else {
-          console.log("Stupid");
           $(`button[value="${response.answer}"]`).addClass('right-answer');
           $(`button[value="${this.state.answering}"]`).addClass('wrong-answer');
           await this.setState({
@@ -116,9 +102,26 @@ class Homepage extends Component {
 
         var dataSum = await [this.state.id, this.state.isTrue];
         await this.socket.emit("SUMMARY", dataSum);
-        console.log(dataSum);
       }
+    });
 
+
+    this.socket.on('END_GAME_TO_CLIENT', () => {
+      $(".question").hide();
+      $(".countdown").hide();
+      $(".video-question").addClass("full-video");
+      $(".video-question").removeClass("flex");
+      $("#left").removeClass("left");
+      $("#right").removeClass("right");
+      $(".main-content").removeClass("main-content-1");
+
+      if(this.state.isWin) {
+        var timeoutId = setTimeout(function() {
+          $('.win').show();
+        }, 4000);
+        $('.win').hide();
+        clearTimeout(timeoutId);
+      }
     });
   }
 
@@ -141,8 +144,6 @@ class Homepage extends Component {
     await this.setState({
       answering: event.target.value,
     });
-    // $('.question button').unbind('mouseover');
-    // $('.question button').unbind('mouseout');
     $('.question button').removeClass('hover');
     $(`button[value="${this.state.answering}"]`).addClass('button-focus').unbind('mouseover');
     $(`button[value!="${this.state.answering}"]`).prop('disabled', true);
@@ -168,48 +169,21 @@ class Homepage extends Component {
 
   logout() {
     localStorage.clear();
-    // this.props.navigation.navigate('/login');
     this.props.history.push('/');
   }
 
 
   render() {
-    let result = '';
-    //if(this.state.showResult) {
-    result += 'result';
-    //}
-    
-
     return (
       <div className="container-full">
         <div className="header" style={{ width: '100%' }}>
           <Navbar bg="dark" expand="lg" style={{display: 'flex', justifyContent: 'space-between'}}>
             <Navbar.Brand href="#home" style={{ color: '#008afc' }}><FaCat style={{ fontSize: '22px', marginBottom: '0.5rem' }} /> &nbsp;Trivia Game</Navbar.Brand>
-            {/* <Navbar.Toggle aria-controls="basic-navbar-nav" /> */}
-            {/* <Navbar.Collapse id="basic-navbar-nav" style={{ marginLeft: '20%' }}> */}
-              {/* <Nav className="mr-auto"> */}
-                {/* <Nav.Link href="#home" style={{ marginLeft: '15%' }}>Home</Nav.Link>
-                <Nav.Link href="#link" style={{ marginLeft: '15%' }}>About</Nav.Link>
-                <Nav.Link href="#link" style={{ marginLeft: '15%' }}>Contact</Nav.Link> */}
-
-
                 <NavDropdown title={<FaUserAlt style={{ fontSize: '20px' }} />} id="basic-nav-dropdown">
                   <NavDropdown.Item href="#action/3.1">Profile</NavDropdown.Item>
-                  {/* <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
-                  <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item> */}
                   <NavDropdown.Divider />
                   <NavDropdown.Item href="#" onClick={() => this.logout()}>Log out</NavDropdown.Item>
                 </NavDropdown>
-              {/* </Nav>
-              <div className="countdown">
-                <ReactCountdownClock
-                  seconds={10}
-                  color="#0cc"
-                  alpha={0.5}
-                  size={50}
-                />
-              </div> */}
-            {/* </Navbar.Collapse> */}
           </Navbar>
         </div>
 
@@ -240,10 +214,6 @@ class Homepage extends Component {
                       </div>
                       <div>
                         <button onClick={(event) => this.submitAnswer(event)} value="C">C. {this.state.C}</button>
-                      </div>
-                      <div className={result}>
-                        {this.state.showResult && <div><span style={{ fontSize: '50px' }}>{this.state.answerReturn}</span></div>}
-                        {this.state.showResult && <span>{this.state.result}</span>}
                       </div>
                     </li>
                   </ul>
