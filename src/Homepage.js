@@ -187,7 +187,7 @@ class Homepage extends Component {
           <img src="/bg2.jpg" alt="" />
 
           <div className="main-content">
-            <div className="head-title">LIVE STREAM TRIVIA GAME <span>Time: {this.state.seconds}</span></div>
+            <div className="head-title">LIVE STREAM TRIVIA GAME</div>
             <div className="video-question">
               <div id="left">
                 <div className="content">
@@ -198,7 +198,8 @@ class Homepage extends Component {
               <div id="right">
                 <div className="question">
                   <ul className="question-list">
-                    <li className="question" style={{ listStyle: 'none' }}>
+                    <li className="question" style={{ listStyle: 'none', position: 'relative' }}>
+                      <span className="timer">Time: {this.state.seconds}</span>
                       <div className="question-content">
                         {this.state.title}
                       </div>
