@@ -97,6 +97,7 @@ class Homepage extends Component {
           $(`button[value="${this.state.answering}"]`).addClass('wrong-answer');
           await this.setState({
             isTrue: false,
+            isWin: false
           });
         }
 
@@ -148,23 +149,6 @@ class Homepage extends Component {
     $(`button[value!="${this.state.answering}"]`).prop('disabled', true);
   }
 
-  // endGame() {
-  //   $(".question").hide();
-  //   $(".countdown").hide();
-  //   $(".video-question").addClass("full-video");
-  //   $(".video-question").removeClass("flex");
-  //   $("#left").removeClass("left");
-  //   $("#right").removeClass("right");
-  //   $(".main-content").removeClass("main-content-1");
-
-  //   if(this.state.isWin) {
-  //     var timeoutId = setTimeout(function() {
-  //       $('.win').show();
-  //     }, 4000);
-  //     $('.win').hide();
-  //     clearTimeout(timeoutId);
-  //   }
-  // }
 
   logout() {
     localStorage.clear();
