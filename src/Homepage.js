@@ -23,13 +23,14 @@ class Homepage extends Component {
       current_id: "",
       result: "",
       isTrue: false,
-      isWin: true
+      isWin: true,
+      seconds: 12
     };
   }
 
 
   async componentDidMount() {
-    
+
     $(".question").hide();
     $(".video-question").addClass("full-video");
     $(".countdown").hide();
@@ -37,6 +38,9 @@ class Homepage extends Component {
 
     //listen event server broadcast question and show
     this.socket.on('BROADCAST_QUESTION_TO_CLIENT', (dataAPI) => {
+
+      this.setState({seconds: 12});
+
       $(".question").show();
       $(".countdown").show();
       $(".video-question").removeClass("full-video");
@@ -69,6 +73,15 @@ class Homepage extends Component {
         answering: "",
       });
       localStorage.setItem('idQuestion', dataAPI.id);
+
+      //countdown timer
+      this.timer =  setInterval(()=> {
+        this.setState({seconds: this.state.seconds - 1});
+        if (this.state.seconds === 0) { 
+          clearInterval(this.timer);
+        }
+      }, 1000)
+      
     })
 
 
@@ -174,7 +187,7 @@ class Homepage extends Component {
           <img src="/bg2.jpg" alt="" />
 
           <div className="main-content">
-            <div className="head-title">LIVE STREAM TRIVIA GAME</div>
+            <div className="head-title">LIVE STREAM TRIVIA GAME <span>Time: {this.state.seconds}</span></div>
             <div className="video-question">
               <div id="left">
                 <div className="content">
