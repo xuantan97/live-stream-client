@@ -144,12 +144,12 @@ class Homepage extends Component {
       $(".main-content").removeClass("main-content-1");
 
       console.log(dataEndGame);
-
+      $('.win').append(`<style>.win:before{content:'${dataEndGame[2]}$' !important} .win:after{content:'${dataEndGame[2]}$' !important}</style>`);
       if(this.state.isWin === 0) {
         $('.win').show();
         setTimeout(function() {
           $('.win').fadeOut("slow");
-        }, 4000);
+        }, 15000);
       }
     });
   }
