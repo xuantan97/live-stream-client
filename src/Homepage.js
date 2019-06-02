@@ -23,7 +23,7 @@ class Homepage extends Component {
       current_id: "",
       result: "",
       isTrue: false,
-      isWin: true,
+      isWin: 10,
       seconds: 12
     };
   }
@@ -98,29 +98,43 @@ class Homepage extends Component {
 
 
     this.socket.on('RESPONSE_ANSWER_TO_CLIENT', async (response) => {
-      if (response.id === this.state.id) {
-        if (response.answer === this.state.answering) {
-          $(`button[value="${response.answer}"]`).addClass('right-answer');
+      if (response[0].id === this.state.id) {
+        if (response[0].answer === this.state.answering) {
+          $(`button[value="${response[0].answer}"]`).addClass('right-answer');
           await this.setState({
             isTrue: true,
+            isWin: this.state.isWin - 1
           });
         }
         else {
-          $(`button[value="${response.answer}"]`).addClass('right-answer');
+          $(`button[value="${response[0].answer}"]`).addClass('right-answer');
           $(`button[value="${this.state.answering}"]`).addClass('wrong-answer');
           await this.setState({
-            isTrue: false,
-            isWin: false
+            isTrue: false
           });
         }
 
         var dataSum = await [this.state.id, this.state.isTrue];
         await this.socket.emit("SUMMARY", dataSum);
+
+        //emit winner
+        if(response[1] === 10) {
+          if(this.state.isWin === 0) {
+            var user_id = localStorage.getItem('user_id');
+            var username = localStorage.getItem('username');
+            var email = localStorage.getItem('email');
+  
+            var data = [user_id, username, email];
+            this.socket.emit("WINNER", data);
+
+            console.log("winner");
+          }
+        }
       }
     });
 
 
-    this.socket.on('END_GAME_TO_CLIENT', () => {
+    this.socket.on('END_GAME_TO_CLIENT', (dataEndGame) => {
       $(".question").hide();
       $(".countdown").hide();
       $(".video-question").addClass("full-video");
@@ -129,7 +143,9 @@ class Homepage extends Component {
       $("#right").removeClass("right");
       $(".main-content").removeClass("main-content-1");
 
-      if(this.state.isWin) {
+      console.log(dataEndGame);
+
+      if(this.state.isWin === 0) {
         $('.win').show();
         setTimeout(function() {
           $('.win').fadeOut("slow");
