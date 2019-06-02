@@ -18,7 +18,8 @@ class WebRTCVideo extends React.Component {
         this.state = {
             user: this.props.user,
             token: '',
-            isStream: false
+            isStream: false,
+            isMuted: true,
         };
         this.video = React.createRef();
         // this.userMedia;
@@ -51,8 +52,8 @@ class WebRTCVideo extends React.Component {
                             // this.video.current.src = 'https://www.quirksmode.org/html5/videos/big_buck_bunny.mp4';
                             this.video.current.onloadedmetadata = (e) => {
                                 this.video.current.play();
+                                this.setState({ isMuted: false });
                             };
-
                         }
 
                     });
@@ -67,8 +68,10 @@ class WebRTCVideo extends React.Component {
                 {/*<div style={{ display: 'flex', justifyContent: 'center', height: '100vh' }}>*/}
                 {
                     this.state.isStream == true && <video id={'broadcast-video'}
+                        muted={this.state.isMuted}
                         ref={this.video}
                         height={400}
+                        controls
                     ></video>
                 }
             </div>
