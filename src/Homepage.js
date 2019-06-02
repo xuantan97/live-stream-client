@@ -192,7 +192,7 @@ class Homepage extends Component {
           <Navbar bg="dark" expand="lg" style={{display: 'flex', justifyContent: 'space-between'}}>
             <Navbar.Brand href="#home" style={{ color: '#008afc' }}><FaCat style={{ fontSize: '22px', marginBottom: '0.5rem' }} /> &nbsp;Trivia Game</Navbar.Brand>
                 <NavDropdown title={<FaUserAlt style={{ fontSize: '20px' }} />} id="basic-nav-dropdown">
-                  <NavDropdown.Item href="#action/3.1">Profile</NavDropdown.Item>
+                  <NavDropdown.Item href="#" onClick={()=>this.props.history.push('/profile')}>Profile</NavDropdown.Item>
                   <NavDropdown.Divider />
                   <NavDropdown.Item href="#" onClick={() => this.logout()}>Log out</NavDropdown.Item>
                 </NavDropdown>
