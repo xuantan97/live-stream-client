@@ -4,15 +4,15 @@ import React, { Component } from "react";
 import WebRTCVideo from './WebRTC';
 import { Navbar, NavDropdown } from 'react-bootstrap';
 import { MDBCol, MDBContainer, MDBRow, MDBFooter } from "mdbreact";
-import { FaUserAlt, FaCat, FaYoutube, FaEnvelope, FaFacebookF } from 'react-icons/fa';
+import { FaUserAlt, FaCat, FaYoutube, FaEnvelope, FaFacebookF, FaPaperPlane } from 'react-icons/fa';
 import 'css-doodle';
 
 
 class Homepage extends Component {
   constructor(props) {
     super(props);
-    // this.socket = io("localhost:1235");
-    this.socket = io("103.89.85.105:1235");
+    this.socket = io("localhost:1235");
+    // this.socket = io("103.89.85.105:1235");
     this.state = {
       id: "",
       title: "",
@@ -24,7 +24,8 @@ class Homepage extends Component {
       result: "",
       isTrue: false,
       isWin: 10,
-      seconds: 12
+      seconds: 12,
+      program_id: 0
     };
   }
 
@@ -63,16 +64,17 @@ class Homepage extends Component {
         $(this).removeClass('hover');
       });
 
-      dataAPI.body = JSON.parse(dataAPI.body);
+      dataAPI.response.body = JSON.parse(dataAPI.response.body);
       this.setState({
-        id: dataAPI.id,
-        title: dataAPI.title,
-        A: dataAPI.body.A,
-        B: dataAPI.body.B,
-        C: dataAPI.body.C,
+        id: dataAPI.response.id,
+        title: dataAPI.response.title,
+        A: dataAPI.response.body.A,
+        B: dataAPI.response.body.B,
+        C: dataAPI.response.body.C,
         answering: "",
+        program_id: dataAPI.program_id
       });
-      localStorage.setItem('idQuestion', dataAPI.id);
+      localStorage.setItem('idQuestion', dataAPI.response.id);
 
       //countdown timer
       this.timer =  setInterval(()=> {
@@ -97,17 +99,17 @@ class Homepage extends Component {
     });
 
 
-    this.socket.on('RESPONSE_ANSWER_TO_CLIENT', async (response) => {
-      if (response[0].id === this.state.id) {
-        if (response[0].answer === this.state.answering) {
-          $(`button[value="${response[0].answer}"]`).addClass('right-answer');
+    this.socket.on('RESPONSE_ANSWER_TO_CLIENT', async (data) => {
+      if (data.response.id === this.state.id) {
+        if (data.response.answer === this.state.answering) {
+          $(`button[value="${data.response.answer}"]`).addClass('right-answer');
           await this.setState({
             isTrue: true,
             isWin: this.state.isWin - 1
           });
         }
         else {
-          $(`button[value="${response[0].answer}"]`).addClass('right-answer');
+          $(`button[value="${data.response.answer}"]`).addClass('right-answer');
           $(`button[value="${this.state.answering}"]`).addClass('wrong-answer');
           await this.setState({
             isTrue: false
@@ -118,20 +120,24 @@ class Homepage extends Component {
         await this.socket.emit("SUMMARY", dataSum);
 
         //emit winner
-        if(response[1] === 10) {
+        if(data.program_id === 10) {
           if(this.state.isWin === 0) {
             var user_id = localStorage.getItem('user_id');
             var username = localStorage.getItem('username');
             var email = localStorage.getItem('email');
   
-            var data = [user_id, username, email];
-            this.socket.emit("WINNER", data);
-
-            console.log("winner");
+            var winner = [user_id, username, email];
+            this.socket.emit("WINNER", winner);
           }
         }
       }
     });
+
+
+    this.socket.on("STATISTIC", (statistic) => {
+      $('#summary-correct').html(statistic.right);
+      $('#summary-incorrect').html(statistic.wrong);
+  });
 
 
     this.socket.on('END_GAME_TO_CLIENT', (dataEndGame) => {
@@ -156,16 +162,20 @@ class Homepage extends Component {
 
 
   sendMessage(data) {
-    this.socket.emit("CLIENT_CHAT", data);
-    $("#txtChat").val("");
+    if(data[0] !== "") {
+      this.socket.emit("CLIENT_CHAT", data);
+      $("#txtChat").val("");
+    }
   }
 
 
   handleKeyPress(event) {
     if (event.key === 'Enter') {
-      var data = [$("#txtChat").val(), localStorage.getItem('username')];
-      this.socket.emit("CLIENT_CHAT", data);
-      $("#txtChat").val("");
+      if($("#txtChat").val() !== "") {
+        var data = [$("#txtChat").val(), localStorage.getItem('username')];
+        this.socket.emit("CLIENT_CHAT", data);
+        $("#txtChat").val("");
+      }
     }
   }
 
@@ -191,13 +201,23 @@ class Homepage extends Component {
         <div style={{background: '#f1f1f1'}}>
           <div className="question-container">
             <div>
-             Câu 1:
+             Câu {this.state.program_id}:
             </div>
             {this.state.title}</div>
           <div className="container-fluid text-center">    
             <div className="row content">
               <div className="col-sm-3 sidenav">
-                <div style={{background: '#0f0', width: '100%', height: '100%'}}> abc</div>
+                <div style={{background: '#0f0', width: '100%', height: '100%'}}>
+                <div className="summary-title">SUMMARY</div>
+                  <div>
+                      <label>Total correct: &emsp;</label>
+                      <span id="summary-correct" className="float-right"></span>
+                  </div>
+                  <div>
+                      <label>Total incorrect: &emsp;</label>
+                      <span id="summary-incorrect" className="float-right"></span>
+                  </div>
+                </div>
               </div>
               <div className="col-sm-6 text-left"> 
                 <WebRTCVideo/>
@@ -209,7 +229,6 @@ class Homepage extends Component {
                   </div>
                   <div className="input-content">
                     <input id="txtChat" type="text" placeholder="Comment..." onKeyPress={(event) => this.handleKeyPress(event)} />
-                    {/* <input id="btnChat" type="button" value="Comment" onClick={() => this.sendMessage([$("#txtChat").val(), localStorage.getItem('username')])} /> */}
                     <span id="btnChat" onClick={() => this.sendMessage([$("#txtChat").val(), localStorage.getItem('username')])}><FaPaperPlane/></span>
                   </div>
                 </div>
@@ -242,6 +261,7 @@ class Homepage extends Component {
                 </div>              
               </div>
             </div>
+          </div>
           </div>
 
         <div className="win">
@@ -279,12 +299,9 @@ class Homepage extends Component {
           `}
           </css-doodle>
         </div>
-
-
-
       </div>
     );
   }
 }
 
-export default Homepage
+export default Homepage;

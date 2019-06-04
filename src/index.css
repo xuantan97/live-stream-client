@@ -42,8 +42,7 @@ video {
 .answer-container {
   width: 100%;
   margin: auto;
-  margin-top: 35px;
-  /* height: 200px; */
+  margin-top: 60px;
 }
 
 .row-answer {
@@ -140,7 +139,7 @@ video {
 .chat-content {
   background: #fff;
   padding: 20px;
-  height: 80%;
+  height: 85%;
   overflow-y: auto;
   word-wrap: break-word;
   text-align: left;
@@ -151,8 +150,8 @@ video {
   display: grid;
   grid-template-columns: 5fr 1fr;
   /* grid-column-gap: 10px; */
-  height: 20%;
-  padding: 10px 0;
+  height: 15%;
+  padding: 10px 0 0;
   background: #eee;
   /* border: 1px solid #aaa; */
 }
