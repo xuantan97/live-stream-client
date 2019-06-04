@@ -188,135 +188,61 @@ class Homepage extends Component {
   render() {
     return (
       <div className="container-full">
-        <div className="header" style={{ width: '100%' }}>
-          <Navbar bg="dark" expand="lg" style={{display: 'flex', justifyContent: 'space-between'}}>
-            <Navbar.Brand href="#home" style={{ color: '#008afc' }}><FaCat style={{ fontSize: '22px', marginBottom: '0.5rem' }} /> &nbsp;Trivia Game</Navbar.Brand>
-                <NavDropdown title={<FaUserAlt style={{ fontSize: '20px' }} />} id="basic-nav-dropdown">
-                  <NavDropdown.Item href="#" onClick={()=>this.props.history.push('/profile')}>Profile</NavDropdown.Item>
-                  <NavDropdown.Divider />
-                  <NavDropdown.Item href="#" onClick={() => this.logout()}>Log out</NavDropdown.Item>
-                </NavDropdown>
-          </Navbar>
-        </div>
-
-        <div className="main">
-          <img src="/bg2.jpg" alt="" />
-
-          <div className="main-content">
-            <div className="head-title">LIVE STREAM TRIVIA GAME</div>
-            <div className="video-question">
-              <div id="left">
-                <div className="content">
-                  <div className="video">{<WebRTCVideo />}</div>
-                </div>
+        <div style={{background: '#f1f1f1'}}>
+          <div className="question-container">
+            <div>
+             Câu 1:
+            </div>
+            {this.state.title}</div>
+          <div className="container-fluid text-center">    
+            <div className="row content">
+              <div className="col-sm-3 sidenav">
+                <div style={{background: '#0f0', width: '100%', height: '100%'}}> abc</div>
               </div>
-
-              <div id="right">
-                <div className="question">
-                  <ul className="question-list">
-                    <li className="question" style={{ listStyle: 'none', position: 'relative' }}>
-                      <span className="timer">Time: {this.state.seconds}</span>
-                      <div className="question-content">
-                        {this.state.title}
-                      </div>
-                      <div>
-                        <button onClick={(event) => this.submitAnswer(event)} value="A">A. {this.state.A}</button>
-                      </div>
-                      <div>
-                        <button onClick={(event) => this.submitAnswer(event)} value="B">B. {this.state.B}</button>
-                      </div>
-                      <div>
-                        <button onClick={(event) => this.submitAnswer(event)} value="C">C. {this.state.C}</button>
-                      </div>
-                    </li>
-                  </ul>
+              <div className="col-sm-6 text-left"> 
+                <WebRTCVideo/>
+              </div>
+              <div className="col-sm-3 sidenav">
+                <div style={{background: '#00f', width: '100%', height: '100%'}}>
+                  <div className="chat-content">
+                    <div id="content"></div>
+                  </div>
+                  <div className="input-content">
+                    <input id="txtChat" type="text" placeholder="Comment..." onKeyPress={(event) => this.handleKeyPress(event)} />
+                    {/* <input id="btnChat" type="button" value="Comment" onClick={() => this.sendMessage([$("#txtChat").val(), localStorage.getItem('username')])} /> */}
+                    <span id="btnChat" onClick={() => this.sendMessage([$("#txtChat").val(), localStorage.getItem('username')])}><FaPaperPlane/></span>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <div style={{ width: '100%', height: '50px', marginTop: '10px', textAlign: 'center' }}>
-          <img className="line" src="/line.png" alt="" style={{ height: '50px' }} />
-        </div>
-
-        <div className="chat">
-          <div style={{ border: 'none', borderBottom: '1px solid #333', marginBottom: '15px' }}></div>
-          <div className="chat-title">COMMENT</div>
-          <div className="chat-content">
-            <div id="content"></div>
-          </div>
-          <div className="input-content">
-            <input id="txtChat" type="text" placeholder="Comment..." onKeyPress={(event) => this.handleKeyPress(event)} />
-            <input id="btnChat" type="button" value="Comment" onClick={() => this.sendMessage([$("#txtChat").val(), localStorage.getItem('username')])} />
-          </div>
-
-          <div style={{ border: 'none', borderBottom: '1px solid #333', paddingTop: '15px' }}></div>
-        </div>
-        <div className="footer">
-          <div style={{ margin: '20px 10% 0 10%' }}>
-            <MDBFooter className="font-small pt-4 mt-4">
-              <MDBContainer fluid className="text-center text-md-left">
-                <MDBRow>
-                  <MDBCol md="4">
-                    <h5 className="title">TRIVIA GAME</h5>
-                    <ul className="w3_footer_grid_list" style={{ padding: '0' }}>
-                      <li className="list-unstyled">
-                        <a href="#!">Home</a>
-                      </li>
-                      <li className="list-unstyled">
-                        <a href="#!">About</a>
-                      </li>
-                      <li className="list-unstyled">
-                        <a href="#!">Contact</a>
-                      </li>
-                    </ul>
-                  </MDBCol>
-                  <MDBCol md="4">
-                    <h5 className="title">CONTACT</h5>
-                    <ul style={{ padding: '0' }}>
-                      <li className="list-unstyled">
-                        <a href="#!"><FaYoutube />&nbsp; Trivia Game</a>
-                      </li>
-                      <li className="list-unstyled">
-                        <a href="#!"><FaEnvelope />&nbsp; abc@gmail.com</a>
-                      </li>
-                      <li className="list-unstyled">
-                        <a href="#!"><FaFacebookF />&nbsp; Trivia Game</a>
-                      </li>
-                    </ul>
-                  </MDBCol>
-
-                  <MDBCol md="4">
-                    <h5 className="title">MOBILE APPS</h5>
-                    <ul style={{ padding: '0' }}>
-                      <li className="list-unstyled">
-                        <a href="#!">
-                          <div>
-                            <img src="/Google_Play.svg" className="img-responsive" alt="" />
-                          </div>
-                        </a>
-
-                      </li>
-                      <li className="list-unstyled">
-                        <a href="#!">
-                          <div>
-                            <img src="/app.png" className="img-responsive" alt="" />
-                          </div>
-                        </a>
-                      </li>
-                    </ul>
-                  </MDBCol>
-                </MDBRow>
-              </MDBContainer>
-              <div className="footer-copyright text-center py-3" style={{ background: '#343a40', borderTop: '1px solid #999' }}>
-                <MDBContainer fluid>
-                  &copy; {new Date().getFullYear()} Copyright: <a href="https://www.MDBootstrap.com"> MDBootstrap.com </a>
-                </MDBContainer>
+          <div className="answer-container">
+            <div className="row row-answer">
+              <div className="col-sm-6 answer">
+                <div className="answer-1">
+                  <button onClick={(event) => this.submitAnswer(event)} value="A" class="btn-answer">A. {this.state.A}</button>
+                </div>
               </div>
-            </MDBFooter>
+              <div className="col-sm-6 answer">
+                <div className="answer-1">
+                  <button onClick={(event) => this.submitAnswer(event)} value="B" class="btn-answer">B. {this.state.B}</button>
+                </div>
+              </div>
+            </div>
+            <div className="row row-answer">
+              <div className="col-sm-6 answer">
+                <div className="answer-1">
+                  <button onClick={(event) => this.submitAnswer(event)} value="C" class="btn-answer">C. {this.state.C}</button>
+                </div>
+              </div>
+              <div className="col-sm-6 answer">
+                <div className="answer-1">
+                  <button onClick={(event) => this.submitAnswer(event)} value="D" class="btn-answer">D. {this.state.D}</button>
+                </div>              
+              </div>
+            </div>
           </div>
-        </div>
 
         <div className="win">
           <css-doodle grid="5">
