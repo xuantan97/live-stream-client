@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css?family=Luckiest+Guy|Roboto&display=swap');
-body, .container-full {
+body {
+  margin: 0;
+  padding: 0;
+}
+.container-full {
   margin: 0;
   padding: 0;
   width: 90%;
@@ -296,9 +300,9 @@ body, .container-full {
 }
 
 @media (min-width: 1150px) {
-  .container {
+  /* .container {
     width: 40% !important;
-  }
+  } */
   .win {
     font-size: 60px;
     font-weight: 1000;
@@ -640,8 +644,6 @@ label {
 /* //////////////////////////// BACKGROUND ///////////////////////////////////// */
 
 body {
-  margin: 0;
-  padding: 0;
   overflow: hidden;
 }
 
