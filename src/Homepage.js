@@ -11,8 +11,8 @@ import 'css-doodle';
 class Homepage extends Component {
   constructor(props) {
     super(props);
-    this.socket = io("localhost:1235");
-    // this.socket = io("103.89.85.105:1235");
+    // this.socket = io("localhost:1235");
+    this.socket = io("103.89.85.105:1235");
     this.state = {
       id: "",
       title: "",
@@ -32,6 +32,8 @@ class Homepage extends Component {
 
   async componentDidMount() {
     $('.question-content').hide();
+    $('.head-title').show();
+    $('.countdown').hide();
     $('.summary').hide();
     $('.win').hide();
     $('button.btn-answer').mouseover(function () {
@@ -48,6 +50,8 @@ class Homepage extends Component {
 
       $('.question-content').show();
       $('.head-title').hide();
+      $('.countdown').show();
+      $('.welcome').hide();
       $('button.btn-answer').removeClass('button-focus');
       $('button.btn-answer').removeClass('right-answer');
       $('button.btn-answer').removeClass('wrong-answer');
@@ -66,13 +70,36 @@ class Homepage extends Component {
       localStorage.setItem('idQuestion', dataAPI.response.id);
 
       //countdown timer
-      this.timer =  setInterval(()=> {
-        this.setState({seconds: this.state.seconds - 1});
-        if (this.state.seconds === 0) { 
-          clearInterval(this.timer);
-        }
-      }, 1000)
-      
+      // this.timer =  setInterval(()=> {
+      //   this.setState({seconds: this.state.seconds - 1});
+      //   if (this.state.seconds === 0) { 
+      //     clearInterval(this.timer);
+      //   }
+      // }, 1000)
+      var totaltime = 10;
+      function update(percent){
+        var deg;
+        if(percent<(totaltime/2)){
+          deg = 90 + (360*percent/totaltime);
+            $('.pie').css('background-image',
+                      'linear-gradient('+deg+'deg, transparent 50%, white 50%),linear-gradient(90deg, white 50%, transparent 50%)'
+                    );
+        } else if(percent>=(totaltime/2)){
+                deg = -90 + (360*percent/totaltime);
+
+                $('.pie').css('background-image',
+                      'linear-gradient('+deg+'deg, transparent 50%, #1fbba6 50%),linear-gradient(90deg, white 50%, transparent 50%)'
+                    );
+                }
+      }
+      var count = 10;
+      var myCounter = setInterval(function () {
+        count-=1;
+        $('#time').html(count);
+          update(count);
+        
+        if(count==0) clearInterval(myCounter);
+      }, 1000);
     })
 
 
@@ -109,6 +136,7 @@ class Homepage extends Component {
         await this.socket.emit("SUMMARY", dataSum);
         $('.summary').show();
         $('.welcome').hide();
+        $('.countdown').hide();
         //emit winner
         if(data.program_id === 10) {
           if(this.state.isWin === 0) {
@@ -201,6 +229,12 @@ class Homepage extends Component {
           <div className="container-fluid text-center">    
             <div className="row content">
               <div className="col-sm-3 sidenav summary-welcome">
+                <div className="countdown">
+                  <div className="pie degree">
+                    <span className="block"></span>
+                    <span id="time">10</span>
+                  </div>
+                </div>
                 <div className="welcome">
                   <span style={{ marginTop: '20px', marginBottom: '-20px'}}>Welcome to the trivia game.</span> <br/>
                   <span style={{color: '#d0f'}}>Have <br/>a great time!!!</span>
@@ -242,24 +276,24 @@ class Homepage extends Component {
             <div className="row row-answer">
               <div className="col-sm-6 answer">
                 <div className="answer-1">
-                  <button onClick={(event) => this.submitAnswer(event)} value="A" class="btn-answer">A. {this.state.A}</button>
+                  <button onClick={(event) => this.submitAnswer(event)} value="A" className="btn-answer">A. {this.state.A}</button>
                 </div>
               </div>
               <div className="col-sm-6 answer">
                 <div className="answer-1">
-                  <button onClick={(event) => this.submitAnswer(event)} value="B" class="btn-answer">B. {this.state.B}</button>
+                  <button onClick={(event) => this.submitAnswer(event)} value="B" className="btn-answer">B. {this.state.B}</button>
                 </div>
               </div>
             </div>
             <div className="row row-answer">
               <div className="col-sm-6 answer">
                 <div className="answer-1">
-                  <button onClick={(event) => this.submitAnswer(event)} value="C" class="btn-answer">C. {this.state.C}</button>
+                  <button onClick={(event) => this.submitAnswer(event)} value="C" className="btn-answer">C. {this.state.C}</button>
                 </div>
               </div>
               <div className="col-sm-6 answer">
                 <div className="answer-1">
-                  <button onClick={(event) => this.submitAnswer(event)} value="D" class="btn-answer">D. {this.state.D}</button>
+                  <button onClick={(event) => this.submitAnswer(event)} value="D" className="btn-answer">D. {this.state.D}</button>
                 </div>              
               </div>
             </div>

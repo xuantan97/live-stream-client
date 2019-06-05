@@ -500,3 +500,57 @@ body, .container-full {
   -webkit-animation-name: bounceIn;
   animation-name: bounceIn;
 }
+
+/* @import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300);
+body{
+  font-family: 'Open Sans', sans-serif;
+  font-weight:300;
+  background:lighten(#1fbba6,40%);
+} */
+.countdown {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pie{
+    width: 250px;
+    height: 250px;
+    display: block;
+    position: relative;
+    border-radius: 50%;
+    background: #1fbba6;
+    border: 2px solid #1fbba6;
+    float: left;
+    /* margin: 2em; */
+}
+
+.pie > .block{
+  position:absolute;
+  background:#fff;
+  width:230px;
+  height:230px;
+  display:block;
+  border-radius:50%;
+  /* top:10px;
+  left:10px; */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+#time{
+  font-size:3em;
+  position:absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color:lighten(#000,60%);
+}
+.degree{
+  /*90 + ( 360 * .1 )*/
+      background-image:
+        linear-gradient(90deg, transparent 50%, white 50%),
+        linear-gradient(90deg, white 50%, transparent 50%);
+}
