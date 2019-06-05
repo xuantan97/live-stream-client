@@ -44,6 +44,65 @@ body, .container-full {
   padding: 0.2rem;
 }
 
+.head-title {
+  font-family: 'Luckiest Guy', cursive;
+  font-size: 50px;
+  color: #006fcb;
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  align-items: center;
+  letter-spacing: 4px;
+  word-spacing: 10px;
+}
+
+.summary-welcome {
+  width: 100%;
+  height: 100%;
+  border-left: 1px solid #f2f2f2;
+  border-bottom: 1px solid #ccc;
+  background: #fff;
+  animation: welcome_background 5s linear infinite;
+}
+
+.welcome {
+  font-family: 'Luckiest Guy', cursive;
+  font-size: 30px;
+  color: #008afc;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-around; */
+  align-items: center;
+  height: 100%;
+  /* margin-top: 20px; */
+}
+
+.welcome span {
+  animation: welcome 2s linear infinite;
+}
+
+@keyframes welcome {
+  0%, 100% {
+    transform: scale(1.08);
+  }
+
+  50% {
+    transform: scale(1);
+  }
+}
+
+@keyframes welcome_background {
+  0%, 100% {
+    background: rgb(255, 240, 245);
+  }
+  30%, 70% {
+    background: #f0fff0;
+  }
+  50% {
+    background: #fff;
+  }
+}
+
 .answer-container {
   width: 100%;
   margin: auto;
@@ -71,7 +130,7 @@ body, .container-full {
   outline: none;
   border: none;
   color: #fff;
-  font-size: 18px;
+  font-size: 22px;
   transition: 0.2s linear;
 }
 
@@ -141,29 +200,6 @@ body, .container-full {
   max-height: 80px;
 }
 
-
-/* @keyframes abc {
-  0%, 100% {
-    width:80%;
-  }
-  20% {
-    width: 50%;
-  }
-  50% {
-    width: 0;
-  }
-}
-
-@keyframes cde {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-} */
-
-
 .chat-content {
   background: #fff;
   padding: 20px;
@@ -193,7 +229,7 @@ body, .container-full {
   grid-column: 1;
   padding: 0.5rem;
   border: none;
-  border-bottom: 1.2px solid #999;
+  border-bottom: 1.2px solid #ccc;
   outline: none;
   /* background: transparent; */
 }
@@ -221,13 +257,6 @@ body, .container-full {
   background: #006fcb;
 }
 
-
-
-
-
-
-
-
 .row.row-answer {
   margin-top: 10px;
 }
@@ -237,12 +266,6 @@ body, .container-full {
   height: 100%;
   background: transparent;
 }
-
-
-
-
-
-
 
 .error {
   border-color: #ae5856 !important;
@@ -263,6 +286,12 @@ body, .container-full {
 
   50% {
     opacity: 1;
+  }
+}
+
+@media (max-width: 1300px) {
+  body, .container-full {
+    width: 100% !important;
   }
 }
 

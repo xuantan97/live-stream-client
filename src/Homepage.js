@@ -4,7 +4,7 @@ import React, { Component } from "react";
 import WebRTCVideo from './WebRTC';
 import { Navbar, NavDropdown } from 'react-bootstrap';
 import { MDBCol, MDBContainer, MDBRow, MDBFooter } from "mdbreact";
-import { FaUserAlt, FaCat, FaYoutube, FaEnvelope, FaFacebookF, FaPaperPlane } from 'react-icons/fa';
+import { FaUserAlt, FaCat, FaYoutube, FaEnvelope, FaFacebookF, FaPaperPlane, FaCheck, FaTimes } from 'react-icons/fa';
 import 'css-doodle';
 
 
@@ -32,7 +32,7 @@ class Homepage extends Component {
 
   async componentDidMount() {
     $('.question-content').hide();
-    // $('.summary').hide();
+    $('.summary').hide();
     $('.win').hide();
     $('button.btn-answer').mouseover(function () {
       $(this).addClass('hover');
@@ -47,6 +47,7 @@ class Homepage extends Component {
       this.setState({seconds: 12});
 
       $('.question-content').show();
+      $('.head-title').hide();
       $('button.btn-answer').removeClass('button-focus');
       $('button.btn-answer').removeClass('right-answer');
       $('button.btn-answer').removeClass('wrong-answer');
@@ -107,6 +108,7 @@ class Homepage extends Component {
         var dataSum = await [this.state.id, this.state.isTrue];
         await this.socket.emit("SUMMARY", dataSum);
         $('.summary').show();
+        $('.welcome').hide();
         //emit winner
         if(data.program_id === 10) {
           if(this.state.isWin === 0) {
@@ -188,6 +190,7 @@ class Homepage extends Component {
       <div className="container-full">
         <div style={{background: '#f1f1f1'}}>
           <div className="question-container">
+            <div className="head-title">LIVE STREAM TRIVIA GAME</div>
             <div className="question-content">
               <div>
               Câu {this.state.program_id}:
@@ -197,16 +200,24 @@ class Homepage extends Component {
           </div>
           <div className="container-fluid text-center">    
             <div className="row content">
-              <div className="col-sm-3 sidenav" style={{width: '100%', height: '100%'}}>
+              <div className="col-sm-3 sidenav summary-welcome">
+                <div className="welcome">
+                  <span style={{ marginTop: '20px', marginBottom: '-20px'}}>Welcome to the trivia game.</span> <br/>
+                  <span style={{color: '#d0f'}}>Have <br/>a great time!!!</span>
+                  <img src="/monkey.png"
+                    style={{width: '100px', height: '100px', display: 'block'}}/>
+                </div>
                 <div className="summary">
-                  <div className="summary-title" style={{margin: '30px 10px', fontSize: '35px'}}>SUMMARY</div>
+                  <div className="summary-title" style={{margin: '30px 10px', fontSize: '30px'}}>SUMMARY</div>
                   <div>
-                      <label>Total correct: </label>
-                      <div id="summary-correct" style={{color: '#006fcb'}}>113</div>
+                      {/* <label>Total correct: </label> */}
+                      <span style={{color: '#31d106', marginRight: '10px', marginLeft: '-5px'}}><FaCheck/></span>
+                      <span id="summary-correct" style={{color: '#31d106'}}>113</span>
                   </div>
                   <div>
-                      <label>Total incorrect: </label>
-                      <div id="summary-incorrect" style={{color: '#f39'}}>113</div>
+                      {/* <label>Total incorrect: </label> */}
+                      <span style={{color: '#f00', marginRight: '10px', marginLeft: '-5px'}}><FaTimes/></span>
+                      <span id="summary-incorrect" style={{color: '#f00'}}>113</span>
                   </div>
                 </div>
               </div>
