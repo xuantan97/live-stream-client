@@ -1,16 +1,21 @@
+@import url('https://fonts.googleapis.com/css?family=Luckiest+Guy|Roboto&display=swap');
 body, .container-full {
   margin: 0;
   padding: 0;
   width: 90%;
   margin: auto;
+  font-family: 'Roboto', sans-serif;
+  font-size: 18px;
 }
 
 .row.content {
-  height: 20rem;
+  height: 22.5rem;
 }
 
-video {
+.video {
   margin-top: 1rem;
+  display: flex;
+  justify-content: center;
 }
 
 .sidenav {
@@ -42,7 +47,7 @@ video {
 .answer-container {
   width: 100%;
   margin: auto;
-  margin-top: 60px;
+  margin-top: 35px;
 }
 
 .row-answer {
@@ -60,6 +65,29 @@ video {
   height: 100%;
   position: relative;
   animation: abc 1s linear, cde 0.2s linear;
+}
+
+.answer-1 > button {
+  outline: none;
+  border: none;
+  color: #fff;
+  font-size: 18px;
+  transition: 0.2s linear;
+}
+
+.answer-1 > button:active {
+  background: #006fcb;
+}
+
+.hover {
+  background: #008afc !important;
+}
+
+.button-focus {
+  border-color: #006fcb !important;
+  background-color: #006fcb !important;
+  color: #fff !important;
+  cursor: default !important;
 }
 
 /* .answer-1:before {
@@ -143,6 +171,7 @@ video {
   overflow-y: auto;
   word-wrap: break-word;
   text-align: left;
+  border-right: 1px solid #f2f2f2;
   /* border: 1px solid #aaa; */
 }
 
@@ -262,7 +291,10 @@ video {
   }
 }
 
-
+.summary {
+  font-family: 'Luckiest Guy', cursive;
+  font-size: 30px;
+}
 
 
 

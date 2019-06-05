@@ -31,38 +31,26 @@ class Homepage extends Component {
 
 
   async componentDidMount() {
-
-    $(".question").hide();
-    $(".video-question").addClass("full-video");
-    $(".countdown").hide();
+    $('.question-content').hide();
+    // $('.summary').hide();
     $('.win').hide();
+    $('button.btn-answer').mouseover(function () {
+      $(this).addClass('hover');
+    });
+    $('button.btn-answer').mouseout(function () {
+      $(this).removeClass('hover');
+    });
 
     //listen event server broadcast question and show
     this.socket.on('BROADCAST_QUESTION_TO_CLIENT', (dataAPI) => {
 
       this.setState({seconds: 12});
 
-      $(".question").show();
-      $(".countdown").show();
-      $(".video-question").removeClass("full-video");
-      $(".video-question").addClass("flex");
-      $("#left").addClass("left");
-      $("#right").addClass("right");
-      $(".main-content").addClass("main-content-1");
-
-      $('.question button').removeClass('button-focus');
-      $('.question button').removeClass('right-answer');
-      $('.question button').removeClass('wrong-answer');
-
-
-      $('.question button').prop('disabled', false);
-
-      $('.question button').mouseover(function () {
-        $(this).addClass('hover');
-      });
-      $('.question button').mouseout(function () {
-        $(this).removeClass('hover');
-      });
+      $('.question-content').show();
+      $('button.btn-answer').removeClass('button-focus');
+      $('button.btn-answer').removeClass('right-answer');
+      $('button.btn-answer').removeClass('wrong-answer');
+      $('button.btn-answer').prop('disabled', false);
 
       dataAPI.response.body = JSON.parse(dataAPI.response.body);
       this.setState({
@@ -94,8 +82,8 @@ class Homepage extends Component {
 
 
     this.socket.on('CLOSE_QUESTION', () => {
-      $('.question button').removeClass('hover');
-      $('.question button').prop('disabled', true);
+      $('button.btn-answer').removeClass('hover');
+      $('button.btn-answer').prop('disabled', true);
     });
 
 
@@ -118,7 +106,7 @@ class Homepage extends Component {
 
         var dataSum = await [this.state.id, this.state.isTrue];
         await this.socket.emit("SUMMARY", dataSum);
-
+        $('.summary').show();
         //emit winner
         if(data.program_id === 10) {
           if(this.state.isWin === 0) {
@@ -200,26 +188,29 @@ class Homepage extends Component {
       <div className="container-full">
         <div style={{background: '#f1f1f1'}}>
           <div className="question-container">
-            <div>
-             Câu {this.state.program_id}:
+            <div className="question-content">
+              <div>
+              Câu {this.state.program_id}:
+              </div>
+              {this.state.title}
             </div>
-            {this.state.title}</div>
+          </div>
           <div className="container-fluid text-center">    
             <div className="row content">
-              <div className="col-sm-3 sidenav">
-                <div style={{background: '#0f0', width: '100%', height: '100%'}}>
-                <div className="summary-title">SUMMARY</div>
+              <div className="col-sm-3 sidenav" style={{width: '100%', height: '100%'}}>
+                <div className="summary">
+                  <div className="summary-title" style={{margin: '30px 10px', fontSize: '35px'}}>SUMMARY</div>
                   <div>
-                      <label>Total correct: &emsp;</label>
-                      <span id="summary-correct" className="float-right"></span>
+                      <label>Total correct: </label>
+                      <div id="summary-correct" style={{color: '#006fcb'}}>113</div>
                   </div>
                   <div>
-                      <label>Total incorrect: &emsp;</label>
-                      <span id="summary-incorrect" className="float-right"></span>
+                      <label>Total incorrect: </label>
+                      <div id="summary-incorrect" style={{color: '#f39'}}>113</div>
                   </div>
                 </div>
               </div>
-              <div className="col-sm-6 text-left"> 
+              <div className="col-sm-6 text-left video"> 
                 <WebRTCVideo/>
               </div>
               <div className="col-sm-3 sidenav">
