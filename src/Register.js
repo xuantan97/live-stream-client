@@ -79,7 +79,7 @@ class Register extends Component {
         }
 
         return(
-            <div className="container-form" style={{background: "url('/bg2.jpg')", backgroundSize: "cover"}}>
+            <div className="container-form">
                 <div className="container">
 
                     <Form onSubmit={this.onSubmit}>
@@ -120,6 +120,41 @@ class Register extends Component {
                         </Button>
                     </Form>
                 </div>
+
+                <section>
+                    <div class="set">
+                        <div><img src="/2.png" alt=""/></div>
+                        <div><img src="/2.png" alt=""/></div>
+                        <div><img src="/2.png" alt=""/></div>
+                        <div><img src="/2.png" alt=""/></div>
+                        <div><img src="/2.png" alt=""/></div>
+                        <div><img src="/2.png" alt=""/></div>
+                        <div><img src="/2.png" alt=""/></div>
+                        <div><img src="/2.png" alt=""/></div>
+                    </div>
+                    
+                    <div class="set set2">
+                    <div><img src="/2.png" alt=""/></div>
+                        <div><img src="/2.png" alt=""/></div>
+                        <div><img src="/2.png" alt=""/></div>
+                        <div><img src="/2.png" alt=""/></div>
+                        <div><img src="/2.png" alt=""/></div>
+                        <div><img src="/2.png" alt=""/></div>
+                        <div><img src="/2.png" alt=""/></div>
+                        <div><img src="/2.png" alt=""/></div>
+                    </div>
+                    
+                    <div class="set set3">
+                    <div><img src="/2.png" alt=""/></div>
+                        <div><img src="/2.png" alt=""/></div>
+                        <div><img src="/2.png" alt=""/></div>
+                        <div><img src="/2.png" alt=""/></div>
+                        <div><img src="/2.png" alt=""/></div>
+                        <div><img src="/2.png" alt=""/></div>
+                        <div><img src="/2.png" alt=""/></div>
+                        <div><img src="/2.png" alt=""/></div>
+                    </div>
+                </section>
             </div>
         )
     }
