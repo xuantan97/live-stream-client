@@ -239,13 +239,13 @@ class Homepage extends Component {
                   </div>
                 </div>
                 <div className="welcome">
-                  <span style={{ marginTop: '20px', marginBottom: '-20px'}}>Welcome to the trivia game.</span> <br/>
-                  <span style={{color: '#d0f'}}>Have <br/>a great time!!!</span>
+                  <span style={{ marginTop: '20px', marginBottom: '-20px'}}>CHÀO MỪNG ĐẾN VỚI TRIVIA GAME</span> <br/>
+                  <span style={{color: '#d0f'}}>CHÚC BẠN<br/>CHƠI GAME VUI VẺ!!</span>
                   <img src="/monkey.png"
                     style={{width: '100px', height: '100px', display: 'block'}}/>
                 </div>
                 <div className="summary">
-                  <div className="summary-title" style={{margin: '30px 10px', fontSize: '30px'}}>SUMMARY</div>
+                  <div className="summary-title" style={{margin: '30px 10px', fontSize: '30px'}}>TỔNG KẾT CÂU 2</div>
                   <div>
                       {/* <label>Total correct: </label> */}
                       <span style={{color: '#31d106', marginRight: '10px', marginLeft: '-5px'}}><FaCheck/></span>

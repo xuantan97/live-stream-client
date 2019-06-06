@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Luckiest+Guy|Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Luckiest+Guy|Roboto|Alfa+Slab+One&display=swap');
 @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css");
 
 body {
@@ -51,7 +51,7 @@ body {
 }
 
 .head-title {
-  font-family: 'Luckiest Guy', cursive;
+  font-family: 'Alfa Slab One', cursive;
   font-size: 50px;
   color: #006fcb;
   display: flex;
@@ -72,12 +72,13 @@ body {
 }
 
 .welcome {
-  font-family: 'Luckiest Guy', cursive;
-  font-size: 30px;
+  font-family: 'Alfa Slab One', cursive;
+  font-size: 22px;
   color: #008afc;
   display: flex;
   flex-direction: column;
   /* justify-content: space-around; */
+  justify-content: center;
   align-items: center;
   height: 100%;
   /* margin-top: 20px; */
@@ -346,7 +347,7 @@ body {
 }
 
 .summary {
-  font-family: 'Luckiest Guy', cursive;
+  font-family: 'Alfa Slab One', cursive;
   font-size: 30px;
 }
 
@@ -543,8 +544,8 @@ body{
 }
 
 .pie{
-    width: 250px;
-    height: 250px;
+    width: 180px;
+    height: 180px;
     display: block;
     position: relative;
     border-radius: 50%;
@@ -557,8 +558,8 @@ body{
 .pie > .block{
   position:absolute;
   background:#fff;
-  width:230px;
-  height:230px;
+  width:160px;
+  height:160px;
   display:block;
   border-radius:50%;
   /* top:10px;
