@@ -8,7 +8,7 @@ body {
 .container-full {
   margin: 0;
   padding: 0;
-  width: 90%;
+  /* width: 90%; */
   margin: auto;
   font-family: 'Roboto', sans-serif;
   font-size: 18px;
@@ -19,7 +19,7 @@ body {
 }
 
 .video {
-  margin-top: 1rem;
+  /* margin-top: 1rem; */
   display: flex;
   justify-content: center;
 }
@@ -29,7 +29,7 @@ body {
   background-color: #f1f1f1;
   height: 100%;
   padding: 0;
-  margin: 1rem 0;
+  /* margin: 1rem 0; */
 }
 @media screen and (max-width: 767px) {
   .sidenav {
@@ -113,7 +113,7 @@ body {
 .answer-container {
   width: 100%;
   margin: auto;
-  margin-top: 35px;
+  /* margin-top: 35px; */
 }
 
 .row-answer {

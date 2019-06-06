@@ -219,7 +219,7 @@ class Homepage extends Component {
   render() {
     return (
       <div className="container-full">
-        <div style={{background: '#f1f1f1', postition: 'relative'}}>
+        <div style={{background: '#cc9', postition: 'relative'}}>
         
           <div className="question-container">
             <div className="head-title">LIVE STREAM TRIVIA GAME</div>
