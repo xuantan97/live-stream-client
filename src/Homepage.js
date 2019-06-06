@@ -219,7 +219,8 @@ class Homepage extends Component {
   render() {
     return (
       <div className="container-full">
-        <div style={{background: '#f1f1f1'}}>
+        <div style={{background: '#f1f1f1', postition: 'relative'}}>
+        
           <div className="question-container">
             <div className="head-title">LIVE STREAM TRIVIA GAME</div>
             <div className="question-content">
@@ -227,7 +228,16 @@ class Homepage extends Component {
               Câu {this.state.program_id}:
               </div>
               {this.state.title}
+              
             </div>
+
+            <span style={{position: 'absolute', top: '0', right: '0'}}>
+              <NavDropdown title={<FaUserAlt style={{ fontSize: '20px' }} />} id="basic-nav-dropdown">
+                  <NavDropdown.Item href="#" onClick={()=>this.props.history.push('/profile')}>Profile</NavDropdown.Item>
+                  <NavDropdown.Divider />
+                  <NavDropdown.Item href="#" onClick={() => this.logout()}>Log out</NavDropdown.Item>
+                </NavDropdown>
+                </span>
           </div>
           <div className="container-fluid text-center">    
             <div className="row content">
