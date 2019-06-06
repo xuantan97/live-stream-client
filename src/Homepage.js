@@ -37,12 +37,12 @@ class Homepage extends Component {
     $('.countdown').hide();
     $('.summary').hide();
     $('.win').hide();
-    $('button.btn-answer').mouseover(function () {
-      $(this).addClass('hover');
-    });
-    $('button.btn-answer').mouseout(function () {
-      $(this).removeClass('hover');
-    });
+    // $('button.btn-answer').mouseover(function () {
+    //   $(this).addClass('hover');
+    // });
+    // $('button.btn-answer').mouseout(function () {
+    //   $(this).removeClass('hover');
+    // });
 
     //listen event server broadcast question and show
     this.socket.on('BROADCAST_QUESTION_TO_CLIENT', (dataAPI) => {
@@ -56,7 +56,15 @@ class Homepage extends Component {
       $('button.btn-answer').removeClass('button-focus');
       $('button.btn-answer').removeClass('right-answer');
       $('button.btn-answer').removeClass('wrong-answer');
+      // $('button.btn-answer').addClass('hover');
       $('button.btn-answer').prop('disabled', false);
+
+      $('button.btn-answer').mouseover(function () {
+        $(this).addClass('hover');
+      });
+      $('button.btn-answer').mouseout(function () {
+        $(this).removeClass('hover');
+      });
 
       dataAPI.response.body = JSON.parse(dataAPI.response.body);
       this.setState({
@@ -71,13 +79,6 @@ class Homepage extends Component {
       });
       localStorage.setItem('idQuestion', dataAPI.response.id);
 
-      //countdown timer
-      // this.timer =  setInterval(()=> {
-      //   this.setState({seconds: this.state.seconds - 1});
-      //   if (this.state.seconds === 0) { 
-      //     clearInterval(this.timer);
-      //   }
-      // }, 1000)
       var totaltime = 10;
       function update(percent){
         var deg;
