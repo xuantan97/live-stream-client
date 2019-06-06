@@ -19,6 +19,7 @@ class Homepage extends Component {
       A: "",
       B: "",
       C: "",
+      D: "",
       answering: "",
       current_id: "",
       result: "",
@@ -64,6 +65,7 @@ class Homepage extends Component {
         A: dataAPI.response.body.A,
         B: dataAPI.response.body.B,
         C: dataAPI.response.body.C,
+        D: dataAPI.response.body.D,
         answering: "",
         program_id: dataAPI.program_id
       });

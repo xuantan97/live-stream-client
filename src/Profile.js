@@ -149,7 +149,7 @@ class Profile extends Component {
                 </div>
             </div>
 
-            <div className="footer" style={{marginTop: '-25px'}}>
+            {/* <div className="footer" style={{marginTop: '-25px'}}>
               <div style={{ margin: '20px 10% 0 10%' }}>
                 <MDBFooter className="font-small pt-4 mt-4">
                   <MDBContainer fluid className="text-center text-md-left">
@@ -212,7 +212,7 @@ class Profile extends Component {
                   </div>
                 </MDBFooter>
               </div>
-            </div>
+            </div> */}
           </div>
         );
     }
