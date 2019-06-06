@@ -68,7 +68,7 @@ body {
   border-left: 1px solid #f2f2f2;
   border-bottom: 1px solid #ccc;
   background: #fff;
-  animation: welcome_background 5s linear infinite;
+  animation: welcome_background 7s linear infinite;
 }
 
 .welcome {
@@ -99,13 +99,13 @@ body {
 
 @keyframes welcome_background {
   0%, 100% {
-    background: rgb(255, 240, 245);
+    background: #ff9;
   }
   30%, 70% {
-    background: #f0fff0;
+    background: #9cf;
   }
   50% {
-    background: #fff;
+    background: #f9f;
   }
 }
 
@@ -362,7 +362,7 @@ body {
 .right-answer {
   background: #0d0 !important;
   border-color: #0d0 !important;
-  transition: 0.5s ease;
+  /* transition: 0.5s ease; */
   animation: right-answer 1.5s linear;
   animation-iteration-count: 2;
   border-radius: 50px;
