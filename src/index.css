@@ -114,6 +114,8 @@ body {
   width: 100%;
   margin: auto;
   /* margin-top: 35px; */
+  overflow: hidden;
+
 }
 
 .row-answer {
@@ -123,15 +125,34 @@ body {
 .answer {
   height: 80px;
   /* overflow: hidden; */
+  padding: 0 5px !important;
+  box-sizing: border-box;
 }
 
 .answer-1 {
   width: 100%;
-  background: #0c9;
+  /* background: #0c9; */
   height: 100%;
   position: relative;
   animation: abc 1s linear, cde 0.2s linear;
-  border-radius: 50px;
+  border-radius: 2px;
+  /* padding: 0 5px !important; */
+}
+
+.btn-answer[value="A"] {
+  background: #e0162d;
+}
+
+.btn-answer[value="B"] {
+  background: #1c58a9;
+}
+
+.btn-answer[value="C"] {
+  background: #d79d00;
+}
+
+.btn-answer[value="D"] {
+  background: #60991e;
 }
 
 .answer-1 > button {
@@ -142,14 +163,34 @@ body {
   /* transition: 0.2s linear; */
 }
 
-.answer-1 > button:active {
+/* .answer-1 > button:active {
   background: #006fcb;
-  border-radius: 50px;  
+  border-radius: 2px;  
+} */
+
+/* .hover {
+  background: #008afc !important;
+  border-radius: 2px;
+} */
+
+.hover-A, .hover-B, .hover-C, .hover-D {
+  border-radius: 2px;
 }
 
-.hover {
-  background: #008afc !important;
-  border-radius: 50px;
+.hover-A {
+  background: #e2263c !important;
+}
+
+.hover-B {
+  background: #1f64c1 !important;
+}
+
+.hover-C {
+  background: #efb20b !important;
+}
+
+.hover-D {
+  background: #74bc20 !important;
 }
 
 .button-focus {
@@ -157,7 +198,12 @@ body {
   background-color: #006fcb !important;
   color: #fff !important;
   cursor: default !important;
-  border-radius: 50px;
+  border-radius: 2px;
+}
+
+.disable-color {
+  border-color: #aaa !important;
+  background-color: #aaa !important;
 }
 
 /* .answer-1:before {
@@ -357,7 +403,7 @@ body {
   background: #f00 !important;
   border-color: #f00 !important;
   color: #fff !important;
-  border-radius: 50px;
+  border-radius: 2px;
 }
 
 .right-answer {
@@ -366,7 +412,7 @@ body {
   /* transition: 0.5s ease; */
   animation: right-answer 1.5s linear;
   animation-iteration-count: 2;
-  border-radius: 50px;
+  border-radius: 2px;
 }
 
 @keyframes right-answer {

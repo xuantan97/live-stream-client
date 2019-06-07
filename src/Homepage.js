@@ -43,6 +43,14 @@ class Homepage extends Component {
     // $('button.btn-answer').mouseout(function () {
     //   $(this).removeClass('hover');
     // });
+    $('button.btn-answer').mouseover(function () {
+      var x = $(this).val();
+      $(this).addClass('hover-' + x);
+    });
+    $('button.btn-answer').mouseout(function () {
+      var x = $(this).val();
+      $(this).removeClass('hover-' + x);
+    });
 
     //listen event server broadcast question and show
     this.socket.on('BROADCAST_QUESTION_TO_CLIENT', (dataAPI) => {
@@ -56,14 +64,18 @@ class Homepage extends Component {
       $('button.btn-answer').removeClass('button-focus');
       $('button.btn-answer').removeClass('right-answer');
       $('button.btn-answer').removeClass('wrong-answer');
+      $('button.btn-answer').removeClass('disable-color');
+
       // $('button.btn-answer').addClass('hover');
       $('button.btn-answer').prop('disabled', false);
 
       $('button.btn-answer').mouseover(function () {
-        $(this).addClass('hover');
+        var x = $(this).val();
+        $(this).addClass('hover-' + x);
       });
       $('button.btn-answer').mouseout(function () {
-        $(this).removeClass('hover');
+        var x = $(this).val();
+        $(this).removeClass('hover-' + x);
       });
 
       dataAPI.response.body = JSON.parse(dataAPI.response.body);
@@ -113,8 +125,9 @@ class Homepage extends Component {
 
 
     this.socket.on('CLOSE_QUESTION', () => {
-      $('button.btn-answer').removeClass('hover');
+      $('button.btn-answer').removeClass('hover-A hover-B hover-C');
       $('button.btn-answer').prop('disabled', true);
+      $(`button[value!="${this.state.answering}"]`).addClass('disable-color');
     });
 
 
@@ -204,9 +217,13 @@ class Homepage extends Component {
     await this.setState({
       answering: event.target.value,
     });
-    $('.question button').removeClass('hover');
-    $(`button[value="${this.state.answering}"]`).addClass('button-focus').unbind('mouseover');
-    $(`button[value!="${this.state.answering}"]`).prop('disabled', true);
+    $('.question button').removeClass('hover-A hover-B hover-C');
+    // $(`button[value="${this.state.answering}"]`).addClass('button-focus').unbind('mouseover');
+    $(`button[value="${this.state.answering}"]`).unbind('mouseover');
+    // $(`button[value!="${this.state.answering}"]`).prop('disabled', true);
+    $(`button[value!="${this.state.answering}"]`).addClass('disable-color');
+    $('button.btn-answer').removeClass('hover-A hover-B hover-C');
+    $('button.btn-answer').prop('disabled', true);
   }
 
 
