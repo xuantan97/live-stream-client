@@ -272,7 +272,7 @@ class Homepage extends Component {
                     style={{width: '100px', height: '100px', display: 'block'}}/>
                 </div>
                 <div className="summary">
-                  <div className="summary-title" style={{margin: '30px 10px', fontSize: '30px'}}>TỔNG KẾT CÂU 2</div>
+                  <div className="summary-title" style={{margin: '30px 10px', fontSize: '30px'}}>TỔNG KẾT CÂU {this.state.program_id}</div>
                   <div>
                       {/* <label>Total correct: </label> */}
                       <span style={{color: '#31d106', marginRight: '10px', marginLeft: '-5px'}}><FaCheck/></span>
