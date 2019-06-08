@@ -1,371 +1,400 @@
 import $ from "jquery";
 import io from 'socket.io-client';
 import React, { Component } from "react";
-import WebRTCVideo from './WebRTC';
-import { Navbar, NavDropdown } from 'react-bootstrap';
-import { MDBCol, MDBContainer, MDBRow, MDBFooter } from "mdbreact";
-import { FaUserAlt, FaCat, FaYoutube, FaEnvelope, FaFacebookF, FaPaperPlane, FaCheck, FaTimes } from 'react-icons/fa';
-import 'css-doodle';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import Header from './Header';
 
 
 class Homepage extends Component {
-  constructor(props) {
-    super(props);
-    // this.socket = io("localhost:1235");
-    this.socket = io("103.89.85.105:1235");
-    this.state = {
-      id: "",
-      title: "",
-      A: "",
-      B: "",
-      C: "",
-      D: "",
-      answering: "",
-      current_id: "",
-      result: "",
-      isTrue: false,
-      isWin: 10,
-      seconds: 12,
-      program_id: 0
-    };
-  }
-
-
-  async componentDidMount() {
-    $('.question-content').hide();
-    $('.head-title').show();
-    $('.countdown').hide();
-    $('.summary').hide();
-    $('.win').hide();
-    // $('button.btn-answer').mouseover(function () {
-    //   $(this).addClass('hover');
-    // });
-    // $('button.btn-answer').mouseout(function () {
-    //   $(this).removeClass('hover');
-    // });
-    $('button.btn-answer').mouseover(function () {
-      var x = $(this).val();
-      $(this).addClass('hover-' + x);
-    });
-    $('button.btn-answer').mouseout(function () {
-      var x = $(this).val();
-      $(this).removeClass('hover-' + x);
-    });
-
-    //listen event server broadcast question and show
-    this.socket.on('BROADCAST_QUESTION_TO_CLIENT', (dataAPI) => {
-
-      this.setState({seconds: 12});
-
-      $('.question-content').show();
-      $('.head-title').hide();
-      $('.countdown').show();
-      $('.welcome').hide();
-      $('button.btn-answer').removeClass('button-focus');
-      $('button.btn-answer').removeClass('right-answer');
-      $('button.btn-answer').removeClass('wrong-answer');
-      $('button.btn-answer').removeClass('disable-color');
-
-      // $('button.btn-answer').addClass('hover');
-      $('button.btn-answer').prop('disabled', false);
-
-      $('button.btn-answer').mouseover(function () {
-        var x = $(this).val();
-        $(this).addClass('hover-' + x);
-      });
-      $('button.btn-answer').mouseout(function () {
-        var x = $(this).val();
-        $(this).removeClass('hover-' + x);
-      });
-
-      dataAPI.response.body = JSON.parse(dataAPI.response.body);
-      this.setState({
-        id: dataAPI.response.id,
-        title: dataAPI.response.title,
-        A: dataAPI.response.body.A,
-        B: dataAPI.response.body.B,
-        C: dataAPI.response.body.C,
-        D: dataAPI.response.body.D,
-        answering: "",
-        program_id: dataAPI.program_id
-      });
-      localStorage.setItem('idQuestion', dataAPI.response.id);
-
-      var totaltime = 10;
-      function update(percent){
-        var deg;
-        if(percent<(totaltime/2)){
-          deg = 90 + (360*percent/totaltime);
-            $('.pie').css('background-image',
-                      'linear-gradient('+deg+'deg, transparent 50%, white 50%),linear-gradient(90deg, white 50%, transparent 50%)'
-                    );
-        } else if(percent>=(totaltime/2)){
-                deg = -90 + (360*percent/totaltime);
-
-                $('.pie').css('background-image',
-                      'linear-gradient('+deg+'deg, transparent 50%, #1fbba6 50%),linear-gradient(90deg, white 50%, transparent 50%)'
-                    );
-                }
-      }
-      var count = 10;
-      var myCounter = setInterval(function () {
-        count-=1;
-        $('#time').html(count);
-          update(count);
-        
-        if(count==0) clearInterval(myCounter);
-      }, 1000);
-    })
-
-
-    this.socket.on("SERVER_CHAT", (data) => {
-      $("#content").append("<div style='color:#008afc; font-weight: 600; font-size: 20px'>" + data[1] + ": <span style='color:#000; font-size: 18px'>" + data[0] + "</span></div>");
-      $('.chat-content').animate({ scrollTop: $('.chat-content').get(0).scrollHeight }, 200);
-    });
-
-
-    this.socket.on('CLOSE_QUESTION', () => {
-      $('button.btn-answer').removeClass('hover-A hover-B hover-C');
-      $('button.btn-answer').prop('disabled', true);
-      $(`button[value!="${this.state.answering}"]`).addClass('disable-color');
-    });
-
-
-    this.socket.on('RESPONSE_ANSWER_TO_CLIENT', async (data) => {
-      if (data.response.id === this.state.id) {
-        if (data.response.answer === this.state.answering) {
-          $(`button[value="${data.response.answer}"]`).addClass('right-answer');
-          await this.setState({
-            isTrue: true,
-            isWin: this.state.isWin - 1
-          });
-        }
-        else {
-          $(`button[value="${data.response.answer}"]`).addClass('right-answer');
-          $(`button[value="${this.state.answering}"]`).addClass('wrong-answer');
-          await this.setState({
-            isTrue: false
-          });
-        }
-
-        var dataSum = await [this.state.id, this.state.isTrue];
-        await this.socket.emit("SUMMARY", dataSum);
-        $('.summary').show();
-        $('.welcome').hide();
-        $('.countdown').hide();
-        //emit winner
-        if(data.program_id === 10) {
-          if(this.state.isWin === 0) {
-            var user_id = localStorage.getItem('user_id');
-            var username = localStorage.getItem('username');
-            var email = localStorage.getItem('email');
-  
-            var winner = [user_id, username, email];
-            this.socket.emit("WINNER", winner);
-          }
-        }
-      }
-    });
-
-
-    this.socket.on("STATISTIC", (statistic) => {
-      $('#summary-correct').html(statistic.right);
-      $('#summary-incorrect').html(statistic.wrong);
-  });
-
-
-    this.socket.on('END_GAME_TO_CLIENT', (dataEndGame) => {
-      $(".question").hide();
-      $(".countdown").hide();
-      $(".video-question").addClass("full-video");
-      $(".video-question").removeClass("flex");
-      $("#left").removeClass("left");
-      $("#right").removeClass("right");
-      $(".main-content").removeClass("main-content-1");
-
-      console.log(dataEndGame);
-      $('.win').append(`<style>.win:before{content:'${dataEndGame[2]}$' !important} .win:after{content:'${dataEndGame[2]}$' !important}</style>`);
-      if(this.state.isWin === 0) {
-        $('.win').show();
-        setTimeout(function() {
-          $('.win').fadeOut("slow");
-        }, 15000);
-      }
-    });
-  }
-
-
-  sendMessage(data) {
-    if(data[0] !== "") {
-      this.socket.emit("CLIENT_CHAT", data);
-      $("#txtChat").val("");
-    }
-  }
-
-
-  handleKeyPress(event) {
-    if (event.key === 'Enter') {
-      if($("#txtChat").val() !== "") {
-        var data = [$("#txtChat").val(), localStorage.getItem('username')];
-        this.socket.emit("CLIENT_CHAT", data);
-        $("#txtChat").val("");
-      }
-    }
-  }
-
-  async submitAnswer(event) {
-    await this.setState({
-      answering: event.target.value,
-    });
-    $('.question button').removeClass('hover-A hover-B hover-C');
-    // $(`button[value="${this.state.answering}"]`).addClass('button-focus').unbind('mouseover');
-    $(`button[value="${this.state.answering}"]`).unbind('mouseover');
-    // $(`button[value!="${this.state.answering}"]`).prop('disabled', true);
-    $(`button[value!="${this.state.answering}"]`).addClass('disable-color');
-    $('button.btn-answer').removeClass('hover-A hover-B hover-C');
-    $('button.btn-answer').prop('disabled', true);
-  }
-
-
-  logout() {
-    localStorage.clear();
-    this.props.history.push('/');
-  }
-
 
   render() {
     return (
-      <div className="container-full">
-        <div style={{background: '#cc9', postition: 'relative'}}>
-        
-          <div className="question-container">
-            <div className="head-title">LIVE STREAM TRIVIA GAME</div>
-            <div className="question-content">
-              <div>
-              Câu {this.state.program_id}:
-              </div>
-              {this.state.title}
-              
-            </div>
-
-            <span style={{position: 'absolute', top: '0', right: '0'}}>
-              <NavDropdown title={<FaUserAlt style={{ fontSize: '20px' }} />} id="basic-nav-dropdown">
-                  <NavDropdown.Item href="#" onClick={()=>this.props.history.push('/profile')}>Profile</NavDropdown.Item>
-                  <NavDropdown.Divider />
-                  <NavDropdown.Item href="#" onClick={() => this.logout()}>Log out</NavDropdown.Item>
-                </NavDropdown>
-                </span>
-          </div>
-          <div className="container-fluid text-center">    
-            <div className="row content">
-              <div className="col-sm-3 sidenav summary-welcome">
-                <div className="countdown">
-                  <div className="pie degree">
-                    <span className="block"></span>
-                    <span id="time">10</span>
-                  </div>
-                </div>
-                <div className="welcome">
-                  <span style={{ marginTop: '20px', marginBottom: '-20px'}}>CHÀO MỪNG ĐẾN VỚI TRIVIA GAME</span> <br/>
-                  <span style={{color: '#d0f'}}>CHÚC BẠN<br/>CHƠI GAME VUI VẺ!!</span>
-                  <img src="/monkey.png"
-                    style={{width: '100px', height: '100px', display: 'block'}}/>
-                </div>
-                <div className="summary">
-                  <div className="summary-title" style={{margin: '30px 10px', fontSize: '30px'}}>TỔNG KẾT CÂU {this.state.program_id}</div>
-                  <div>
-                      {/* <label>Total correct: </label> */}
-                      <span style={{color: '#31d106', marginRight: '10px', marginLeft: '-5px'}}><FaCheck/></span>
-                      <span id="summary-correct" style={{color: '#31d106'}}>113</span>
-                  </div>
-                  <div>
-                      {/* <label>Total incorrect: </label> */}
-                      <span style={{color: '#f00', marginRight: '10px', marginLeft: '-5px'}}><FaTimes/></span>
-                      <span id="summary-incorrect" style={{color: '#f00'}}>113</span>
-                  </div>
-                </div>
-              </div>
-              <div className="col-sm-6 text-left video"> 
-                <WebRTCVideo/>
-              </div>
-              <div className="col-sm-3 sidenav">
-                <div style={{background: '#00f', width: '100%', height: '100%'}}>
-                  <div className="chat-content">
-                    <div id="content"></div>
-                  </div>
-                  <div className="input-content">
-                    <input id="txtChat" type="text" placeholder="Comment..." onKeyPress={(event) => this.handleKeyPress(event)} />
-                    <span id="btnChat" onClick={() => this.sendMessage([$("#txtChat").val(), localStorage.getItem('username')])}><FaPaperPlane/></span>
-                  </div>
-                </div>
-              </div>
+      <div className="site-wrap">
+        <div className="site-mobile-menu site-navbar-target">
+          <div className="site-mobile-menu-header">
+            <div className="site-mobile-menu-close mt-3">
+              <span className="icon-close2 js-menu-toggle" />
             </div>
           </div>
-
-          <div className="answer-container">
-            <div className="row row-answer">
-              <div className="col-sm-6 answer">
-                <div className="answer-1">
-                  <button onClick={(event) => this.submitAnswer(event)} value="A" className="btn-answer">A. {this.state.A}</button>
-                </div>
-              </div>
-              <div className="col-sm-6 answer">
-                <div className="answer-1">
-                  <button onClick={(event) => this.submitAnswer(event)} value="B" className="btn-answer">B. {this.state.B}</button>
-                </div>
-              </div>
-            </div>
-            <div className="row row-answer">
-              <div className="col-sm-6 answer">
-                <div className="answer-1">
-                  <button onClick={(event) => this.submitAnswer(event)} value="C" className="btn-answer">C. {this.state.C}</button>
-                </div>
-              </div>
-              <div className="col-sm-6 answer">
-                <div className="answer-1">
-                  <button onClick={(event) => this.submitAnswer(event)} value="D" className="btn-answer">D. {this.state.D}</button>
-                </div>              
-              </div>
-            </div>
-          </div>
-          </div>
-
-        <div className="win">
-          <css-doodle grid="5">
-          {`
-          :doodle {
-            @grid: 10 / 100%; 
-          }
-          background: @pick(
-            #ff0, #ff6, #ffd700, #ee0
-          );
-
-          transform: translate(
-            @rand(-50vw, 50vw),
-            @rand(-50vh, 50vh)
-          );
-
-          @size: 3.5vmin;
-          @shape: star;
-          @place-cell: 50% 50%;
-
-          animation-name: explosion;
-          animation-iteration-count: infinite;
-          animation-direction: reverse;
-          animation-duration: calc(@rand(2s, 5s, .1));
-          animation-delay: calc(@rand(-5s, -1s, .1));
-          animation-timing-function: 
-            cubic-bezier(.84, .02, 1, 1);
-
-           @keyframes explosion {
-              0% { opacity: 0; }
-              70% { opacity: 1; }
-              100% { transform: translate(0, 0); }
-            }
-          `}
-          </css-doodle>
+          <div className="site-mobile-menu-body" />
         </div>
-      </div>
+        <header className="site-navbar py-4 js-sticky-header site-navbar-target" role="banner">
+          <div className="container">
+            <div className="row align-items-center">
+              <div className="col-6 col-xl-2">
+                <h1 className="mb-0 site-logo"><Link className="h2 mb-0" to="/homepage">Trivia<span>Game</span></Link></h1>
+              </div>
+              <div className="col-12 col-md-10 d-none d-xl-block">
+                <nav className="site-navigation position-relative text-right" role="navigation">
+                  <ul className="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
+                    <li><Link to="/homepage">Trang chủ</Link></li>
+                    <li><Link to="/aboutus">Chúng tôi</Link></li>
+                    <li><Link to="/game">Trò chơi</Link></li>
+                    <li><Link to="/contact">Liên hệ</Link></li>
+                    <li><Link to="/history">Lịch sử</Link></li>
+                    <li><Link to="/login">Đăng nhập</Link></li>
+                  </ul>
+                </nav>
+              </div>
+              <div className="col-6 d-inline-block d-xl-none ml-md-0 py-3" style={{position: 'relative', top: '3px'}}><a href="#" className="site-menu-toggle js-menu-toggle text-black float-right"><span className="icon-menu h3" /></a></div>
+            </div>
+          </div>
+        </header>
+        <div className="site-blocks-cover overlay" style={{backgroundImage: 'url(images/hero_1.jpg)'}} data-aos="fade" id="home-section">
+          <div className="container">
+            <div className="row">
+              <div className="col-md-6 mt-lg-5 ml-auto text-left align-self-end align-self-md-center">
+                <h1>Professional Life Coaching</h1>
+                <p className="mb-4"> <li><Link className="btn btn-primary mr-2 mb-2" to="/game">Bắt đầu chơi</Link></li></p>
+              </div>
+            </div>
+          </div>
+        </div>  
+        <div className="site-section bg-primary">
+          <div className="container">
+            <div className="row">
+              <div className="col-md-12 col-lg-4 mb-4 mb-lg-0">
+                <h2 className="text-white">Special Offers</h2>
+              </div>
+              <div className="col-md-6 col-lg-4 d-flex">
+                <div className="mr-3"><span className="flaticon-bill display-3 text-special" /></div>
+                <div>
+                  <h3 className="text-white h4">50% less of every purchase</h3>
+                  <p className="text-special">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                  <p><a href="#">Read more</a></p>
+                </div>
+              </div>
+              <div className="col-md-6 col-lg-4 d-flex">
+                <div className="mr-3"><span className="flaticon-customer-service display-3 text-special" /></div>
+                <div>
+                  <h3 className="text-white h4">More programs than ever before</h3>
+                  <p className="text-special">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                  <p><a href="#">Read more</a></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <section className="site-section" id="about-section">
+          <div className="container">
+            <div className="row mb-5">
+              <div className="col-lg-5 ml-auto mb-5 order-md-2" data-aos="fade">
+                <img src="images/about_1.jpg" alt="Image" className="img-fluid rounded" />
+              </div>
+              <div className="col-lg-6 order-md-1" data-aos="fade">
+                <h2 className="section-title mb-3">Welcome to LifeCoach</h2>
+                <p className="lead">Harum quaerat nostrum voluptatibus aspernatur eligendi accusantium cum, impedit blanditiis voluptate commodi doloribus, nemo.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odio necessitatibus deserunt itaque dignissimos adipisci, tenetur.</p>
+                <p className="mb-4">Ipsum dolorum ab magnam facere alias ducimus nulla consequuntur blanditiis, maxime explicabo rerum maiores, odio.</p>
+                <p><img src="images/signature.jpg" alt="Image" className="img-fluid w-25" /></p>
+              </div>
+            </div>
+          </div>
+        </section>
+        <div className="site-section bg-light" id="training-section">
+          <div className="container">
+            <div className="row mb-5">
+              <div className="col-12 text-center">
+                <h2 className="section-title mb-3">Our Training</h2>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-md-6">
+                <ul className="list-unstyled training">
+                  <li className="mb-5 d-block d-lg-flex">
+                    <div className="mr-5 mb-4 img">
+                      <a href="training-single.html"><img src="images/img_1.jpg" alt="Image" className="img-fluid" /></a>
+                    </div>
+                    <div>
+                      <h2 className="h4"><a href="training-single.html" className="text-black">How to deal your business?</a></h2>
+                      <span className="text-muted d-block mb-4">Finance</span>
+                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur dolores .</p>
+                    </div>
+                  </li>
+                  <li className="mb-5 d-block d-lg-flex">
+                    <div className="mr-5 mb-4 img">
+                      <a href="training-single.html"><img src="images/img_2.jpg" alt="Image" className="img-fluid" /></a>
+                    </div>
+                    <div>
+                      <h2 className="h4"><a href="training-single.html" className="text-black">How to stay progressive in knowledge</a></h2>
+                      <span className="text-muted d-block mb-4">Social Life</span>
+                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur dolores .</p>
+                    </div>
+                  </li>
+                  <li className="mb-5 d-block d-lg-flex">
+                    <div className="mr-5 mb-4 img">
+                      <a href="training-single.html"><img src="images/img_3.jpg" alt="Image" className="img-fluid" /></a>
+                    </div>
+                    <div>
+                      <h2 className="h4"><a href="training-single.html" className="text-black">How To Invest In Investing Company</a></h2>
+                      <span className="text-muted d-block mb-4">Family Issue</span>
+                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur dolores .</p>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div className="col-md-6">
+                <ul className="list-unstyled training">
+                  <li className="mb-5 d-block d-lg-flex">
+                    <div className="mr-5 mb-4 img">
+                      <a href="training-single.html"><img src="images/img_1.jpg" alt="Image" className="img-fluid" /></a>
+                    </div>
+                    <div>
+                      <h2 className="h4"><a href="training-single.html" className="text-black">How to deal your business?</a></h2>
+                      <span className="text-muted d-block mb-4">Family Issue</span>
+                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur dolores .</p>
+                    </div>
+                  </li>
+                  <li className="mb-5 d-block d-lg-flex">
+                    <div className="mr-5 mb-4 img">
+                      <a href="training-single.html"><img src="images/img_2.jpg" alt="Image" className="img-fluid" /></a>
+                    </div>
+                    <div>
+                      <h2 className="h4"><a href="training-single.html" className="text-black">How to stay progressive in knowledge</a></h2>
+                      <span className="text-muted d-block mb-4">Finance</span>
+                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur dolores .</p>
+                    </div>
+                  </li>
+                  <li className="mb-5 d-block d-lg-flex">
+                    <div className="mr-5 mb-4 img">
+                      <a href="training-single.html"><img src="images/img_3.jpg" alt="Image" className="img-fluid" /></a>
+                    </div>
+                    <div>
+                      <h2 className="h4"><a href="training-single.html" className="text-black">How To Invest In Investing Company</a></h2>
+                      <span className="text-muted d-block mb-4">Job Issue</span>
+                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur dolores .</p>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+       
+        
+        <section className="site-section border-bottom bg-light" id="services-section">
+          <div className="container">
+            <div className="row mb-5">
+              <div className="col-12 text-center">
+                <h2 className="section-title mb-3">Our Services</h2>
+              </div>
+            </div>
+            <div className="row align-items-stretch">
+              <div className="col-md-6 col-lg-4 mb-4 mb-lg-4" data-aos="fade-up">
+                <div className="unit-4 d-flex">
+                  <div className="unit-4-icon mr-4"><span className="text-primary flaticon-career" /></div>
+                  <div>
+                    <h3>Business Consulting</h3>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis quis molestiae vitae eligendi at.</p>
+                    <p><a href="#">Learn More</a></p>
+                  </div>
+                </div>
+              </div>
+              <div className="col-md-6 col-lg-4 mb-4 mb-lg-4" data-aos="fade-up" data-aos-delay={100}>
+                <div className="unit-4 d-flex">
+                  <div className="unit-4-icon mr-4"><span className="text-primary flaticon-bill" /></div>
+                  <div>
+                    <h3>Market Analysis</h3>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis quis molestiae vitae eligendi at.</p>
+                    <p><a href="#">Learn More</a></p>
+                  </div>
+                </div>
+              </div>
+              <div className="col-md-6 col-lg-4 mb-4 mb-lg-4" data-aos="fade-up" data-aos-delay={200}>
+                <div className="unit-4 d-flex">
+                  <div className="unit-4-icon mr-4"><span className="text-primary flaticon-customer-service" /></div>
+                  <div>
+                    <h3>User Monitoring</h3>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis quis molestiae vitae eligendi at.</p>
+                    <p><a href="#">Learn More</a></p>
+                  </div>
+                </div>
+              </div>
+              <div className="col-md-6 col-lg-4 mb-4 mb-lg-4" data-aos="fade-up" data-aos-delay={300}>
+                <div className="unit-4 d-flex">
+                  <div className="unit-4-icon mr-4"><span className="text-primary flaticon-plan" /></div>
+                  <div>
+                    <h3>Insurance Consulting</h3>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis quis molestiae vitae eligendi at.</p>
+                    <p><a href="#">Learn More</a></p>
+                  </div>
+                </div>
+              </div>
+              <div className="col-md-6 col-lg-4 mb-4 mb-lg-4" data-aos="fade-up" data-aos-delay={400}>
+                <div className="unit-4 d-flex">
+                  <div className="unit-4-icon mr-4"><span className="text-primary flaticon-growth" /></div>
+                  <div>
+                    <h3>Financial Investment</h3>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis quis molestiae vitae eligendi at.</p>
+                    <p><a href="#">Learn More</a></p>
+                  </div>
+                </div>
+              </div>
+              <div className="col-md-6 col-lg-4 mb-4 mb-lg-4" data-aos="fade-up" data-aos-delay={500}>
+                <div className="unit-4 d-flex">
+                  <div className="unit-4-icon mr-4"><span className="text-primary flaticon-award" /></div>
+                  <div>
+                    <h3>Financial Management</h3>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis quis molestiae vitae eligendi at.</p>
+                    <p><a href="#">Learn More</a></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section className="site-section testimonial-wrap" id="testimonials-section">
+          <div className="container">
+            <div className="row mb-5">
+              <div className="col-12 text-center">
+                <h2 className="section-title mb-3">Testimonials</h2>
+              </div>
+            </div>
+          </div>
+          <div className="slide-one-item home-slider owl-carousel">
+            <div>
+              <div className="testimonial">
+                <blockquote className="mb-5">
+                  <p>“Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur unde reprehenderit aperiam quaerat fugiat repudiandae explicabo animi minima fuga beatae illum eligendi incidunt consequatur. Amet dolores excepturi earum unde iusto.”</p>
+                </blockquote>
+                <figure className="mb-4 d-flex align-items-center justify-content-center">
+                  <div><img src="images/person_3.jpg" alt="Image" className="w-50 img-fluid mb-3" /></div>
+                  <p>John Smith</p>
+                </figure>
+              </div>
+            </div>
+            <div>
+              <div className="testimonial">
+                <blockquote className="mb-5">
+                  <p>“Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur unde reprehenderit aperiam quaerat fugiat repudiandae explicabo animi minima fuga beatae illum eligendi incidunt consequatur. Amet dolores excepturi earum unde iusto.”</p>
+                </blockquote>
+                <figure className="mb-4 d-flex align-items-center justify-content-center">
+                  <div><img src="images/person_2.jpg" alt="Image" className="w-50 img-fluid mb-3" /></div>
+                  <p>Christine Aguilar</p>
+                </figure>
+              </div>
+            </div>
+            <div>
+              <div className="testimonial">
+                <blockquote className="mb-5">
+                  <p>“Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur unde reprehenderit aperiam quaerat fugiat repudiandae explicabo animi minima fuga beatae illum eligendi incidunt consequatur. Amet dolores excepturi earum unde iusto.”</p>
+                </blockquote>
+                <figure className="mb-4 d-flex align-items-center justify-content-center">
+                  <div><img src="images/person_4.jpg" alt="Image" className="w-50 img-fluid mb-3" /></div>
+                  <p>Robert Spears</p>
+                </figure>
+              </div>
+            </div>
+            <div>
+              <div className="testimonial">
+                <blockquote className="mb-5">
+                  <p>“Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur unde reprehenderit aperiam quaerat fugiat repudiandae explicabo animi minima fuga beatae illum eligendi incidunt consequatur. Amet dolores excepturi earum unde iusto.”</p>
+                </blockquote>
+                <figure className="mb-4 d-flex align-items-center justify-content-center">
+                  <div><img src="images/person_4.jpg" alt="Image" className="w-50 img-fluid mb-3" /></div>
+                  <p>Bruce Rogers</p>
+                </figure>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section className="site-section" id="blog-section">
+          <div className="container">
+            <div className="row mb-5">
+              <div className="col-12 text-center">
+                <h2 className="section-title mb-3">Our Blog Posts</h2>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-md-6 col-lg-4 mb-4 mb-lg-4">
+                <div className="h-entry">
+                  <a href="blog-single.html"><img src="images/img_1.jpg" alt="Image" className="img-fluid" /></a>
+                  <h2 className="font-size-regular"><a href="blog-single.html">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</a></h2>
+                  <div className="meta mb-4">Ham Brook <span className="mx-2">•</span> Jan 18, 2019<span className="mx-2">•</span> <a href="#">News</a></div>
+                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus eligendi nobis ea maiores sapiente veritatis reprehenderit suscipit quaerat rerum voluptatibus a eius.</p>
+                  <p><a href="#">Continue Reading...</a></p>
+                </div> 
+              </div>
+              <div className="col-md-6 col-lg-4 mb-4 mb-lg-4">
+                <div className="h-entry">
+                  <a href="blog-single.html"><img src="images/img_2.jpg" alt="Image" className="img-fluid" /></a>
+                  <h2 className="font-size-regular"><a href="blog-single.html">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</a></h2>
+                  <div className="meta mb-4">James Phelps <span className="mx-2">•</span> Jan 18, 2019<span className="mx-2">•</span> <a href="#">News</a></div>
+                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus eligendi nobis ea maiores sapiente veritatis reprehenderit suscipit quaerat rerum voluptatibus a eius.</p>
+                  <p><a href="#">Continue Reading...</a></p>
+                </div>
+              </div>
+              <div className="col-md-6 col-lg-4 mb-4 mb-lg-4">
+                <div className="h-entry">
+                  <a href="blog-single.html"><img src="images/img_1.jpg" alt="Image" className="img-fluid" /></a>
+                  <h2 className="font-size-regular"><a href="blog-single.html">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</a></h2>
+                  <div className="meta mb-4">James Phelps <span className="mx-2">•</span> Jan 18, 2019<span className="mx-2">•</span> <a href="#">News</a></div>
+                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus eligendi nobis ea maiores sapiente veritatis reprehenderit suscipit quaerat rerum voluptatibus a eius.</p>
+                  <p><a href="#">Continue Reading...</a></p>
+                </div> 
+              </div>
+            </div>
+          </div>
+        </section>
+        
+        <footer className="site-footer">
+          <div className="container">
+            <div className="row">
+              <div className="col-md-9">
+                <div className="row">
+                  <div className="col-md-5">
+                    <h2 className="footer-heading mb-4">About Us</h2>
+                    <p className="mb-5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque facere laudantium magnam voluptatum autem. Amet aliquid nesciunt veritatis aliquam.</p>
+                    <h2 className="footer-heading mb-4">Subscribe Newsletter</h2>
+                    <form action="#" method="post" className="footer-subscribe">
+                      <div className="input-group mb-3">
+                        <input type="text" className="form-control border-secondary text-white bg-transparent" placeholder="Enter Email" aria-label="Enter Email" aria-describedby="button-addon2" />
+                        <div className="input-group-append">
+                          <button className="btn btn-white text-black" type="button" id="button-addon2">Send</button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                  <div className="col-md-3 ml-auto">
+                    <h2 className="footer-heading mb-4">Quick Links</h2>
+                    <ul className="list-unstyled">
+                      <li><a href="#">About Us</a></li>
+                      <li><a href="#">Services</a></li>
+                      <li><a href="#">Testimonials</a></li>
+                      <li><a href="#">Contact Us</a></li>
+                    </ul>
+                  </div>
+                  <div className="col-md-3">
+                    <h2 className="footer-heading mb-4">Follow Us</h2>
+                    <a href="#" className="pl-0 pr-3"><span className="icon-facebook" /></a>
+                    <a href="#" className="pl-3 pr-3"><span className="icon-twitter" /></a>
+                    <a href="#" className="pl-3 pr-3"><span className="icon-instagram" /></a>
+                    <a href="#" className="pl-3 pr-3"><span className="icon-linkedin" /></a>
+                  </div>
+                </div>
+              </div>
+              <div className="col-md-3">
+                <div className="mb-5">
+                  <img src="images/img_1.jpg" alt className="img-fluid mb-4" />
+                  <h2 className="footer-heading mb-4">Some Paragraph</h2>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores, laudantium nisi quo, sit neque quisquam.</p>
+                </div>
+              </div>
+            </div>
+            <div className="row pt-5 mt-5 text-center">
+              <div className="col-md-12">
+                <div className="border-top pt-5">
+                  <p>
+                    {/* Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. */}
+                    Copyright © All rights reserved | This template is made with <i className="icon-heart" aria-hidden="true" /> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                    {/* Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. */}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </footer>
+      </div> 
     );
   }
 }
