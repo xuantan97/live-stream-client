@@ -437,7 +437,7 @@ h5,
 
 .site-navbar .site-navigation .site-menu>li>a {
   padding: 5px 20px;
-  color: #000;
+  /* color: #000; */
   display: inline-block;
   text-decoration: none !important;
 }
@@ -2606,8 +2606,11 @@ h5,
 } */
 
 a.site-menu-focus {
-  color: #fff !important;
+  color: #007bff !important;
 }
 
+.bg-white {
+  background: #fff !important;
+}
 
 /*--------------------------- CSS GAME --------------------------------*/

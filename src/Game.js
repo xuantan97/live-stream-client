@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import WebRTCVideo from './WebRTC';
 import $ from "jquery";
 import io from 'socket.io-client';
+import { FaUserAlt, FaFacebookF, FaPaperPlane, FaCheck, FaTimes, FaTwitter, FaInstagram, FaLinkedinIn, FaHeart, FaList } from 'react-icons/fa';
+
 
 class Game extends Component {
     
@@ -230,31 +232,130 @@ class Game extends Component {
       }
 
     render() {
-        
+      $(document).ready(function() {
+        $('.sticky-wrapper').addClass('is-sticky');
+        $('.js-sticky-header').addClass('shrink');
+        $(window).bind('scroll', function(e) {
+          var top = $(window).scrollTop();
+          if(top < 100) {
+            $('.sticky-wrapper').addClass('is-sticky');
+            $('.js-sticky-header').addClass('shrink');
+          }
+        });  
+  
+        var siteMenuClone = function() {
+          $('.js-clone-nav').each(function() {
+            var $this = $(this);
+            $this.clone().attr('class', 'site-nav-wrap').appendTo('.site-mobile-menu-body');
+          });
+      
+      
+          setTimeout(function() {
+            
+            var counter = 0;
+            $('.site-mobile-menu .has-children').each(function(){
+              var $this = $(this);
+              
+              $this.prepend('<span class="arrow-collapse collapsed">');
+      
+              $this.find('.arrow-collapse').attr({
+                'data-toggle' : 'collapse',
+                'data-target' : '#collapseItem' + counter,
+              });
+      
+              $this.find('> ul').attr({
+                'class' : 'collapse',
+                'id' : 'collapseItem' + counter,
+              });
+      
+              counter++;
+      
+            });
+      
+          }, 1000);
+      
+          $('body').on('click', '.arrow-collapse', function(e) {
+            var $this = $(this);
+            if ( $this.closest('li').find('.collapse').hasClass('show') ) {
+              $this.removeClass('active');
+            } else {
+              $this.addClass('active');
+            }
+            e.preventDefault();  
+            
+          });
+      
+          $(window).resize(function() {
+            var $this = $(this),
+              w = $this.width();
+      
+            if ( w > 768 ) {
+              if ( $('body').hasClass('offcanvas-menu') ) {
+                $('body').removeClass('offcanvas-menu');
+              }
+            }
+          })
+      
+          $('body').on('click', '.js-menu-toggle', function(e) {
+            var $this = $(this);
+            e.preventDefault();
+      
+            if ( $('body').hasClass('offcanvas-menu') ) {
+              $('body').removeClass('offcanvas-menu');
+              $this.removeClass('active');
+            } else {
+              $('body').addClass('offcanvas-menu');
+              $this.addClass('active');
+            }
+          }) 
+      
+          // click outisde offcanvas
+          $(document).mouseup(function(e) {
+            var container = $(".site-mobile-menu");
+            if (!container.is(e.target) && container.has(e.target).length === 0) {
+              if ( $('body').hasClass('offcanvas-menu') ) {
+                $('body').removeClass('offcanvas-menu');
+              }
+            }
+          });
+        }; 
+        siteMenuClone();
+      });
         return(
             <div className="site-wrap">
-                <header className="site-navbar py-4 js-sticky-header site-navbar-target" role="banner">
-                    <div className="container">
-                        <div className="row align-items-center">
-                        <div className="col-6 col-xl-2">
-                        <h1 className="mb-0 site-logo"><Link className="h2 mb-0" to="/homepage">Trivia<span>Game</span></Link></h1>
-                        </div>
-                        <div className="col-12 col-md-10 d-none d-xl-block">
-                            <nav className="site-navigation position-relative text-right" role="navigation">
-                            <ul className="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
-                                <li><Link to="/homepage">Trang chủ</Link></li>
-                                <li><Link to="/aboutus">Chúng tôi</Link></li>
-                                <li><Link to="/game">Trò chơi</Link></li>
-                                <li><Link to="/contact">Liên hệ</Link></li>
-                                <li><Link to="/history">Lịch sử</Link></li>
-                                <li><Link to="/login">Đăng nhập</Link></li>
-                            </ul>
-                            </nav>
-                        </div>
-                        <div className="col-6 d-inline-block d-xl-none ml-md-0 py-3" style={{position: 'relative', top: '3px'}}><a href="#" className="site-menu-toggle js-menu-toggle text-black float-right"><span className="icon-menu h3" /></a></div>
-                        </div>
-                    </div>
-                </header>
+                <div className="site-mobile-menu site-navbar-target">
+          <div className="site-mobile-menu-header">
+            <div className="site-mobile-menu-close mt-3">
+              <span><FaTimes className="icon-close2 js-menu-toggle"/></span>
+            </div>
+          </div>
+          <div className="site-mobile-menu-body" />
+        </div>
+        <div id="sticky-wrapper" className="sticky-wrapper">
+        <header className="site-navbar py-4 js-sticky-header site-navbar-target" role="banner"
+            style={{width: '100%', position: 'fixed', top: '0px', transition: '0.5s'}}>
+          <div className="container">
+            <div className="row align-items-center">
+              <div className="col-6 col-xl-2">
+                <h1 className="mb-0 site-logo"><Link className="h2 mb-0" to="/homepage">Trivia<span>Game</span></Link></h1>
+              </div>
+              <div className="col-12 col-md-10 d-none d-xl-block">
+                <nav className="site-navigation position-relative text-right" role="navigation">
+                  <ul className="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
+                    <li><Link to="/homepage">Trang chủ</Link></li>
+                    <li><Link to="/aboutus" className="site-menu-focus aboutus">Chúng tôi</Link></li>
+                    <li><Link to="/game">Trò chơi</Link></li>
+                    <li><Link to="/contact">Liên hệ</Link></li>
+                    <li><Link to="/history">Lịch sử</Link></li>
+                    <li><Link to="/login">Đăng nhập</Link></li>
+                  </ul>
+                </nav>
+              </div>
+              <div className="col-6 d-inline-block d-xl-none ml-md-0 py-3" style={{position: 'relative', top: '3px'}}><a href="#" className="site-menu-toggle js-menu-toggle text-black float-right"><span><FaList className="icon-menu h3"/></span></a></div>
+            </div>
+          </div>
+        </header>
+        </div>
                 <section className="site-section bg-light" id="contact-section">
                 <div className="container-full">
                     <div style={{background: '#cc9', postition: 'relative'}}>

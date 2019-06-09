@@ -8,26 +8,16 @@ class Contact extends Component {
     
     render() {
       $(document).ready(function() {
-        $('header').css('background', '#fff !important');
-        $('header').prop('box-shadow', '0 2px 4px rgba(0, 0, 0, 0.2)');
+        $('.sticky-wrapper').addClass('is-sticky');
+        $('.js-sticky-header').addClass('shrink');
         $(window).bind('scroll', function(e) {
           var top = $(window).scrollTop();
-          if(top > 100) {
-            $('.js-sticky-header').addClass('shrink');
-            $('.sticky-wrapper').addClass('is-sticky');
+          if(top < 100) {
+              $('.sticky-wrapper').addClass('is-sticky');
+          $('.js-sticky-header').addClass('shrink');
+
           }
-          else {
-            // $('header').prop('box-shadow', 'none');
-            $('.js-sticky-header').removeClass('shrink');
-            $('.sticky-wrapper').removeClass('is-sticky');
-          }
-        });
-  
-        $('.site-menu a').bind('click', function(e) {
-          $('.site-menu a').removeClass('site-menu-focus');
-          $(this).addClass('site-menu-focus');
-        });
-  
+        });  
   
         var siteMenuClone = function() {
           $('.js-clone-nav').each(function() {
@@ -142,7 +132,7 @@ class Contact extends Component {
           </div>
         </header>
         </div>
-              <section className="site-section bg-light" id="contact-section">
+              <section className="site-section bg-light" id="contact-section" style={{marginTop: '69px'}}>
                 <div className="container">
                   <div className="row mb-5">
                     <div className="col-12 text-center">
