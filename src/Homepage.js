@@ -2,23 +2,127 @@ import $ from "jquery";
 import io from 'socket.io-client';
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { FaUserAlt, FaFacebookF, FaPaperPlane, FaCheck, FaTimes, FaTwitter, FaInstagram, FaLinkedinIn, FaHeart, FaList } from 'react-icons/fa';
 import Header from './Header';
+
 
 
 class Homepage extends Component {
 
   render() {
+    $(document).ready(function() {
+      $(window).bind('scroll', function(e) {
+        var top = $(window).scrollTop();
+        if(top > 100) {
+          $('header').prop('box-shadow', '0 2px 4px rgba(0, 0, 0, 0.2)');
+          $('.js-sticky-header').addClass('shrink');
+          $('.sticky-wrapper').addClass('is-sticky');
+        }
+        else {
+          $('header').prop('box-shadow', 'none');
+          $('.js-sticky-header').removeClass('shrink');
+          $('.sticky-wrapper').removeClass('is-sticky');
+        }
+      });
+
+      $('.site-menu a').bind('click', function(e) {
+        $('.site-menu a').removeClass('site-menu-focus');
+        $(this).addClass('site-menu-focus');
+      });
+
+
+      var siteMenuClone = function() {
+        $('.js-clone-nav').each(function() {
+          var $this = $(this);
+          $this.clone().attr('class', 'site-nav-wrap').appendTo('.site-mobile-menu-body');
+        });
+    
+    
+        setTimeout(function() {
+          
+          var counter = 0;
+          $('.site-mobile-menu .has-children').each(function(){
+            var $this = $(this);
+            
+            $this.prepend('<span class="arrow-collapse collapsed">');
+    
+            $this.find('.arrow-collapse').attr({
+              'data-toggle' : 'collapse',
+              'data-target' : '#collapseItem' + counter,
+            });
+    
+            $this.find('> ul').attr({
+              'class' : 'collapse',
+              'id' : 'collapseItem' + counter,
+            });
+    
+            counter++;
+    
+          });
+    
+        }, 1000);
+    
+        $('body').on('click', '.arrow-collapse', function(e) {
+          var $this = $(this);
+          if ( $this.closest('li').find('.collapse').hasClass('show') ) {
+            $this.removeClass('active');
+          } else {
+            $this.addClass('active');
+          }
+          e.preventDefault();  
+          
+        });
+    
+        $(window).resize(function() {
+          var $this = $(this),
+            w = $this.width();
+    
+          if ( w > 768 ) {
+            if ( $('body').hasClass('offcanvas-menu') ) {
+              $('body').removeClass('offcanvas-menu');
+            }
+          }
+        })
+    
+        $('body').on('click', '.js-menu-toggle', function(e) {
+          var $this = $(this);
+          e.preventDefault();
+    
+          if ( $('body').hasClass('offcanvas-menu') ) {
+            $('body').removeClass('offcanvas-menu');
+            $this.removeClass('active');
+          } else {
+            $('body').addClass('offcanvas-menu');
+            $this.addClass('active');
+          }
+        }) 
+    
+        // click outisde offcanvas
+        $(document).mouseup(function(e) {
+          var container = $(".site-mobile-menu");
+          if (!container.is(e.target) && container.has(e.target).length === 0) {
+            if ( $('body').hasClass('offcanvas-menu') ) {
+              $('body').removeClass('offcanvas-menu');
+            }
+          }
+        });
+      }; 
+      siteMenuClone();
+    });
+   
     return (
       <div className="site-wrap">
         <div className="site-mobile-menu site-navbar-target">
           <div className="site-mobile-menu-header">
             <div className="site-mobile-menu-close mt-3">
-              <span className="icon-close2 js-menu-toggle" />
+              <span><FaTimes className="icon-close2 js-menu-toggle"/></span>
             </div>
           </div>
           <div className="site-mobile-menu-body" />
         </div>
-        <header className="site-navbar py-4 js-sticky-header site-navbar-target" role="banner">
+        <div id="sticky-wrapper" className="sticky-wrapper">
+        <header className="site-navbar py-4 js-sticky-header site-navbar-target" role="banner"
+            style={{width: '100%', position: 'fixed', top: '0px', transition: '0.5s'}}>
           <div className="container">
             <div className="row align-items-center">
               <div className="col-6 col-xl-2">
@@ -27,7 +131,7 @@ class Homepage extends Component {
               <div className="col-12 col-md-10 d-none d-xl-block">
                 <nav className="site-navigation position-relative text-right" role="navigation">
                   <ul className="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
-                    <li><Link to="/homepage">Trang chủ</Link></li>
+                    <li><Link to="/homepage" className="site-menu-focus homepage">Trang chủ</Link></li>
                     <li><Link to="/aboutus">Chúng tôi</Link></li>
                     <li><Link to="/game">Trò chơi</Link></li>
                     <li><Link to="/contact">Liên hệ</Link></li>
@@ -36,16 +140,17 @@ class Homepage extends Component {
                   </ul>
                 </nav>
               </div>
-              <div className="col-6 d-inline-block d-xl-none ml-md-0 py-3" style={{position: 'relative', top: '3px'}}><a href="#" className="site-menu-toggle js-menu-toggle text-black float-right"><span className="icon-menu h3" /></a></div>
+              <div className="col-6 d-inline-block d-xl-none ml-md-0 py-3" style={{position: 'relative', top: '3px'}}><a href="#" className="site-menu-toggle js-menu-toggle text-black float-right"><span><FaList className="icon-menu h3"/></span></a></div>
             </div>
           </div>
         </header>
+        </div>
         <div className="site-blocks-cover overlay" style={{backgroundImage: 'url(images/hero_1.jpg)'}} data-aos="fade" id="home-section">
           <div className="container">
             <div className="row">
               <div className="col-md-6 mt-lg-5 ml-auto text-left align-self-end align-self-md-center">
                 <h1>Professional Life Coaching</h1>
-                <p className="mb-4"> <li><Link className="btn btn-primary mr-2 mb-2" to="/game">Bắt đầu chơi</Link></li></p>
+                <p className="mb-4"><Link className="btn btn-primary mr-2 mb-2" to="/game">Bắt đầu chơi</Link></p>
               </div>
             </div>
           </div>
@@ -350,7 +455,7 @@ class Homepage extends Component {
                       <div className="input-group mb-3">
                         <input type="text" className="form-control border-secondary text-white bg-transparent" placeholder="Enter Email" aria-label="Enter Email" aria-describedby="button-addon2" />
                         <div className="input-group-append">
-                          <button className="btn btn-white text-black" type="button" id="button-addon2">Send</button>
+                          <button className="btn btn-white text-black" type="button" id="button-addon2" style={{background: '#fff'}}>Send</button>
                         </div>
                       </div>
                     </form>
@@ -366,10 +471,10 @@ class Homepage extends Component {
                   </div>
                   <div className="col-md-3">
                     <h2 className="footer-heading mb-4">Follow Us</h2>
-                    <a href="#" className="pl-0 pr-3"><span className="icon-facebook" /></a>
-                    <a href="#" className="pl-3 pr-3"><span className="icon-twitter" /></a>
-                    <a href="#" className="pl-3 pr-3"><span className="icon-instagram" /></a>
-                    <a href="#" className="pl-3 pr-3"><span className="icon-linkedin" /></a>
+                    <a href="#" className="pl-0 pr-3"><FaFacebookF/></a>
+                    <a href="#" className="pl-3 pr-3"><FaTwitter/></a>
+                    <a href="#" className="pl-3 pr-3"><FaInstagram/></a>
+                    <a href="#" className="pl-3 pr-3"><FaLinkedinIn/></a>
                   </div>
                 </div>
               </div>
@@ -386,7 +491,7 @@ class Homepage extends Component {
                 <div className="border-top pt-5">
                   <p>
                     {/* Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. */}
-                    Copyright © All rights reserved | This template is made with <i className="icon-heart" aria-hidden="true" /> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                    Copyright © All rights reserved | This template is made with <FaHeart aria-hidden="true"/> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
                     {/* Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. */}
                   </p>
                 </div>
