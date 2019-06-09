@@ -136,34 +136,34 @@ class Contact extends Component {
                 <div className="container">
                   <div className="row mb-5">
                     <div className="col-12 text-center">
-                      <h2 className="section-title mb-3">Reach to us</h2>
+                      <h2 className="section-title mb-3">Liên hệ với chúng tôi</h2>
                     </div>
                   </div>
                   <div className="row">
                     <div className="col-md-4">
-                      <p className="mb-0 font-weight-bold">Address</p>
-                      <p className="mb-4">203 Fake St. Mountain View, San Francisco, California, USA
+                      <p className="mb-0 font-weight-bold">Địa chỉ</p>
+                      <p className="mb-4">463 Cách Mạng Tháng 8, Phường 13, Quận 10, TPHCM
                       </p></div>
                     <div className="col-md-4">
-                      <p className="mb-0 font-weight-bold">Phone</p>
-                      <p className="mb-4"><a href="#">+1 232 3235 324</a></p>
+                      <p className="mb-0 font-weight-bold">Số điện thoại</p>
+                      <p className="mb-4">0328010342</p>
                     </div>
                     <div className="col-md-4">
-                      <p className="mb-0 font-weight-bold">Email Address</p>
-                      <p className="mb-0"><a href="#">youremail@domain.com</a></p>
+                      <p className="mb-0 font-weight-bold">Email</p>
+                      <p className="mb-0">anson1907@gmail.com</p>
                     </div>
                   </div>
                   <div className="row">
                     <div className="col-md-12 mb-5">
                       <form action="#" className="p-5 bg-white">
-                        <h2 className="h4 text-black mb-5">Contact Form</h2> 
+                        <h2 className="h4 text-black mb-5">Form Liên hệ</h2> 
                         <div className="row form-group">
                           <div className="col-md-6 mb-3 mb-md-0">
-                            <label className="text-black" htmlFor="fname">First Name</label>
+                            <label className="text-black" htmlFor="fname">Họ</label>
                             <input type="text" id="fname" className="form-control" />
                           </div>
                           <div className="col-md-6">
-                            <label className="text-black" htmlFor="lname">Last Name</label>
+                            <label className="text-black" htmlFor="lname">Tên</label>
                             <input type="text" id="lname" className="form-control" />
                           </div>
                         </div>
@@ -175,13 +175,13 @@ class Contact extends Component {
                         </div>
                         <div className="row form-group">
                           <div className="col-md-12">
-                            <label className="text-black" htmlFor="subject">Subject</label> 
+                            <label className="text-black" htmlFor="subject">Tiêu đề</label> 
                             <input type="subject" id="subject" className="form-control" />
                           </div>
                         </div>
                         <div className="row form-group">
                           <div className="col-md-12">
-                            <label className="text-black" htmlFor="message">Message</label> 
+                            <label className="text-black" htmlFor="message">Nội dung</label> 
                             <textarea name="message" id="message" cols={30} rows={7} className="form-control" placeholder="Write your notes or questions here..." defaultValue={""} />
                           </div>
                         </div>
