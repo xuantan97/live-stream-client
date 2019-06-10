@@ -70,7 +70,10 @@ class WebRTCVideo extends React.Component {
                     this.state.isStream === true && <video id={'broadcast-video'}
                         muted={this.state.isMuted}
                         ref={this.video}
-                        height={360}
+                        // width={400}
+                        // width={this.props.width}
+                        width="100%"
+                        height={400}
                         controls
                     ></video>
                 }

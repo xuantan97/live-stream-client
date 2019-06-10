@@ -2615,33 +2615,316 @@ a.site-menu-focus {
 
 /*--------------------------- CSS GAME --------------------------------*/
 
+
+.game-section {
+  display: flex;
+  justify-content: center;
+  background: #f2f2f2 !important;
+  margin-top: 69px;
+}
+
 .container-full {
   margin: 0;
   padding: 0;
+  background: #fff;
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.video-question {
+  width: 100%;
+  height: 25rem;
+  /* height: 20rem; */
 }
 
 .video-container {
   display: flex;
   justify-content: center;
-  height: 22.5rem;
-  background: #f00;
-  width: 100%;
+  /* height: 20rem; */
+  background: #333;
+  /* width: 100%; */
+  height: 50%;
+  /* width: 100%; */
+  -webkit-animation: example 1s;
+  animation: example 1s;
 }
+
+video {
+  height: 100%;
+  -webkit-animation: example 1s;
+  animation: example 1s;
+}
+
+/* video {
+  height: 20rem;
+} */
 
 .question-container {
   width: 100%;
-  height: 22.5rem;
+  /* height: 100%; */
+
+  height: 50%;
   background: #ff9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+.answer-container {
+  width: 100%;
+  background: #f9f;
+  height: auto;
+  animation: zoomInRight 1s linear;
+}
+
+.btn-answer {
+  height: 4.5rem;
+  width: 100%;
+  margin: 0.5rem 0 0;
+  background: #00f;
+  border: none;
+  color: #fff;
+  border-radius: 2px;
+  transition: 0.2s ease;
+}
+
+.hover {
+  background: #007bff;
+}
+
+.button-focus {
+  background: #005dc0;
+}
+
+.btn-answer:active {
+  background: #005dc0;
+}
+
+.disable-color {
+  border-color: #aaa !important;
+  background-color: #aaa !important;
 }
 
 .chat-container {
   width: 100%;
-  height: 22.5rem;
-  background: #0f0;
+  height: 15rem;
+  /* background: #0f0; */
+  margin-top: 0.5rem;
+  padding: 20px 0 0;
+}
+
+.chat-content {
+  background: #fff;
+  padding: 20px;
+  height: 60%;
+  overflow-y: auto;
+  /* word-break:break-word; */
+  /* white-space: pre-wrap;
+  word-break: break-all; */
+  word-wrap: break-word;
+}
+
+.input-content {
+  display: grid;
+  grid-template-columns: 5fr 1fr;
+  grid-column-gap: 20px;
+  height: 40%;
+  padding: 20px;
+  background: #eee;
+}
+
+::placeholder {
+  opacity: 0.5;
+}
+
+.input-content #txtChat {
+  grid-column: 1;
+  padding: 0.5rem;
+  border: none;
+  border-bottom: 1.2px solid #999;
+  outline: none;
+  background: transparent;
+}
+
+.input-content #btnChat {
+  grid-column: 2;
+  background: #f7f7f7;
+  border: none;
+  outline: none;
+  transition: 0.2s ease;
+  background: #25a042;
+  color: #7c7c7d;
+  border-radius: 2px;
+  color: #fff;
+}
+
+.input-content #btnChat:hover {
+  background: #008afc;
+  color: #fff;
+}
+
+.input-content #btnChat:active {
+  background: #006fcb;
+}
+
+.full-height {
+  height: 100% !important;
+}
+
+.wrong-answer {
+  background: #f00 !important;
+  border-color: #f00 !important;
+  color: #fff !important;
+  border-radius: 2px;
+}
+
+.right-answer {
+  background: #0d0 !important;
+  border-color: #0d0 !important;
+  /* transition: 0.5s ease; */
+  animation: right-answer 1.5s linear;
+  animation-iteration-count: 2;
+  border-radius: 2px;
+}
+
+@keyframes right-answer {
+  0%, 20%, 40%, 60%, 80%, 100% {
+    background: #0d0;
+    border-color: #0d0;
+  }
+  10%, 30%, 50%, 70%, 90% {
+    background: #36f;
+    border-color: #36f;
+  }
 }
 
 
-@media (min-width: 1000px) {
- 
-  
+
+@media (min-width: 800px) {
+  .container-full {
+    width: 80%;
+  }
+
+  .video-question {
+    display: flex;
+    height: 12rem;
+  }
+
+  .video-container {
+    /* height: 12rem; */
+    /* height: 100%; 
+    height: 100%; */
+    width: 35%;
+    height: 100%;
+  }
+
+  video {
+    height: 100%;
+  }
+
+  .video-full {
+    width: 50%;
+  }
+
+  .video-container-full {
+    width: 100%;
+  }
+
+  .question-container {
+    /* width: 100%;
+    height: 100%; */
+    width: 65%;
+    height: 100%;
+    animation: zoomInRight 1s linear;
+  }
+
+  .row-answer {
+    display: flex;
+    justify-content: space-between;
+    margin: 0.5rem 0;
+  }
+
+  .btn-answer {
+    height: 4.5rem;
+    width: 49.5%;
+    margin: 0;
+  }
+}
+
+@media (max-width: 700px) {
+  .input-content {
+    grid-template-columns: 1fr;
+    grid-template-rows: 60% auto;
+    height: auto;
+  }
+
+  .input-content #txtChat {
+    grid-column: 1;
+    grid-row: 1;
+    margin-bottom: 20px;
+  }
+
+  .input-content #btnChat {
+    grid-column: 1;
+    grid-row: 2;
+    padding: 10px;
+  }
+
+}
+
+@-webkit-keyframes zoomInRight {
+  from {
+    opacity: 0;
+    -webkit-transform: scale3d(0.1, 0.1, 0.1) translate3d(1000px, 0, 0);
+    transform: scale3d(0.1, 0.1, 0.1) translate3d(1000px, 0, 0);
+    -webkit-animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+    animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+  }
+
+  60% {
+    opacity: 1;
+    -webkit-transform: scale3d(0.475, 0.475, 0.475) translate3d(-10px, 0, 0);
+    transform: scale3d(0.475, 0.475, 0.475) translate3d(-10px, 0, 0);
+    -webkit-animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1);
+    animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1);
+  }
+}
+
+@keyframes zoomInRight {
+  from {
+    opacity: 0;
+    -webkit-transform: scale3d(0.1, 0.1, 0.1) translate3d(1000px, 0, 0);
+    transform: scale3d(0.1, 0.1, 0.1) translate3d(1000px, 0, 0);
+    -webkit-animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+    animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+  }
+
+  60% {
+    opacity: 1;
+    -webkit-transform: scale3d(0.475, 0.475, 0.475) translate3d(-10px, 0, 0);
+    transform: scale3d(0.475, 0.475, 0.475) translate3d(-10px, 0, 0);
+    -webkit-animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1);
+    animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1);
+  }
+}
+
+.zoomInRight {
+  -webkit-animation-name: zoomInRight;
+  animation-name: zoomInRight;
+}
+
+
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes example {
+  0%   {background-color:red; left:1000px;}
+  100% {background-color:red; left:0px;}
+}
+
+/* Standard syntax */
+@keyframes example {
+  0%   {background-color:red; left:1000px;}
+  100% {background-color:red; left:0px;}
 }

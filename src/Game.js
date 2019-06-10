@@ -31,51 +31,87 @@ class Game extends Component {
     
     
       async componentDidMount() {
-        $('.question-content').hide();
-        $('.head-title').show();
-        $('.countdown').hide();
-        $('.summary').hide();
-        $('.win').hide();
-        // $('button.btn-answer').mouseover(function () {
-        //   $(this).addClass('hover');
-        // });
-        // $('button.btn-answer').mouseout(function () {
-        //   $(this).removeClass('hover');
-        // });
+        // $('.question-content').hide();
+        // $('.head-title').show();
+        // $('.countdown').hide();
+        // $('.summary').hide();
+        // $('.win').hide();
+
         $('button.btn-answer').mouseover(function () {
-          var x = $(this).val();
-          $(this).addClass('hover-' + x);
+          $(this).addClass('hover');
         });
         $('button.btn-answer').mouseout(function () {
-          var x = $(this).val();
-          $(this).removeClass('hover-' + x);
+          $(this).removeClass('hover');
         });
+
+
+        $('.question-container').hide();
+        $('.answer-container').hide();
+
+        $('.video-question').height(400);
+        $('.container-full').addClass('video-full');
+        $('.video-container').addClass('video-container-full');
+
+        if($('.question-container').css('display')==='none') {
+          $('.video-container').addClass('full-height');
+        } 
+        if($('.question-container').css('display')!=='none') {
+          $('.video-container').removeClass('full-height');
+
+        }
+
+        
     
         //listen event server broadcast question and show
         this.socket.on('BROADCAST_QUESTION_TO_CLIENT', (dataAPI) => {
     
           this.setState({seconds: 12});
     
-          $('.question-content').show();
-          $('.head-title').hide();
-          $('.countdown').show();
-          $('.welcome').hide();
+          // $('.question-content').show();
+          // $('.head-title').hide();
+          // $('.countdown').show();
+          // $('.welcome').hide();
           $('button.btn-answer').removeClass('button-focus');
           $('button.btn-answer').removeClass('right-answer');
           $('button.btn-answer').removeClass('wrong-answer');
           $('button.btn-answer').removeClass('disable-color');
     
-          // $('button.btn-answer').addClass('hover');
           $('button.btn-answer').prop('disabled', false);
     
           $('button.btn-answer').mouseover(function () {
-            var x = $(this).val();
-            $(this).addClass('hover-' + x);
+            $(this).addClass('hover');
           });
           $('button.btn-answer').mouseout(function () {
-            var x = $(this).val();
-            $(this).removeClass('hover-' + x);
+            $(this).removeClass('hover');
           });
+          $('.question-container').show();
+          $('.answer-container').show();
+
+          $('.container-full').removeClass('video-full');
+          $('.video-container').removeClass('video-container-full');
+          $('.video-container').removeClass('full-height');
+
+
+
+
+          var w = $(window).width();
+          if(w > 800) {
+            $('.video-question').height(192); 
+          } else {
+            $('.video-question').height(384); 
+          }
+
+          $(window).bind('resize', function(e) {
+            w = $(window).width();
+            if(w > 800) {
+              $('.video-question').height(192); 
+            } else {
+              $('.video-question').height(384); 
+            }
+          });
+
+
+
     
           dataAPI.response.body = JSON.parse(dataAPI.response.body);
           this.setState({
@@ -117,14 +153,14 @@ class Game extends Component {
         })
     
     
-        // this.socket.on("SERVER_CHAT", (data) => {
-        //   $("#content").append("<div style='color:#008afc; font-weight: 600; font-size: 20px'>" + data[1] + ": <span style='color:#000; font-size: 18px'>" + data[0] + "</span></div>");
-        //   $('.chat-content').animate({ scrollTop: $('.chat-content').get(0).scrollHeight }, 200);
-        // });
+        this.socket.on("SERVER_CHAT", (data) => {
+          $("#content").append("<div style='color:#008afc; font-weight: 600; font-size: 20px'>" + data[1] + ": <span style='color:#000; font-size: 18px'>" + data[0] + "</span></div>");
+          $('.chat-content').animate({ scrollTop: $('.chat-content').get(0).scrollHeight }, 200);
+        });
     
     
         this.socket.on('CLOSE_QUESTION', () => {
-          $('button.btn-answer').removeClass('hover-A hover-B hover-C');
+          $('button.btn-answer').removeClass('hover');
           $('button.btn-answer').prop('disabled', true);
           $(`button[value!="${this.state.answering}"]`).addClass('disable-color');
         });
@@ -149,9 +185,9 @@ class Game extends Component {
     
             var dataSum = await [this.state.id, this.state.isTrue];
             await this.socket.emit("SUMMARY", dataSum);
-            $('.summary').show();
-            $('.welcome').hide();
-            $('.countdown').hide();
+            // $('.summary').show();
+            // $('.welcome').hide();
+            // $('.countdown').hide();
             //emit winner
             if(data.program_id === 10) {
               if(this.state.isWin === 0) {
@@ -168,19 +204,19 @@ class Game extends Component {
     
     
         this.socket.on("STATISTIC", (statistic) => {
-          $('#summary-correct').html(statistic.right);
-          $('#summary-incorrect').html(statistic.wrong);
+          // $('#summary-correct').html(statistic.right);
+          // $('#summary-incorrect').html(statistic.wrong);
       });
     
     
         this.socket.on('END_GAME_TO_CLIENT', (dataEndGame) => {
-          $(".question").hide();
-          $(".countdown").hide();
-          $(".video-question").addClass("full-video");
-          $(".video-question").removeClass("flex");
-          $("#left").removeClass("left");
-          $("#right").removeClass("right");
-          $(".main-content").removeClass("main-content-1");
+          // $(".question").hide();
+          // $(".countdown").hide();
+          // $(".video-question").addClass("full-video");
+          // $(".video-question").removeClass("flex");
+          // $("#left").removeClass("left");
+          // $("#right").removeClass("right");
+          // $(".main-content").removeClass("main-content-1");
     
           console.log(dataEndGame);
           $('.win').append(`<style>.win:before{content:'${dataEndGame[2]}$' !important} .win:after{content:'${dataEndGame[2]}$' !important}</style>`);
@@ -216,12 +252,10 @@ class Game extends Component {
         await this.setState({
           answering: event.target.value,
         });
-        $('.question button').removeClass('hover-A hover-B hover-C');
-        // $(`button[value="${this.state.answering}"]`).addClass('button-focus').unbind('mouseover');
+        $('button.btn-answer').removeClass('hover');
         $(`button[value="${this.state.answering}"]`).unbind('mouseover');
-        // $(`button[value!="${this.state.answering}"]`).prop('disabled', true);
+        $(`button[value="${this.state.answering}"]`).addClass('button-focus');
         $(`button[value!="${this.state.answering}"]`).addClass('disable-color');
-        $('button.btn-answer').removeClass('hover-A hover-B hover-C');
         $('button.btn-answer').prop('disabled', true);
       }
     
@@ -324,48 +358,71 @@ class Game extends Component {
         return(
             <div className="site-wrap">
                 <div className="site-mobile-menu site-navbar-target">
-          <div className="site-mobile-menu-header">
-            <div className="site-mobile-menu-close mt-3">
-              <span><FaTimes className="icon-close2 js-menu-toggle"/></span>
-            </div>
-          </div>
-          <div className="site-mobile-menu-body" />
-        </div>
-        <div id="sticky-wrapper" className="sticky-wrapper">
-        <header className="site-navbar py-4 js-sticky-header site-navbar-target" role="banner"
-            style={{width: '100%', position: 'fixed', top: '0px', transition: '0.5s'}}>
-          <div className="container">
-            <div className="row align-items-center">
-              <div className="col-6 col-xl-2">
-                <h1 className="mb-0 site-logo"><Link className="h2 mb-0" to="/homepage">Trivia<span>Game</span></Link></h1>
-              </div>
-              <div className="col-12 col-md-10 d-none d-xl-block">
-                <nav className="site-navigation position-relative text-right" role="navigation">
-                  <ul className="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
-                    <li><Link to="/homepage">Trang chủ</Link></li>
-                    <li><Link to="/aboutus" className="site-menu-focus aboutus">Chúng tôi</Link></li>
-                    <li><Link to="/game">Trò chơi</Link></li>
-                    <li><Link to="/contact">Liên hệ</Link></li>
-                    <li><Link to="/history">Lịch sử</Link></li>
-                    <li><Link to="/login">Đăng nhập</Link></li>
-                  </ul>
-                </nav>
-              </div>
-              <div className="col-6 d-inline-block d-xl-none ml-md-0 py-3" style={{position: 'relative', top: '3px'}}><a href="#" className="site-menu-toggle js-menu-toggle text-black float-right"><span><FaList className="icon-menu h3"/></span></a></div>
-            </div>
-          </div>
-        </header>
-        </div>
-                <section className="site-section bg-light" id="contact-section">
+                  <div className="site-mobile-menu-header">
+                    <div className="site-mobile-menu-close mt-3">
+                      <span><FaTimes className="icon-close2 js-menu-toggle"/></span>
+                    </div>
+                  </div>
+                  <div className="site-mobile-menu-body" />
+                </div>
+                <div id="sticky-wrapper" className="sticky-wrapper">
+                <header className="site-navbar py-4 js-sticky-header site-navbar-target" role="banner"
+                    style={{width: '100%', position: 'fixed', top: '0px', transition: '0.5s'}}>
+                  <div className="container">
+                    <div className="row align-items-center">
+                      <div className="col-6 col-xl-2">
+                        <h1 className="mb-0 site-logo"><Link className="h2 mb-0" to="/homepage">Trivia<span>Game</span></Link></h1>
+                      </div>
+                      <div className="col-12 col-md-10 d-none d-xl-block">
+                        <nav className="site-navigation position-relative text-right" role="navigation">
+                          <ul className="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
+                            <li><Link to="/homepage">Trang chủ</Link></li>
+                            <li><Link to="/aboutus" className="site-menu-focus aboutus">Chúng tôi</Link></li>
+                            <li><Link to="/game">Trò chơi</Link></li>
+                            <li><Link to="/contact">Liên hệ</Link></li>
+                            <li><Link to="/history">Lịch sử</Link></li>
+                            <li><Link to="/login">Đăng nhập</Link></li>
+                          </ul>
+                        </nav>
+                      </div>
+                      <div className="col-6 d-inline-block d-xl-none ml-md-0 py-3" style={{position: 'relative', top: '3px'}}><a href="#" className="site-menu-toggle js-menu-toggle text-black float-right"><span><FaList className="icon-menu h3"/></span></a></div>
+                    </div>
+                  </div>
+                </header>
+                </div>
+                <section className="site-section game-section" id="contact-section">
 
                 <div className="container-full">
-                  <div className="video-chat">
                     <div className="video-question">
-                      <div className="video-container"></div>
-                      <div className="question-container"></div>
+                      <div className="video-container">
+                        <WebRTCVideo/>
+                      </div>
+                      <div className="question-container">
+                        <div>
+                          Câu {this.state.program_id}:
+                        </div>
+                        {this.state.title}
+                      </div>
                     </div>
-                    <div className="chat-container"></div>
-                  </div>
+                    <div className="answer-container">
+                      <div className="row-answer">
+                          <button onClick={(event) => this.submitAnswer(event)} value="A" className="btn-answer">A. {this.state.A}</button>
+                          <button onClick={(event) => this.submitAnswer(event)} value="B" className="btn-answer">B. {this.state.B}</button>
+                      </div>
+                      <div className="row-answer">
+                          <button onClick={(event) => this.submitAnswer(event)} value="C" className="btn-answer">C. {this.state.C}</button>
+                          <button onClick={(event) => this.submitAnswer(event)} value="D" className="btn-answer">D. {this.state.D}</button>
+                      </div>
+                    </div>
+                    <div className="chat-container">
+                      <div className="chat-content">
+                        <div id="content"></div>
+                      </div>
+                      <div className="input-content">
+                        <input id="txtChat"  type="text" placeholder="Comment..." onKeyPress={(event)=>this.handleKeyPress(event)}/>
+                        <input id="btnChat" type="button" value="Comment" onClick={()=>this.sendMessage([$("#txtChat").val(), localStorage.getItem('username')])}/>
+                      </div>
+                    </div>
                 </div>
                 {/* <div className="container-full">
                     <div style={{background: '#cc9', postition: 'relative'}}>
