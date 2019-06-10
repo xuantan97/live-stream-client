@@ -404,6 +404,17 @@ class Game extends Component {
                         {this.state.title}
                       </div>
                     </div>
+                    
+                    <div className="chat-container">
+                      <div className="chat-content">
+                        <div id="content"></div>
+                      </div>
+                      <div className="input-content">
+                        <input id="txtChat"  type="text" placeholder="Comment..." onKeyPress={(event)=>this.handleKeyPress(event)}/>
+                        <input id="btnChat" type="button" value="Comment" onClick={()=>this.sendMessage([$("#txtChat").val(), localStorage.getItem('username')])}/>
+                      </div>
+                    </div>
+
                     <div className="answer-container">
                       <div className="row-answer">
                           <button onClick={(event) => this.submitAnswer(event)} value="A" className="btn-answer">A. {this.state.A}</button>
@@ -412,15 +423,6 @@ class Game extends Component {
                       <div className="row-answer">
                           <button onClick={(event) => this.submitAnswer(event)} value="C" className="btn-answer">C. {this.state.C}</button>
                           <button onClick={(event) => this.submitAnswer(event)} value="D" className="btn-answer">D. {this.state.D}</button>
-                      </div>
-                    </div>
-                    <div className="chat-container">
-                      <div className="chat-content">
-                        <div id="content"></div>
-                      </div>
-                      <div className="input-content">
-                        <input id="txtChat"  type="text" placeholder="Comment..." onKeyPress={(event)=>this.handleKeyPress(event)}/>
-                        <input id="btnChat" type="button" value="Comment" onClick={()=>this.sendMessage([$("#txtChat").val(), localStorage.getItem('username')])}/>
                       </div>
                     </div>
                 </div>

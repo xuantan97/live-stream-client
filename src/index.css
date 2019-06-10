@@ -2665,17 +2665,20 @@ video {
   /* height: 100%; */
 
   height: 50%;
-  background: #ff9;
+  /* background: #ff9; */
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 1rem;
   box-sizing: border-box;
+  font-size: 27px;
+  color: #000;
+  font-weight: 600;
 }
 
 .answer-container {
   width: 100%;
-  background: #f9f;
+  /* background: #f9f; */
   height: auto;
   animation: zoomInRight 1s linear;
 }
@@ -2710,21 +2713,22 @@ video {
 
 .chat-container {
   width: 100%;
-  height: 15rem;
+  height: 12rem;
   /* background: #0f0; */
   margin-top: 0.5rem;
-  padding: 20px 0 0;
+  padding: 15px 0 0;
 }
 
 .chat-content {
-  background: #fff;
-  padding: 20px;
+  background: #cfc;
+  padding: 15px;
   height: 60%;
   overflow-y: auto;
   /* word-break:break-word; */
   /* white-space: pre-wrap;
   word-break: break-all; */
   word-wrap: break-word;
+
 }
 
 .input-content {
@@ -2732,7 +2736,7 @@ video {
   grid-template-columns: 5fr 1fr;
   grid-column-gap: 20px;
   height: 40%;
-  padding: 20px;
+  padding: 15px;
   background: #eee;
 }
 
@@ -2804,6 +2808,11 @@ video {
 
 
 @media (min-width: 800px) {
+
+  .game-section {
+    margin-top: 0;
+  }
+
   .container-full {
     width: 80%;
   }
