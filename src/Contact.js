@@ -2,7 +2,7 @@ import $ from "jquery";
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { FaUserAlt, FaFacebookF, FaPaperPlane, FaCheck, FaTimes, FaTwitter, FaInstagram, FaLinkedinIn, FaHeart, FaList } from 'react-icons/fa';
-
+import Footer from './Footer';
 
 class Contact extends Component {
     
@@ -136,34 +136,34 @@ class Contact extends Component {
                 <div className="container">
                   <div className="row mb-5">
                     <div className="col-12 text-center">
-                      <h2 className="section-title mb-3">Reach to us</h2>
+                      <h2 className="section-title mb-3">Liên hệ với chúng tôi</h2>
                     </div>
                   </div>
                   <div className="row">
                     <div className="col-md-4">
-                      <p className="mb-0 font-weight-bold">Address</p>
-                      <p className="mb-4">203 Fake St. Mountain View, San Francisco, California, USA
+                      <p className="mb-0 font-weight-bold">Địa chỉ</p>
+                      <p className="mb-4">463 Cách Mạng Tháng 8, Phường 13, Quận 10, TPHCM
                       </p></div>
                     <div className="col-md-4">
-                      <p className="mb-0 font-weight-bold">Phone</p>
-                      <p className="mb-4"><a href="#">+1 232 3235 324</a></p>
+                      <p className="mb-0 font-weight-bold">Số điện thoại</p>
+                      <p className="mb-4">0328010342</p>
                     </div>
                     <div className="col-md-4">
-                      <p className="mb-0 font-weight-bold">Email Address</p>
-                      <p className="mb-0"><a href="#">youremail@domain.com</a></p>
+                      <p className="mb-0 font-weight-bold">Email</p>
+                      <p className="mb-0">anson1907@gmail.com</p>
                     </div>
                   </div>
                   <div className="row">
                     <div className="col-md-12 mb-5">
                       <form action="#" className="p-5 bg-white">
-                        <h2 className="h4 text-black mb-5">Contact Form</h2> 
+                        <h2 className="h4 text-black mb-5">Form Liên hệ</h2> 
                         <div className="row form-group">
                           <div className="col-md-6 mb-3 mb-md-0">
-                            <label className="text-black" htmlFor="fname">First Name</label>
+                            <label className="text-black" htmlFor="fname">Họ</label>
                             <input type="text" id="fname" className="form-control" />
                           </div>
                           <div className="col-md-6">
-                            <label className="text-black" htmlFor="lname">Last Name</label>
+                            <label className="text-black" htmlFor="lname">Tên</label>
                             <input type="text" id="lname" className="form-control" />
                           </div>
                         </div>
@@ -175,13 +175,13 @@ class Contact extends Component {
                         </div>
                         <div className="row form-group">
                           <div className="col-md-12">
-                            <label className="text-black" htmlFor="subject">Subject</label> 
+                            <label className="text-black" htmlFor="subject">Tiêu đề</label> 
                             <input type="subject" id="subject" className="form-control" />
                           </div>
                         </div>
                         <div className="row form-group">
                           <div className="col-md-12">
-                            <label className="text-black" htmlFor="message">Message</label> 
+                            <label className="text-black" htmlFor="message">Nội dung</label> 
                             <textarea name="message" id="message" cols={30} rows={7} className="form-control" placeholder="Write your notes or questions here..." defaultValue={""} />
                           </div>
                         </div>
@@ -195,63 +195,7 @@ class Contact extends Component {
                   </div>
                 </div></section>
 
-                <footer className="site-footer">
-          <div className="container">
-            <div className="row">
-              <div className="col-md-9">
-                <div className="row">
-                  <div className="col-md-5">
-                    <h2 className="footer-heading mb-4">About Us</h2>
-                    <p className="mb-5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque facere laudantium magnam voluptatum autem. Amet aliquid nesciunt veritatis aliquam.</p>
-                    <h2 className="footer-heading mb-4">Subscribe Newsletter</h2>
-                    <form action="#" method="post" className="footer-subscribe">
-                      <div className="input-group mb-3">
-                        <input type="text" className="form-control border-secondary text-white bg-transparent" placeholder="Enter Email" aria-label="Enter Email" aria-describedby="button-addon2" />
-                        <div className="input-group-append">
-                          <button className="btn btn-white text-black" type="button" id="button-addon2" style={{background: '#fff'}}>Send</button>
-                        </div>
-                      </div>
-                    </form>
-                  </div>
-                  <div className="col-md-3 ml-auto">
-                    <h2 className="footer-heading mb-4">Quick Links</h2>
-                    <ul className="list-unstyled">
-                      <li><a href="#">About Us</a></li>
-                      <li><a href="#">Services</a></li>
-                      <li><a href="#">Testimonials</a></li>
-                      <li><a href="#">Contact Us</a></li>
-                    </ul>
-                  </div>
-                  <div className="col-md-3">
-                    <h2 className="footer-heading mb-4">Follow Us</h2>
-                    <a href="#" className="pl-0 pr-3"><FaFacebookF/></a>
-                    <a href="#" className="pl-3 pr-3"><FaTwitter/></a>
-                    <a href="#" className="pl-3 pr-3"><FaInstagram/></a>
-                    <a href="#" className="pl-3 pr-3"><FaLinkedinIn/></a>
-                  </div>
-                </div>
-              </div>
-              <div className="col-md-3">
-                <div className="mb-5">
-                  <img src="images/img_1.jpg" alt className="img-fluid mb-4" />
-                  <h2 className="footer-heading mb-4">Some Paragraph</h2>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores, laudantium nisi quo, sit neque quisquam.</p>
-                </div>
-              </div>
-            </div>
-            <div className="row pt-5 mt-5 text-center">
-              <div className="col-md-12">
-                <div className="border-top pt-5">
-                  <p>
-                    {/* Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. */}
-                    Copyright © All rights reserved | This template is made with <FaHeart aria-hidden="true"/> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-                    {/* Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. */}
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </footer>
+                <Footer/>
             </div>
         );
     }
