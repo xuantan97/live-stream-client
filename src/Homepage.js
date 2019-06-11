@@ -154,20 +154,20 @@ class Homepage extends Component {
             </div>
           </div>
         </div>  
-        <div className="site-section bg-primary">
+        <div className="site-section bg-primary" style={{paddingTop: '30px', paddingBottom: '30px'}}>
           <div className="container">
             <div className="row">
-              <div className="col-md-12 col-lg-4 mb-4 mb-lg-0">
+              <div className="col-md-12 col-lg-4 mb-4 mb-lg-0" style={{display: 'flex', alignItems: 'center'}}>
                 <h3 className="text-white">Câu hỏi trắc nghiệm</h3>
               </div>
-              <div className="col-md-6 col-lg-4 d-flex">
+              <div className="col-md-6 col-lg-4 d-flex" style={{display: 'flex', alignItems: 'center'}}>
                 <div className="mr-3"><span className="flaticon-bill display-3 text-special" /></div>
                 <div>
                   <h3 className="text-white h4">Đúng 10 câu liên tiếp</h3>
                   <h3 className="text-white h4">Nhận thưởng liền tay</h3>
                 </div>
               </div>
-              <div className="col-md-6 col-lg-4 d-flex">
+              <div className="col-md-6 col-lg-4 d-flex" style={{display: 'flex', alignItems: 'center'}}>
                 <div className="mr-3"><span className="flaticon-customer-service display-3 text-special" /></div>
                 <div>
                   <h3 className="text-white h4">Cùng nhau trải nghiệm</h3>
