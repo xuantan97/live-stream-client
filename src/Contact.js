@@ -1,15 +1,52 @@
 import $ from "jquery";
 import React, { Component } from "react";
-import { NavDropdown } from 'react-bootstrap';
-import { Link } from "react-router-dom";
-import { FaUserAlt, FaTimes, FaList } from 'react-icons/fa';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { FaTimes, FaList } from 'react-icons/fa';
 import Footer from './Footer';
 
 class Contact extends Component {
-    logout() {
-      localStorage.clear();
-      this.props.history.push('/');
+
+    submitForm() {
+      var first_name = $("#fname").val();
+      var last_name = $("#lname").val();
+      var email = $("#email").val();
+      var subject = $("#subject").val();
+      var message = $("#message").val();
+
+      if(first_name === "" || last_name === "" || email === "" || subject === "" || message === "") {
+        alert("Bạn phải điền đầy đủ thông tin trong form")
+      }
+      else {
+        var contact = new FormData();
+        contact.append('first_name', first_name);
+        contact.append('last_name', last_name);
+        contact.append('email', email);
+        contact.append('subject', subject);
+        contact.append('message', message);
+  
+        fetch('http://bonddemo.tk/v1/contact/add',{
+            method: 'POST',
+            headers: {
+              'Authorization': 'Bearer lyWyy7-2EqXt6JOjKXnQV90Ghv94ie_5vO20rHFP'
+          },
+            body: contact
+        })
+        .then(res => {
+            res.json().then(response => {
+                $("#fname").val("");
+                $("#lname").val("");
+                $("#email").val("");
+                $("#subject").val("");
+                $("#message").val("");
+                alert("Ý kiến của bạn đã được ghi nhận !!")
+            })
+        })
+        .catch(error => {console.log(error);});
+      }
     }
+
+
+    
     render() {
       $(document).ready(function() {
         $('.sticky-wrapper').addClass('is-sticky');
@@ -24,10 +61,10 @@ class Contact extends Component {
         });  
   
         var siteMenuClone = function() {
-          // $('.js-clone-nav').each(function() {
-          //   var $this = $(this);
-          //   $this.clone().attr('class', 'site-nav-wrap').appendTo('.site-mobile-menu-body');
-          // });
+          $('.js-clone-nav').each(function() {
+            var $this = $(this);
+            $this.clone().attr('class', 'site-nav-wrap').appendTo('.site-mobile-menu-body');
+          });
       
       
           setTimeout(function() {
@@ -109,23 +146,7 @@ class Contact extends Component {
               <span><FaTimes className="icon-close2 js-menu-toggle"/></span>
             </div>
           </div>
-          {/* <div className="site-mobile-menu-body" /> */}
-          <div className="site-mobile-menu-body">
-            <ul className="site-nav-wrap">
-              <li><Link to="/homepage">Trang chủ</Link></li>
-              <li><Link to="/aboutus">Chúng tôi</Link></li>
-              <li><Link to="/game">Trò chơi</Link></li>
-              <li><Link to="/contact" className="site-menu-focus contact">Liên hệ</Link></li>
-              <li><Link to="/history">Lịch sử</Link></li>
-              <li>
-              <NavDropdown title={<FaUserAlt style={{ fontSize: '16px', marginBottom: '5px' }} />} id="basic-nav-dropdown">
-                <NavDropdown.Item href="#" onClick={()=>this.props.history.push('/profile')}>Profile</NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item href="#" onClick={() => this.logout()}>Log out</NavDropdown.Item>
-              </NavDropdown>
-              </li>
-            </ul>
-          </div>
+          <div className="site-mobile-menu-body" />
         </div>
         <div id="sticky-wrapper" className="sticky-wrapper">
         <header className="site-navbar py-4 js-sticky-header site-navbar-target" role="banner"
@@ -143,13 +164,7 @@ class Contact extends Component {
                     <li><Link to="/game">Trò chơi</Link></li>
                     <li><Link to="/contact" className="site-menu-focus contact">Liên hệ</Link></li>
                     <li><Link to="/history">Lịch sử</Link></li>
-                    <li>
-                      <NavDropdown title={<FaUserAlt style={{ fontSize: '16px', marginBottom: '5px' }} />} id="basic-nav-dropdown">
-                        <NavDropdown.Item href="#" onClick={()=>this.props.history.push('/profile')}>Profile</NavDropdown.Item>
-                        <NavDropdown.Divider />
-                        <NavDropdown.Item href="#" onClick={() => this.logout()}>Log out</NavDropdown.Item>
-                      </NavDropdown>
-                    </li>
+                    <li><Link to="/login">Đăng nhập</Link></li>
                   </ul>
                 </nav>
               </div>
@@ -213,7 +228,7 @@ class Contact extends Component {
                         </div>
                         <div className="row form-group">
                           <div className="col-md-12">
-                            <input type="submit" defaultValue="Send Message" className="btn btn-primary btn-md text-white" />
+                            <input type="button" onClick={()=>this.submitForm()} defaultValue="Gửi" id="btnGui" className="btn btn-primary btn-md text-white" />
                           </div>
                         </div>
                       </form>
