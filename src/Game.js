@@ -50,9 +50,10 @@ class Game extends Component {
     
         //listen event server broadcast question and show
         this.socket.on('BROADCAST_QUESTION_TO_CLIENT', (dataAPI) => {
-    
+          
           this.setState({seconds: 12});
 
+          $('.summary').hide();
           $('.question-content').show();
           $('.countdown').show();
           $('button.btn-answer').removeClass('button-focus');
@@ -389,7 +390,7 @@ class Game extends Component {
                         </div>
                       </div>
                     </div>
-                    <div className="video-container"><WebRTCVideo/></div>
+                    <div className="video-container"><WebRTCVideo/> <img src="" alt=""/></div>
                     <div className="chat-container">
                       <div style={{width: '100%', height: '100%'}}>
                         <div className="chat-content">

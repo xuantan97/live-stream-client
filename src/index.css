@@ -2811,7 +2811,8 @@ a.site-menu-focus {
 .question-container {
   width: 100%;
   height: 100%;
-  background: #f9f;
+  background: #BDBDBD;
+  color: #2e3a59;
   grid-column: 1/span 3;
   grid-row: 2;
   display: flex;
