@@ -146,7 +146,7 @@ class AboutUs extends Component {
                       <p>Tận dụng tối đa công nghệ LiveSteam vào lĩnh vực giải trí để tạo ra ứng dụng hữu ích và được mọi người tin dùng.</p>
                       <p>
                         Nâng cao sự tiện dụng - mục tiêu quan trọng nhất được đặt ra là đảm bảo người dùng có thể dễ dàng tham gia giải trí mọi nơi. Không cần thủ tục phức tạp như các chương trình gameshow truyền hình.
-                        Tương tác thời gian thực với người điều khiển chương trình gải trí.
+                        Tương tác thời gian thực với người điều khiển chương trình giải trí.
                       </p>
                       <p>
                         Hệ thống được xây dựng và phát triển trên nền tảng web và cả smartphone nhằm mang lại trải nghiệm tuyệt vời cho người dùng.

@@ -149,6 +149,7 @@ class Homepage extends Component {
             <div className="row">
               <div className="col-md-6 mt-lg-5 ml-auto text-left align-self-end align-self-md-center">
                 <h1>Trivia Game</h1>
+                <h1>Thách thức hiểu biết</h1>
                 <p className="mb-4"><Link className="btn btn-primary mr-2 mb-2" to="/game">Bắt đầu chơi</Link></p>
               </div>
             </div>
@@ -186,9 +187,10 @@ class Homepage extends Component {
               <div className="col-lg-6 order-md-1" data-aos="fade">
                 <h2 className="section-title mb-3">Chào mừng đến với game tương tác thời gian thực</h2>
                 <p className="lead">Dựa trên nền tảng công nghệ video stream. Chúng tôi đã tạo ra ứng dụng giải trí tương tác thời gian thực.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odio necessitatibus deserunt itaque dignissimos adipisci, tenetur.</p>
-                <p className="mb-4">Ipsum dolorum ab magnam facere alias ducimus nulla consequuntur blanditiis, maxime explicabo rerum maiores, odio.</p>
-                <p><img src="images/signature.jpg" alt="Image" className="img-fluid w-25" /></p>
+                <p>Đến với chúng tôi, bạn sẽ được trải nghiệm một cách sống động cảm giác như đang chơi một gameshow truyền hình thực tế.</p>
+                <p className="mb-4">Tại đây, bạn sẽ có cơ hội vận dụng tối đa các kiến thức mà mình có trên tất cả các lĩnh vực xuyên suốt các thử thách của chương trình.</p>
+                <p>Hãy vượt qua hết các thử thách và trở thành người chiến thắng của trò chơi!</p>
+                {/* <p><img src="images/signature.jpg" alt="Image" className="img-fluid w-25" /></p> */}
               </div>
             </div>
           </div>

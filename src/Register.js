@@ -80,7 +80,41 @@ class Register extends Component {
 
         return(
             <div className="container-form">
-                <div className="container">
+                
+                <div class="wrapper-login">
+                    <div class="container-login">
+                        <h1>Register</h1>
+                        
+                        <form class="form-login" onSubmit={this.onSubmit}>
+                            {errors.username && <span style={{color: '#ae5856'}}>{errors.username}</span>}
+                            <input className={userName} type="text" id="username" name="username" placeholder="Username" value={data.username} onChange={this.onChange}/>
+
+                            {errors.email && <div style={{color: '#ae5856'}}>{errors.email}</div>}
+                            <input className={email} type="email" id="email" name="email" placeholder="Email" value={data.email} onChange={this.onChange}/>
+
+                            {errors.password && <div style={{color: '#ae5856'}}>{errors.password}</div>}
+                            <input className={password} type="password" id="password" name="password" placeholder="Password" value={data.password} onChange={this.onChange}/>
+
+                            {errors.passwordConfirm && <span style={{color: '#ae5856'}}>{errors.passwordConfirm}</span>}
+                            <input className={passwordConfirm} type="password" id="passwordConfirm" name="passwordConfirm" placeholder="Confirm password" value={data.passwordConfirm} onChange={this.onChange}/>
+
+                            <Button className="submit" variant="primary" onClick={()=>this.onSubmit()}>Sign Up</Button>
+                            <div style={{marginTop: '30px', fontSize: '18px'}}>
+                                <span>Already have an account?&nbsp;</span>
+                                <a variant="primary" href="/">
+                                    Sign In
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <ul class="bg-bubbles">
+                        <li></li> <li></li> <li></li> <li></li> <li></li>
+                        <li></li> <li></li> <li></li> <li></li> <li></li>
+                    </ul>
+                </div>
+
+                {/* <div className="container">
 
                     <Form onSubmit={this.onSubmit}>
                         <h1>
@@ -154,7 +188,7 @@ class Register extends Component {
                         <div><img src="/2.png" alt=""/></div>
                         <div><img src="/2.png" alt=""/></div>
                     </div>
-                </section>
+                </section> */}
             </div>
         )
     }
