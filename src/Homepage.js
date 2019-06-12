@@ -1,13 +1,17 @@
 import $ from "jquery";
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import { FaTimes,  FaHeart, FaList } from 'react-icons/fa';
+import { NavDropdown } from 'react-bootstrap';
+import { Link } from "react-router-dom";
+import { FaUserAlt, FaTimes, FaList } from 'react-icons/fa';
 import Footer from './Footer';
 
 
 
 class Homepage extends Component {
-
+  logout() {
+    localStorage.clear();
+    this.props.history.push('/');
+  }
   render() {
     $(document).ready(function() {
       $(window).bind('scroll', function(e) {
@@ -24,17 +28,17 @@ class Homepage extends Component {
         }
       });
 
-      $('.site-menu a').bind('click', function(e) {
-        $('.site-menu a').removeClass('site-menu-focus');
-        $(this).addClass('site-menu-focus');
-      });
+      // $('.site-menu a').bind('click', function(e) {
+      //   $('.site-menu a').removeClass('site-menu-focus');
+      //   $(this).addClass('site-menu-focus');
+      // });
 
 
       var siteMenuClone = function() {
-        $('.js-clone-nav').each(function() {
-          var $this = $(this);
-          $this.clone().attr('class', 'site-nav-wrap').appendTo('.site-mobile-menu-body');
-        });
+        // $('.js-clone-nav').each(function() {
+        //   var $this = $(this);
+        //   $this.clone().attr('class', 'site-nav-wrap').appendTo('.site-mobile-menu-body');
+        // });
     
     
         setTimeout(function() {
@@ -117,7 +121,23 @@ class Homepage extends Component {
               <span><FaTimes className="icon-close2 js-menu-toggle"/></span>
             </div>
           </div>
-          <div className="site-mobile-menu-body" />
+          {/* <div className="site-mobile-menu-body" /> */}
+          <div className="site-mobile-menu-body">
+            <ul className="site-nav-wrap">
+              <li><Link to="/homepage" className="site-menu-focus homepage">Trang chủ</Link></li>
+              <li><Link to="/aboutus">Chúng tôi</Link></li>
+              <li><Link to="/game">Trò chơi</Link></li>
+              <li><Link to="/contact">Liên hệ</Link></li>
+              <li><Link to="/history">Lịch sử</Link></li>
+              <li>
+              <NavDropdown title={<FaUserAlt style={{ fontSize: '16px', marginBottom: '5px' }} />} id="basic-nav-dropdown">
+                <NavDropdown.Item href="#" onClick={()=>this.props.history.push('/profile')}>Profile</NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item href="#" onClick={() => this.logout()}>Log out</NavDropdown.Item>
+              </NavDropdown>
+              </li>
+            </ul>
+          </div>
         </div>
         <div id="sticky-wrapper" className="sticky-wrapper">
         <header className="site-navbar py-4 js-sticky-header site-navbar-target" role="banner"
@@ -135,7 +155,13 @@ class Homepage extends Component {
                     <li><Link to="/game">Trò chơi</Link></li>
                     <li><Link to="/contact">Liên hệ</Link></li>
                     <li><Link to="/history">Lịch sử</Link></li>
-                    <li><Link to="/login">Đăng nhập</Link></li>
+                    <li>
+                      <NavDropdown title={<FaUserAlt style={{ fontSize: '16px', marginBottom: '5px' }} />} id="basic-nav-dropdown">
+                        <NavDropdown.Item href="#" onClick={()=>this.props.history.push('/profile')} className="black">Profile</NavDropdown.Item>
+                        <NavDropdown.Divider />
+                        <NavDropdown.Item href="#" onClick={() => this.logout()} className="black">Log out</NavDropdown.Item>
+                      </NavDropdown>
+                    </li>
                   </ul>
                 </nav>
               </div>

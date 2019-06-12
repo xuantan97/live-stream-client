@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {Form,Button} from 'react-bootstrap';
+import {Button} from 'react-bootstrap';
 import Validator from 'validator';
 
 class Register extends Component {
@@ -153,42 +153,7 @@ class Register extends Component {
                             Sign Up
                         </Button>
                     </Form>
-                </div>
-
-                <section>
-                    <div class="set">
-                        <div><img src="/2.png" alt=""/></div>
-                        <div><img src="/2.png" alt=""/></div>
-                        <div><img src="/2.png" alt=""/></div>
-                        <div><img src="/2.png" alt=""/></div>
-                        <div><img src="/2.png" alt=""/></div>
-                        <div><img src="/2.png" alt=""/></div>
-                        <div><img src="/2.png" alt=""/></div>
-                        <div><img src="/2.png" alt=""/></div>
-                    </div>
-                    
-                    <div class="set set2">
-                    <div><img src="/2.png" alt=""/></div>
-                        <div><img src="/2.png" alt=""/></div>
-                        <div><img src="/2.png" alt=""/></div>
-                        <div><img src="/2.png" alt=""/></div>
-                        <div><img src="/2.png" alt=""/></div>
-                        <div><img src="/2.png" alt=""/></div>
-                        <div><img src="/2.png" alt=""/></div>
-                        <div><img src="/2.png" alt=""/></div>
-                    </div>
-                    
-                    <div class="set set3">
-                    <div><img src="/2.png" alt=""/></div>
-                        <div><img src="/2.png" alt=""/></div>
-                        <div><img src="/2.png" alt=""/></div>
-                        <div><img src="/2.png" alt=""/></div>
-                        <div><img src="/2.png" alt=""/></div>
-                        <div><img src="/2.png" alt=""/></div>
-                        <div><img src="/2.png" alt=""/></div>
-                        <div><img src="/2.png" alt=""/></div>
-                    </div>
-                </section> */}
+                </div> */}
             </div>
         )
     }

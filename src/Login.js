@@ -1,6 +1,5 @@
-import $ from "jquery";
 import React, { Component } from "react";
-import {Form,Button} from 'react-bootstrap';
+import {Button} from 'react-bootstrap';
 import Validator from 'validator';
 
 class Login extends Component {
@@ -71,33 +70,6 @@ class Login extends Component {
         return(
             <div className="container-form">
 
-                {/* <div class="wrapper-login">
-                    <div class="container-login">
-                        <h1>Welcome</h1>
-                        
-                        <form class="form-login" onSubmit={this.onSubmit}>
-                            {errors.email && <div style={{color: '#ae5856'}}>{errors.email}</div>}
-                            <input className={email} type="email" id="email" name="email" placeholder="Email" value={data.email} onChange={this.onChange}/>
-
-                            {errors.password && <div style={{color: '#ae5856'}}>{errors.password}</div>}
-                            <input className={password} type="password" id="password" name="password" placeholder="Password" value={data.password} onChange={this.onChange}/>
-                            <button className="submit" variant="primary" onClick={()=>this.onSubmit()}>Login</button>
-                            <div style={{marginTop: '30px'}}>
-                                <span>Don't have account?&nbsp;</span>
-                                <a variant="primary" href="/register">
-                                    Register
-                                </a>
-                            </div>
-                        </form>
-                    </div>
-                    
-                    <ul class="bg-bubbles">
-                        <li></li> <li></li> <li></li> <li></li> <li></li>
-                        <li></li> <li></li> <li></li> <li></li> <li></li>
-                    </ul>
-                </div> */}
-
-
                 <div class="wrapper-login">
                     <div class="container-login">
                         <h1>Welcome</h1>
@@ -151,42 +123,7 @@ class Login extends Component {
                             Register
                         </a>
                     </Form>
-                </div>
-
-                <section>
-                    <div class="set">
-                        <div><img src="/2.png" alt=""/></div>
-                        <div><img src="/2.png" alt=""/></div>
-                        <div><img src="/2.png" alt=""/></div>
-                        <div><img src="/2.png" alt=""/></div>
-                        <div><img src="/2.png" alt=""/></div>
-                        <div><img src="/2.png" alt=""/></div>
-                        <div><img src="/2.png" alt=""/></div>
-                        <div><img src="/2.png" alt=""/></div>
-                    </div>
-                    
-                    <div class="set set2">
-                    <div><img src="/2.png" alt=""/></div>
-                        <div><img src="/2.png" alt=""/></div>
-                        <div><img src="/2.png" alt=""/></div>
-                        <div><img src="/2.png" alt=""/></div>
-                        <div><img src="/2.png" alt=""/></div>
-                        <div><img src="/2.png" alt=""/></div>
-                        <div><img src="/2.png" alt=""/></div>
-                        <div><img src="/2.png" alt=""/></div>
-                    </div>
-                    
-                    <div class="set set3">
-                    <div><img src="/2.png" alt=""/></div>
-                        <div><img src="/2.png" alt=""/></div>
-                        <div><img src="/2.png" alt=""/></div>
-                        <div><img src="/2.png" alt=""/></div>
-                        <div><img src="/2.png" alt=""/></div>
-                        <div><img src="/2.png" alt=""/></div>
-                        <div><img src="/2.png" alt=""/></div>
-                        <div><img src="/2.png" alt=""/></div>
-                    </div>
-                </section> */}
+                </div> */}
             </div>
         )
     }

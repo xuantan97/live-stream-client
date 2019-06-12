@@ -3817,3 +3817,7 @@ input.Btn:active {
 .avatar-wrapper .upload-button:hover .fa-arrow-circle-up {
   opacity: .9;
 }
+
+.black{
+  color: #000 !important;
+}

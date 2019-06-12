@@ -1,9 +1,11 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import WebRTCVideo from './WebRTC';
 import $ from "jquery";
 import io from 'socket.io-client';
-import { FaUserAlt, FaFacebookF, FaPaperPlane, FaCheck, FaTimes, FaTwitter, FaInstagram, FaLinkedinIn, FaHeart, FaList } from 'react-icons/fa';
+import { NavDropdown } from 'react-bootstrap';
+import { FaUserAlt, FaPaperPlane, FaCheck, FaTimes, FaList } from 'react-icons/fa';
+import Footer from './Footer';
 
 
 class Game extends Component {
@@ -227,10 +229,10 @@ class Game extends Component {
         });  
   
         var siteMenuClone = function() {
-          $('.js-clone-nav').each(function() {
-            var $this = $(this);
-            $this.clone().attr('class', 'site-nav-wrap').appendTo('.site-mobile-menu-body');
-          });
+          // $('.js-clone-nav').each(function() {
+          //   var $this = $(this);
+          //   $this.clone().attr('class', 'site-nav-wrap').appendTo('.site-mobile-menu-body');
+          // });
       
       
           setTimeout(function() {
@@ -312,7 +314,23 @@ class Game extends Component {
                       <span><FaTimes className="icon-close2 js-menu-toggle"/></span>
                     </div>
                   </div>
-                  <div className="site-mobile-menu-body" />
+                  {/* <div className="site-mobile-menu-body" /> */}
+                  <div className="site-mobile-menu-body">
+                    <ul className="site-nav-wrap">
+                      <li><Link to="/homepage">Trang chủ</Link></li>
+                      <li><Link to="/aboutus">Chúng tôi</Link></li>
+                      <li><Link to="/game" className="site-menu-focus game">Trò chơi</Link></li>
+                      <li><Link to="/contact">Liên hệ</Link></li>
+                      <li><Link to="/history">Lịch sử</Link></li>
+                      <li>
+                      <NavDropdown title={<FaUserAlt style={{ fontSize: '16px', marginBottom: '5px' }} />} id="basic-nav-dropdown">
+                        <NavDropdown.Item href="#" onClick={()=>this.props.history.push('/profile')}>Profile</NavDropdown.Item>
+                        <NavDropdown.Divider />
+                        <NavDropdown.Item href="#" onClick={() => this.logout()}>Log out</NavDropdown.Item>
+                      </NavDropdown>
+                      </li>
+                    </ul>
+                  </div>
                 </div>
                 <div id="sticky-wrapper" className="sticky-wrapper">
                 <header className="site-navbar py-4 js-sticky-header site-navbar-target" role="banner"
@@ -326,11 +344,17 @@ class Game extends Component {
                         <nav className="site-navigation position-relative text-right" role="navigation">
                           <ul className="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
                             <li><Link to="/homepage">Trang chủ</Link></li>
-                            <li><Link to="/aboutus" className="site-menu-focus aboutus">Chúng tôi</Link></li>
-                            <li><Link to="/game">Trò chơi</Link></li>
+                            <li><Link to="/aboutus">Chúng tôi</Link></li>
+                            <li><Link to="/game" className="site-menu-focus game">Trò chơi</Link></li>
                             <li><Link to="/contact">Liên hệ</Link></li>
                             <li><Link to="/history">Lịch sử</Link></li>
-                            <li><Link to="/login">Đăng nhập</Link></li>
+                            <li>
+                              <NavDropdown title={<FaUserAlt style={{ fontSize: '16px', marginBottom: '5px' }} />} id="basic-nav-dropdown">
+                                <NavDropdown.Item href="#" onClick={()=>this.props.history.push('/profile')}>Profile</NavDropdown.Item>
+                                <NavDropdown.Divider />
+                                <NavDropdown.Item href="#" onClick={() => this.logout()}>Log out</NavDropdown.Item>
+                              </NavDropdown>
+                            </li>
                           </ul>
                         </nav>
                       </div>
@@ -400,63 +424,7 @@ class Game extends Component {
                 </section>
 
 
-                <footer className="site-footer">
-                  <div className="container">
-                    <div className="row">
-                      <div className="col-md-9">
-                        <div className="row">
-                          <div className="col-md-5">
-                            <h2 className="footer-heading mb-4">About Us</h2>
-                            <p className="mb-5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque facere laudantium magnam voluptatum autem. Amet aliquid nesciunt veritatis aliquam.</p>
-                            <h2 className="footer-heading mb-4">Subscribe Newsletter</h2>
-                            <form action="#" method="post" className="footer-subscribe">
-                              <div className="input-group mb-3">
-                                <input type="text" className="form-control border-secondary text-white bg-transparent" placeholder="Enter Email" aria-label="Enter Email" aria-describedby="button-addon2" />
-                                <div className="input-group-append">
-                                  <button className="btn btn-white text-black" type="button" id="button-addon2" style={{background: '#fff'}}>Send</button>
-                                </div>
-                              </div>
-                            </form>
-                          </div>
-                          <div className="col-md-3 ml-auto">
-                            <h2 className="footer-heading mb-4">Quick Links</h2>
-                            <ul className="list-unstyled">
-                              <li><a href="#">About Us</a></li>
-                              <li><a href="#">Services</a></li>
-                              <li><a href="#">Testimonials</a></li>
-                              <li><a href="#">Contact Us</a></li>
-                            </ul>
-                          </div>
-                          <div className="col-md-3">
-                            <h2 className="footer-heading mb-4">Follow Us</h2>
-                            <a href="#" className="pl-0 pr-3"><FaFacebookF/></a>
-                            <a href="#" className="pl-3 pr-3"><FaTwitter/></a>
-                            <a href="#" className="pl-3 pr-3"><FaInstagram/></a>
-                            <a href="#" className="pl-3 pr-3"><FaLinkedinIn/></a>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="col-md-3">
-                        <div className="mb-5">
-                          <img src="images/img_1.jpg" alt className="img-fluid mb-4" />
-                          <h2 className="footer-heading mb-4">Some Paragraph</h2>
-                          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores, laudantium nisi quo, sit neque quisquam.</p>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="row pt-5 mt-5 text-center">
-                      <div className="col-md-12">
-                        <div className="border-top pt-5">
-                          <p>
-                            {/* Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. */}
-                            Copyright © All rights reserved | This template is made with <FaHeart aria-hidden="true"/> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-                            {/* Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. */}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </footer>
+                <Footer/>
 
                 <div className="win">
                   <css-doodle grid="5">
