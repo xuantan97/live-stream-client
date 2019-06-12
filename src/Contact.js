@@ -155,7 +155,7 @@ class Contact extends Component {
                   </div>
                   <div className="row">
                     <div className="col-md-12 mb-5">
-                      <form action="#" className="p-5 bg-white">
+                      <form action="#" className="p-5 bg-white" style={{borderTop: '5px solid #3a4971', boxShadow: '0 2.5px 5px #ccc'}}>
                         <h2 className="h4 text-black mb-5">Form Liên hệ</h2> 
                         <div className="row form-group">
                           <div className="col-md-6 mb-3 mb-md-0">
@@ -182,7 +182,7 @@ class Contact extends Component {
                         <div className="row form-group">
                           <div className="col-md-12">
                             <label className="text-black" htmlFor="message">Nội dung</label> 
-                            <textarea name="message" id="message" cols={30} rows={7} className="form-control" placeholder="Write your notes or questions here..." defaultValue={""} />
+                            <textarea name="message" id="message" cols={30} rows={7} className="form-control" placeholder="Nội dung ghi chú hoặc cần giải đáp..." defaultValue={""} />
                           </div>
                         </div>
                         <div className="row form-group">

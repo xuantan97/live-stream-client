@@ -191,7 +191,7 @@ class AboutUs extends Component {
                     <img src="images/person_6.jpg" alt="Image" className="img-fluid" />
                   </figure>
                   <div className="p-3">
-                    <h3>Nguyễn Thanh Tân</h3>
+                    <h3>Nguyễn Hoài Thanh Tân</h3>
                     <span className="position">Backend Developer</span>
                   </div>
                 </div>
