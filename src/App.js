@@ -8,6 +8,7 @@ import Profile from './Profile';
 import AboutUs from './AboutUs';
 import Contact from './Contact';
 import Game from './Game';
+import History from './History';
 
 const App = ({location}) => (
     <div>
@@ -18,7 +19,7 @@ const App = ({location}) => (
         <Route location={location} path="/aboutus" exact component={AboutUs}/>
         <Route location={location} path="/contact" exact component={Contact}/>
         <Route location={location} path="/game" exact component={Game}/>
-
+        <Route location={location} path="/history" exact component={History}/>
     </div>
 );
 

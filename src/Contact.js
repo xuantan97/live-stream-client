@@ -1,7 +1,8 @@
 import $ from "jquery";
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import { FaTimes, FaList } from 'react-icons/fa';
+import { NavDropdown } from 'react-bootstrap';
+import { FaUserAlt, FaPaperPlane, FaCheck, FaTimes, FaList } from 'react-icons/fa';
 import Footer from './Footer';
 
 class Contact extends Component {
@@ -164,7 +165,13 @@ class Contact extends Component {
                     <li><Link to="/game">Trò chơi</Link></li>
                     <li><Link to="/contact" className="site-menu-focus contact">Liên hệ</Link></li>
                     <li><Link to="/history">Lịch sử</Link></li>
-                    <li><Link to="/login">Đăng nhập</Link></li>
+                    <li>
+                      <NavDropdown title={<FaUserAlt style={{ fontSize: '16px', marginBottom: '5px' }} />} id="basic-nav-dropdown">
+                        <NavDropdown.Item href="#" onClick={()=>this.props.history.push('/profile')}>Profile</NavDropdown.Item>
+                        <NavDropdown.Divider />
+                        <NavDropdown.Item href="#" onClick={() => this.logout()}>Log out</NavDropdown.Item>
+                      </NavDropdown>
+                      </li>
                   </ul>
                 </nav>
               </div>
