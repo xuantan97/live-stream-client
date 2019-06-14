@@ -13,6 +13,7 @@
     "react": "^16.8.4",
     "react-bootstrap": "^1.0.0-beta.8",
     "react-chat-popup": "^1.1.2",
+    "react-collapsible": "^2.6.0",
     "react-countdown-clock": "^2.6.0",
     "react-dom": "^16.8.4",
     "react-flow-player": "^1.1.9",
