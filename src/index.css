@@ -2606,7 +2606,8 @@ h5,
 } */
 
 a.site-menu-focus {
-  color: #007bff !important;
+  color: #fff !important;
+  font-weight: 700 !important;
 }
 
 .bg-white {
@@ -2616,6 +2617,8 @@ a.site-menu-focus {
 /*/////////////////////////////////////////////////////////// CSS GAME /////////////////////////////////////////////////////////////////////*/
 
 @import url('https://fonts.googleapis.com/css?family=Luckiest+Guy|Roboto|Alfa+Slab+One&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Baloo+Paaji&display=swap');
+
 
 .game-section {
   animation: background 7s linear infinite;
@@ -3923,4 +3926,13 @@ button{
   padding-top: 1rem !important;
   padding-bottom: 1rem !important;
   text-align: left !important;
+}
+
+.button-start {
+  border-radius: 50px;
+}
+
+.main-title {
+  font-family: 'Baloo Paaji', cursive;
+  letter-spacing: 2px;
 }

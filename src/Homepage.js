@@ -174,18 +174,18 @@ class Homepage extends Component {
           <div className="container">
             <div className="row">
               <div className="col-md-6 mt-lg-5 ml-auto text-left align-self-end align-self-md-center">
-                <h1>Trivia Game</h1>
-                <h1>Thách thức hiểu biết</h1>
-                <p className="mb-4"><Link className="btn btn-primary mr-2 mb-2" to="/game">Bắt đầu chơi</Link></p>
+                <h1 className="main-title">Trivia Game</h1>
+                <h1 className="main-title">Thách thức hiểu biết</h1>
+                <p className="mb-4"><Link className="btn btn-primary mr-2 mb-2 button-start" to="/game">Bắt đầu chơi</Link></p>
               </div>
             </div>
           </div>
         </div>  
-        <div className="site-section bg-primary" style={{paddingTop: '30px', paddingBottom: '30px'}}>
+        <div className="site-section" style={{paddingTop: '30px', paddingBottom: '30px', background: '#3a4971'}}>
           <div className="container">
             <div className="row">
               <div className="col-md-12 col-lg-4 mb-4 mb-lg-0" style={{display: 'flex', alignItems: 'center'}}>
-                <h3 className="text-white">Câu hỏi trắc nghiệm</h3>
+                <h3 className="text-white h4">Câu hỏi trắc nghiệm</h3>
               </div>
               <div className="col-md-6 col-lg-4 d-flex" style={{display: 'flex', alignItems: 'center'}}>
                 <div className="mr-3"><span className="flaticon-bill display-3 text-special" /></div>

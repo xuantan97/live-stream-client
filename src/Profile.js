@@ -228,7 +228,7 @@ class Profile extends Component {
             <div className="profile-wrapper">
                 <div className="profile">
                     <div className="profile-content">
-                        <h1>Thông tin cá nhân</h1>
+                        <h1 style={{color: '#3a4971'}}>Thông tin cá nhân</h1>
                         <form action>
                         {/* Photo */}
                         <fieldset>
