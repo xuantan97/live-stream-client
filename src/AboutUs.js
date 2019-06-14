@@ -188,7 +188,7 @@ class AboutUs extends Component {
             <div className="container">
             <center><h2 className="section-title mb-3">Đội ngũ phát triển</h2></center>
             <div className="row">
-              <div className="col-md-6 col-lg-3 mb-4">
+              <div className="col-md-6 col-lg-25 mb-4">
                 <div className="team-member">
                   <figure>
                     <ul className="social">
@@ -199,13 +199,30 @@ class AboutUs extends Component {
                     </ul>
                     <img src="images/person_5.jpg" alt="Image" className="img-fluid" />
                   </figure>
-                  <div className="p-3">
-                    <h3>Nguyễn An Sơn</h3>
+                  <div className="p-2">
+                    <h5 style={{color: '#000'}}>Nguyễn An Sơn</h5>
                     <span className="position">Mobile Developer</span>
                   </div>
                 </div>
               </div>
-              <div className="col-md-6 col-lg-3 mb-4">
+              <div className="col-md-6 col-lg-25 mb-4">
+                <div className="team-member">
+                  <figure>
+                    <ul className="social">
+                      <li><a href="https://www.facebook.com/nttam199" target="_blank" rel="noopener noreferrer"><span><FaFacebookF/></span></a></li>
+                      <li><a href="#"><span><FaTwitter/></span></a></li>
+                      <li><a href="#"><span><FaLinkedinIn/></span></a></li>
+                      <li><a href="#"><span><FaInstagram/></span></a></li>
+                    </ul>
+                    <img src="images/person_6.jpg" alt="Image" className="img-fluid" />
+                  </figure>
+                  <div className="p-2">
+                    <h5 style={{color: '#000'}}>Nguyễn Thành Tâm</h5>
+                    <span className="position">Frontend Developer</span>
+                  </div>
+                </div>
+              </div>
+              <div className="col-md-6 col-lg-25 mb-4">
                 <div className="team-member">
                   <figure>
                     <ul className="social">
@@ -214,15 +231,15 @@ class AboutUs extends Component {
                       <li><a href="#"><span><FaLinkedinIn/></span></a></li>
                       <li><a href="#"><span><FaInstagram/></span></a></li>
                     </ul>
-                    <img src="images/person_6.jpg" alt="Image" className="img-fluid" />
+                    <img src="images/person_7.jpg" alt="Image" className="img-fluid" />
                   </figure>
-                  <div className="p-3">
-                    <h3>Nguyễn Hoài Thanh Tân</h3>
+                  <div className="p-2">
+                    <h5 style={{color: '#000'}}>Nguyễn Hoài Thanh Tân</h5>
                     <span className="position">Backend Developer</span>
                   </div>
                 </div>
               </div>
-              <div className="col-md-6 col-lg-3 mb-4">
+              <div className="col-md-6 col-lg-25 mb-4">
                 <div className="team-member">
                   <figure>
                     <ul className="social">
@@ -231,15 +248,16 @@ class AboutUs extends Component {
                       <li><a href="#"><span><FaLinkedinIn/></span></a></li>
                       <li><a href="#"><span><FaInstagram/></span></a></li>
                     </ul>
-                    <img src="images/person_7.jpg" alt="Image" className="img-fluid" />
+                    <img src="images/person_7.jpg" alt="" className="img-fluid" />
                   </figure>
-                  <div className="p-3">
-                    <h3>Nguyễn Xuân Tân</h3>
+                  <div className="p-2">
+                    <h5 style={{color: '#000'}}>Nguyễn Xuân Tân</h5>
                     <span className="position">FullStack Developer</span>
                   </div>
                 </div>
               </div>
-              <div className="col-md-6 col-lg-3 mb-4">
+
+              <div className="col-md-13 col-lg-25 mb-4">
                 <div className="team-member">
                   <figure>
                     <ul className="social">
@@ -250,8 +268,8 @@ class AboutUs extends Component {
                     </ul>
                     <img src="images/person_7.jpg" alt="" className="img-fluid" />
                   </figure>
-                  <div className="p-3">
-                    <h3>Phan Văn Tấn</h3>
+                  <div className="p-2">
+                    <h5 style={{color: '#000'}}>Phan Văn Tấn</h5>
                     <span className="position">Frontend Developer</span>
                   </div>
                 </div>
