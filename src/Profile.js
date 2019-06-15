@@ -87,6 +87,16 @@ class Profile extends Component {
               $('.js-sticky-header').addClass('shrink');
             }
           });  
+
+          $('.site-menu a').bind('mouseover', function(e) {
+            if(!$(this).hasClass('site-menu-focus')) {
+              $(this).addClass('nav-hover');
+            }
+          });
+          
+          $('.site-menu a').bind('mouseout', function(e) {
+            $(this).removeClass('nav-hover');
+          });
     
           var siteMenuClone = function() {
             // $('.js-clone-nav').each(function() {

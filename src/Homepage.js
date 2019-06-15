@@ -31,9 +31,10 @@ class Homepage extends Component {
             $(this).addClass('nav-hover');
           }
         });
+        
         $('.site-menu a').bind('mouseout', function(e) {
           $(this).removeClass('nav-hover');
-        })
+        });
       });
 
       // $('.site-menu a').bind('click', function(e) {
