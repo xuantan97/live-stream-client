@@ -26,15 +26,17 @@ class Homepage extends Component {
           $('.js-sticky-header').removeClass('shrink');
           $('.sticky-wrapper').removeClass('is-sticky');
         }
-        $('.site-menu a').bind('mouseover', function(e) {
-          if(!$(this).hasClass('site-menu-focus')) {
-            $(this).addClass('nav-hover');
-          }
-        });
         
-        $('.site-menu a').bind('mouseout', function(e) {
-          $(this).removeClass('nav-hover');
-        });
+      });
+
+      $('.site-menu a').bind('mouseover', function(e) {
+        if(!$(this).hasClass('site-menu-focus')) {
+          $(this).addClass('nav-hover');
+        }
+      });
+      
+      $('.site-menu a').bind('mouseout', function(e) {
+        $(this).removeClass('nav-hover');
       });
 
       // $('.site-menu a').bind('click', function(e) {

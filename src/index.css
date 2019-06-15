@@ -3942,3 +3942,7 @@ button{
 .nav-hover {
   -webkit-text-fill-color: #5569a2 !important;
 }
+
+.site-menu a {
+  transition: 0.3s linear;
+}
