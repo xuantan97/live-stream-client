@@ -3928,6 +3928,8 @@ button{
   text-align: left !important;
 }
 
+/* ///////////////////////////////////////// HOMEPAGE ///////////////////////////////////////////////// */
+
 .button-start {
   border-radius: 50px;
 }
@@ -3935,4 +3937,8 @@ button{
 .main-title {
   font-family: 'Baloo Paaji', cursive;
   letter-spacing: 2px;
+}
+
+.nav-hover {
+  -webkit-text-fill-color: #5569a2 !important;
 }
