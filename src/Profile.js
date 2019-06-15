@@ -97,6 +97,14 @@ class Profile extends Component {
           $('.site-menu a').bind('mouseout', function(e) {
             $(this).removeClass('nav-hover');
           });
+
+          $('.basic-nav-dropdown').bind('mouseover', function(e) {
+            $('.site-menu svg path').addClass('user-hover');
+          });
+          
+          $('.basic-nav-dropdown').bind('mouseout', function(e) {
+            $('.site-menu svg path').removeClass('user-hover');
+          });
     
           var siteMenuClone = function() {
             // $('.js-clone-nav').each(function() {
@@ -193,7 +201,7 @@ class Profile extends Component {
                       <li><Link to="/contact">Liên hệ</Link></li>
                       <li><Link to="/history">Lịch sử</Link></li>
                       <li>
-                      <NavDropdown title={<FaUserAlt style={{ fontSize: '16px', marginBottom: '5px' }} />} id="basic-nav-dropdown">
+                      <NavDropdown title={<FaUserAlt style={{ fontSize: '16px', marginBottom: '5px' }} />} id="basic-nav-dropdown" className="basic-nav-dropdown">
                         <NavDropdown.Item href="#" onClick={()=>this.props.history.push('/profile')}>Profile</NavDropdown.Item>
                         <NavDropdown.Divider />
                         <NavDropdown.Item href="#" onClick={() => this.logout()}>Log out</NavDropdown.Item>
@@ -219,7 +227,7 @@ class Profile extends Component {
                             <li><Link to="/contact">Liên hệ</Link></li>
                             <li><Link to="/history">Lịch sử</Link></li>
                             <li>
-                            <NavDropdown title={<FaUserAlt style={{ fontSize: '16px', marginBottom: '5px' }} />} id="basic-nav-dropdown">
+                            <NavDropdown title={<FaUserAlt style={{ fontSize: '16px', marginBottom: '5px' }} />} id="basic-nav-dropdown" className="basic-nav-dropdown">
                               <NavDropdown.Item href="#" onClick={()=>this.props.history.push('/profile')}>Profile</NavDropdown.Item>
                               <NavDropdown.Divider />
                               <NavDropdown.Item href="#" onClick={() => this.logout()}>Log out</NavDropdown.Item>

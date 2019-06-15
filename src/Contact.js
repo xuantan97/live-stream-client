@@ -70,12 +70,20 @@ class Contact extends Component {
         $('.site-menu a').bind('mouseout', function(e) {
           $(this).removeClass('nav-hover');
         });
+
+        $('.basic-nav-dropdown').bind('mouseover', function(e) {
+          $('.site-menu svg path').addClass('user-hover');
+        });
+        
+        $('.basic-nav-dropdown').bind('mouseout', function(e) {
+          $('.site-menu svg path').removeClass('user-hover');
+        });
   
         var siteMenuClone = function() {
-          $('.js-clone-nav').each(function() {
-            var $this = $(this);
-            $this.clone().attr('class', 'site-nav-wrap').appendTo('.site-mobile-menu-body');
-          });
+          // $('.js-clone-nav').each(function() {
+          //   var $this = $(this);
+          //   $this.clone().attr('class', 'site-nav-wrap').appendTo('.site-mobile-menu-body');
+          // });
       
       
           setTimeout(function() {
@@ -157,7 +165,23 @@ class Contact extends Component {
               <span><FaTimes className="icon-close2 js-menu-toggle"/></span>
             </div>
           </div>
-          <div className="site-mobile-menu-body" />
+          {/* <div className="site-mobile-menu-body" /> */}
+          <div className="site-mobile-menu-body">
+            <ul className="site-nav-wrap">
+              <li><Link to="/homepage">Trang chủ</Link></li>
+              <li><Link to="/aboutus">Chúng tôi</Link></li>
+              <li><Link to="/game">Trò chơi</Link></li>
+              <li><Link to="/contact" className="site-menu-focus contact">Liên hệ</Link></li>
+              <li><Link to="/history">Lịch sử</Link></li>
+              <li>
+              <NavDropdown title={<FaUserAlt style={{ fontSize: '16px', marginBottom: '5px' }} />} id="basic-nav-dropdown" className="basic-nav-dropdown">
+                <NavDropdown.Item href="#" onClick={()=>this.props.history.push('/profile')}>Profile</NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item href="#" onClick={() => this.logout()}>Log out</NavDropdown.Item>
+              </NavDropdown>
+              </li>
+            </ul>
+          </div>
         </div>
         <div id="sticky-wrapper" className="sticky-wrapper">
         <header className="site-navbar py-4 js-sticky-header site-navbar-target" role="banner"
@@ -176,7 +200,7 @@ class Contact extends Component {
                     <li><Link to="/contact" className="site-menu-focus contact">Liên hệ</Link></li>
                     <li><Link to="/history">Lịch sử</Link></li>
                     <li>
-                      <NavDropdown title={<FaUserAlt style={{ fontSize: '16px', marginBottom: '5px' }} />} id="basic-nav-dropdown">
+                      <NavDropdown title={<FaUserAlt style={{ fontSize: '16px', marginBottom: '5px' }} />} id="basic-nav-dropdown" className="basic-nav-dropdown">
                         <NavDropdown.Item href="#" onClick={()=>this.props.history.push('/profile')}>Profile</NavDropdown.Item>
                         <NavDropdown.Divider />
                         <NavDropdown.Item href="#" onClick={() => this.logout()}>Log out</NavDropdown.Item>

@@ -39,10 +39,13 @@ class Homepage extends Component {
         $(this).removeClass('nav-hover');
       });
 
-      // $('.site-menu a').bind('click', function(e) {
-      //   $('.site-menu a').removeClass('site-menu-focus');
-      //   $(this).addClass('site-menu-focus');
-      // });
+      $('.basic-nav-dropdown').bind('mouseover', function(e) {
+        $('.site-menu svg path').addClass('user-hover');
+      });
+      
+      $('.basic-nav-dropdown').bind('mouseout', function(e) {
+        $('.site-menu svg path').removeClass('user-hover');
+      });
 
 
       var siteMenuClone = function() {
@@ -58,7 +61,7 @@ class Homepage extends Component {
           $('.site-mobile-menu .has-children').each(function(){
             var $this = $(this);
             
-            $this.prepend('<span class="arrow-collapse collapsed">');
+            $this.prepend('<span className="arrow-collapse collapsed">');
     
             $this.find('.arrow-collapse').attr({
               'data-toggle' : 'collapse',
@@ -141,7 +144,7 @@ class Homepage extends Component {
               <li><Link to="/contact">Liên hệ</Link></li>
               <li><Link to="/history">Lịch sử</Link></li>
               <li>
-              <NavDropdown title={<FaUserAlt style={{ fontSize: '16px', marginBottom: '5px' }} />} id="basic-nav-dropdown">
+              <NavDropdown title={<FaUserAlt style={{ fontSize: '16px', marginBottom: '5px' }} />} id="basic-nav-dropdown" className="basic-nav-dropdown">
                 <NavDropdown.Item href="#" onClick={()=>this.props.history.push('/profile')}>Profile</NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item href="#" onClick={() => this.logout()}>Log out</NavDropdown.Item>
@@ -167,7 +170,7 @@ class Homepage extends Component {
                     <li><Link to="/contact">Liên hệ</Link></li>
                     <li><Link to="/history">Lịch sử</Link></li>
                     <li>
-                      <NavDropdown title={<FaUserAlt style={{ fontSize: '16px', marginBottom: '5px' }} />} id="basic-nav-dropdown">
+                      <NavDropdown title={<FaUserAlt style={{ fontSize: '16px', marginBottom: '5px' }} />} id="basic-nav-dropdown" className="basic-nav-dropdown">
                         <NavDropdown.Item href="#" onClick={()=>this.props.history.push('/profile')} className="black">Profile</NavDropdown.Item>
                         <NavDropdown.Divider />
                         <NavDropdown.Item href="#" onClick={() => this.logout()} className="black">Log out</NavDropdown.Item>

@@ -3943,6 +3943,18 @@ button{
   -webkit-text-fill-color: #5569a2 !important;
 }
 
+.user-hover {
+  fill: #5569a2;
+}
+
+.dropdown-toggle::after {
+  border: none !important;
+}
+
 .site-menu a {
   transition: 0.3s linear;
+}
+
+.site-mobile-menu-body .site-menu-focus {
+  color: #5569a2 !important;
 }
