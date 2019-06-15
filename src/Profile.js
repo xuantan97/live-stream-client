@@ -62,8 +62,8 @@ class Profile extends Component {
         // });
 
 
-          $('#email').prop('value', 'abc@gmail.com');
-          $('#username').prop('value', 'LOVE_CAT');
+          $('#email').prop('value', `${localStorage.getItem('email')}`);
+          $('#username').prop('value', `${localStorage.getItem('username')}`);
           
           $('#email').prop('disabled', true);
           $('#username').prop('disabled', true);
