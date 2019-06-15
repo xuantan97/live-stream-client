@@ -5,12 +5,17 @@ import { FaTimes, FaList, FaUserAlt } from 'react-icons/fa';
 import { NavDropdown } from 'react-bootstrap';
 import Collapsible from 'react-collapsible';
 import Footer from './Footer';
+import BootstrapTable from 'react-bootstrap-table-next';
 
 class History extends Component{
 
   constructor(props){
     super(props);
-    this.state = {};
+    this.state = {
+      products: [],
+      name_program: "",
+      created_at: ""
+    };
   }
 
   componentDidMount() {
@@ -22,12 +27,28 @@ class History extends Component{
         })
         .then(res => res.json())
         .then(response => {
-            console.log(response)
+            console.log(response);
+            this.setState({
+              products: response.user,
+              name_program: response.program.name_program,
+              created_at: response.program.created_at
+            });
         })
         .catch(error => console.log(error));
   }
 
   render(){
+    const columns = [{
+      dataField: 'username',
+      text: 'Tên'
+    }, {
+      dataField: 'email',
+      text: 'Email'
+    }, {
+      dataField: 'money',
+      text: 'Tiền thưởng'
+    }];
+
     return(
       <div className="site-wrap">
          <div className="site-mobile-menu site-navbar-target">
@@ -73,9 +94,8 @@ class History extends Component{
           <div className="container">
             <div className="row mb-5">
               <div className="col-12 text-center">
-              <Collapsible trigger="Start here">
-                <p>This is the collapsible content. It can be any element or React component you like.</p>
-                <p>It can even be another Collapsible component. Check out the next section!</p>
+              <Collapsible trigger={ this.state.name_program }>
+                <BootstrapTable keyField='id' data={ this.state.products } columns={ columns } />
               </Collapsible>
               </div>
             </div>
