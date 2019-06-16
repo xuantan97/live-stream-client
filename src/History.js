@@ -1,4 +1,3 @@
-
 import React, {Component} from 'react';
 import $ from "jquery";
 import { Link } from "react-router-dom";
@@ -41,7 +40,7 @@ class History extends Component{
     const columns = [
       {
         dataField: 'username',
-        text: 'Tên'
+        text: 'Họ Tên'
       }, 
       {
         dataField: 'email',
@@ -49,12 +48,12 @@ class History extends Component{
       }, 
       {
         dataField: 'money',
-        text: 'Tiền thưởng'
+        text: 'Tiền thưởng ($)'
       }
     ];
 
     var result = [];
-    objs.map((obj)=> {
+    objs.map((obj) => {
       result.push(
         <div style={{backgroundColor: '#528B8B', marginTop: '1px', color: '#fff', padding: '1rem 0'}}>
           <Collapsible trigger={ obj.program.name_program } >
@@ -98,14 +97,8 @@ class History extends Component{
       });
 
       var siteMenuClone = function() {
-        // $('.js-clone-nav').each(function() {
-        //   var $this = $(this);
-        //   $this.clone().attr('class', 'site-nav-wrap').appendTo('.site-mobile-menu-body');
-        // });
-    
     
         setTimeout(function() {
-          
           var counter = 0;
           $('.site-mobile-menu .has-children').each(function(){
             var $this = $(this);
