@@ -7,10 +7,44 @@ import Footer from './Footer';
 
 class Profile extends Component {
 
+    constructor(props){
+      super(props);
+      this.state = {
+        username: "",
+        email: "",
+        money: 0
+      };
+    }
+
+
+    componentDidMount() {
+      fetch('http://bonddemo.tk/v1/user/get-user?id=' + localStorage.getItem('user_id'), {
+             method: 'GET',
+             headers: {
+                 'Authorization': 'Bearer lyWyy7-2EqXt6JOjKXnQV90Ghv94ie_5vO20rHFP',
+             },
+         })
+         .then(res => res.json())
+         .then(response => {
+           console.log(response);
+            this.setState({
+              username: response.username,
+              email: response.email,
+              money: response.money
+            });
+            $('#email').prop('value', `${this.state.email}`);
+            $('#username').prop('value', `${this.state.username}`);
+            $('#money').prop('value', `${this.state.money}`);
+         })
+         .catch(error => console.log(error));
+    }
+
+
     logout() {
       localStorage.clear();
       this.props.history.push('/');
     }
+
 
     handleUpdate() {
       var profile = new FormData();
@@ -76,22 +110,6 @@ class Profile extends Component {
               $(el).attr('disabled', 'disabled');
           });
       }
-
-        $('#email').prop('value', `${localStorage.getItem('email')}`);
-        $('#username').prop('value', `${localStorage.getItem('username')}`);
-        
-        // $('#email').prop('disabled', true);
-        // $('#username').prop('disabled', true);
-
-
-        // $('.edit-user').on('click', function() {
-        //   $('#username').prop('disabled', false);
-
-        // });
-
-        // $('.edit-email').on('click', function() {
-        //   $('#email').prop('disabled', false);
-        // });
 
         $('.sticky-wrapper').addClass('is-sticky');
         $('.js-sticky-header').addClass('shrink');
@@ -263,7 +281,7 @@ class Profile extends Component {
                           {/* <span className="photo" title="Upload your Avatar!" />
                           <input type="file" className="btn" /> */}
                           <div className="avatar-wrapper" style={{marginLeft: '10%'}}>
-                              <img className="profile-pic" src="" />
+                              <img className="profile-pic" src="" alt=""/>
                               <div className="upload-button">
                               <FaArrowAltCircleUp className="fa fa-arrow-circle-up" aria-hidden="true"/>
                               </div>
@@ -297,7 +315,7 @@ class Profile extends Component {
                           <label htmlFor="balance">Số dư tài khoản</label>
                           </div>
                           <div className="grid-65">
-                          <input type="text" id="balance" tabIndex={3} value="2000" disabled/>
+                          <input type="text" id="money" tabIndex={3} value="" disabled/>
                           <span className="edit-user" title="Rút tiền"><FaHandHoldingUsd/></span>
                           </div>
                       </fieldset>         
