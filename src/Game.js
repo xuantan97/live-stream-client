@@ -12,7 +12,6 @@ class Game extends Component {
     
     constructor(props) {
         super(props);
-        // this.socket = io("localhost:1235");
         this.socket = io("103.89.85.105:1235");
         this.state = {
           id: "",
@@ -26,8 +25,8 @@ class Game extends Component {
           result: "",
           isTrue: false,
           isWin: 10,
-          seconds: 12,
-          program_id: 0
+          program_id: 0,
+          image_path: ""
         };
       }
     
@@ -50,9 +49,6 @@ class Game extends Component {
     
         //listen event server broadcast question and show
         this.socket.on('BROADCAST_QUESTION_TO_CLIENT', (dataAPI) => {
-          
-          this.setState({seconds: 12});
-
           $('.summary').hide();
           $('.question-content').show();
           $('.countdown').show();
@@ -80,7 +76,8 @@ class Game extends Component {
             C: dataAPI.response.body.C,
             D: dataAPI.response.body.D,
             answering: "",
-            program_id: dataAPI.program_id
+            program_id: dataAPI.program_id,
+            image_path: dataAPI.response.thumbnail_base_url
           });
           localStorage.setItem('idQuestion', dataAPI.response.id);
     
@@ -248,12 +245,6 @@ class Game extends Component {
         });
   
         var siteMenuClone = function() {
-          // $('.js-clone-nav').each(function() {
-          //   var $this = $(this);
-          //   $this.clone().attr('class', 'site-nav-wrap').appendTo('.site-mobile-menu-body');
-          // });
-      
-      
           setTimeout(function() {
             
             var counter = 0;
@@ -408,7 +399,7 @@ class Game extends Component {
                         </div>
                       </div>
                     </div>
-                    <div className="video-container"><WebRTCVideo/> <img src="" alt=""/></div>
+                    <div className="video-container"><WebRTCVideo/> <img src={this.state.image_path} alt=""/></div>
                     <div className="chat-container">
                       <div style={{width: '100%', height: '100%'}}>
                         <div className="chat-content">
