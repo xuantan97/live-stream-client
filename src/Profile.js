@@ -80,18 +80,18 @@ class Profile extends Component {
         $('#email').prop('value', `${localStorage.getItem('email')}`);
         $('#username').prop('value', `${localStorage.getItem('username')}`);
         
-        $('#email').prop('disabled', true);
-        $('#username').prop('disabled', true);
+        // $('#email').prop('disabled', true);
+        // $('#username').prop('disabled', true);
 
 
-        $('.edit-user').on('click', function() {
-          $('#username').prop('disabled', false);
+        // $('.edit-user').on('click', function() {
+        //   $('#username').prop('disabled', false);
 
-        });
+        // });
 
-        $('.edit-email').on('click', function() {
-          $('#email').prop('disabled', false);
-        });
+        // $('.edit-email').on('click', function() {
+        //   $('#email').prop('disabled', false);
+        // });
 
         $('.sticky-wrapper').addClass('is-sticky');
         $('.js-sticky-header').addClass('shrink');
