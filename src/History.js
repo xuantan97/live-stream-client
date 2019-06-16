@@ -56,7 +56,7 @@ class History extends Component{
     var result = [];
     objs.map((obj)=> {
       result.push(
-        <div style={{backgroundColor: '#528B8B', marginTop: 1, color: '#000'}}>
+        <div style={{backgroundColor: '#528B8B', marginTop: '1px', color: '#fff', padding: '1rem 0'}}>
           <Collapsible trigger={ obj.program.name_program } >
               <BootstrapTable keyField='id' data={ obj.user } columns={ columns } />
           </Collapsible>
@@ -236,6 +236,7 @@ class History extends Component{
           <div className="container">
             <div className="row mb-5">
               <div className="col-12 text-center">
+                <h2 className="section-title mb-3" style={{marginTop: '-1rem', paddingBottom: '2rem'}}>Lịch sử</h2>
                   {this.getDataTable(this.state.objs)}
               </div>
             </div>

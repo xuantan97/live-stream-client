@@ -3961,4 +3961,36 @@ button{
 
 .Collapsible span {
   cursor: pointer;
+  width: 100% !important;
+  display: inline-block;
+}
+
+.Collapsible tr td:nth-child(1) {
+  width: 30% !important;
+}
+
+.Collapsible tr td:nth-child(2) {
+  width: 40% !important;
+}
+
+.Collapsible tr td:nth-child(3) {
+  width: 30% !important;
+}
+
+.Collapsible td, .Collapsible th {
+  word-break: break-all;
+  vertical-align: middle !important;
+}
+
+.Collapsible table {
+  margin-bottom: 0 !important;
+}
+
+.Collapsible th {
+  background: #fff !important;
+  color: #528B8B !important;
+}
+
+.Collapsible tbody tr:nth-child(odd) {
+  background: #fff !important;
 }
