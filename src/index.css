@@ -3994,3 +3994,7 @@ button{
 .Collapsible tbody tr:nth-child(odd) {
   background: #fff !important;
 }
+
+.site-footer {
+  padding: 2em 0 1em !important;
+}

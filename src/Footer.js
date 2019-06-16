@@ -54,9 +54,9 @@ class Footer extends Component {
                     </div>
                 </div> */}
                 </div>
-                <div className="row pt-5 mt-5 text-center">
+                <div className="row pt-3 mt-3 text-center">
                 <div className="col-md-12">
-                    <div className="border-top pt-5">
+                    <div className="border-top pt-4">
                     <p>
                         Copyright © All rights reserved | This template is made with <FaHeart aria-hidden="true"/> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
                     </p>
