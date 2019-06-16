@@ -1,8 +1,8 @@
 
 import React, {Component} from 'react';
 import $ from "jquery";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import { FaTimes, FaList, FaUserAlt } from 'react-icons/fa';
+import { Link } from "react-router-dom";
+import { FaTimes, FaList, FaUserAlt, FaSignOutAlt } from 'react-icons/fa';
 import { NavDropdown } from 'react-bootstrap';
 import Collapsible from 'react-collapsible';
 import Footer from './Footer';
@@ -90,11 +90,11 @@ class History extends Component{
       }); 
 
       $('.basic-nav-dropdown').bind('mouseover', function(e) {
-        $('.site-menu svg path').addClass('user-hover');
+        $('.site-menu .dropdown-toggle svg path').addClass('user-hover');
       });
       
       $('.basic-nav-dropdown').bind('mouseout', function(e) {
-        $('.site-menu svg path').removeClass('user-hover');
+        $('.site-menu .dropdown-toggle svg path').removeClass('user-hover');
       });
 
       var siteMenuClone = function() {
@@ -195,7 +195,7 @@ class History extends Component{
               <NavDropdown title={<FaUserAlt style={{ fontSize: '16px', marginBottom: '5px' }} />} className="basic-nav-dropdown">
                 <NavDropdown.Item href="#" onClick={()=>this.props.history.push('/profile')}>Thông tin cá nhân</NavDropdown.Item>
                 <NavDropdown.Divider />
-                <NavDropdown.Item href="#" onClick={() => this.logout()}>Đăng xuất</NavDropdown.Item>
+                <NavDropdown.Item href="#" onClick={() => this.logout()}>Đăng xuất &nbsp; <FaSignOutAlt/></NavDropdown.Item>
               </NavDropdown>
               </li>
             </ul>
@@ -221,7 +221,7 @@ class History extends Component{
                       <NavDropdown title={<FaUserAlt style={{ fontSize: '16px', marginBottom: '5px' }} />} className="basic-nav-dropdown">
                         <NavDropdown.Item href="#" onClick={()=>this.props.history.push('/profile')}>Thông tin cá nhân</NavDropdown.Item>
                         <NavDropdown.Divider />
-                        <NavDropdown.Item href="#" onClick={() => this.logout()}>Đăng xuất</NavDropdown.Item>
+                        <NavDropdown.Item href="#" onClick={() => this.logout()}>Đăng xuất &nbsp; <FaSignOutAlt/></NavDropdown.Item>
                       </NavDropdown>
                     </li>
                   </ul>
