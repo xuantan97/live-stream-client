@@ -215,10 +215,10 @@ class AboutUs extends Component {
                       <li><a href="#"><span><FaLinkedinIn/></span></a></li>
                       <li><a href="#"><span><FaInstagram/></span></a></li>
                     </ul>
-                    <img src="images/person_5.jpg" alt="Image" className="img-fluid" />
+                    <img src="images/1.jpg" alt="Image" className="img-fluid" />
                   </figure>
                   <div className="p-2">
-                    <h5 style={{color: '#000'}}>Nguyễn An Sơn</h5>
+                    <h5 style={{color: '#000'}}>An Sơn</h5>
                     <span className="position">Mobile Developer</span>
                   </div>
                 </div>
@@ -232,10 +232,10 @@ class AboutUs extends Component {
                       <li><a href="#"><span><FaLinkedinIn/></span></a></li>
                       <li><a href="#"><span><FaInstagram/></span></a></li>
                     </ul>
-                    <img src="images/person_6.jpg" alt="Image" className="img-fluid" />
+                    <img src="images/2.jpg" alt="Image" className="img-fluid" />
                   </figure>
                   <div className="p-2">
-                    <h5 style={{color: '#000'}}>Nguyễn Thành Tâm</h5>
+                    <h5 style={{color: '#000'}}>Thành Tâm</h5>
                     <span className="position">Frontend Developer</span>
                   </div>
                 </div>
@@ -249,10 +249,10 @@ class AboutUs extends Component {
                       <li><a href="#"><span><FaLinkedinIn/></span></a></li>
                       <li><a href="#"><span><FaInstagram/></span></a></li>
                     </ul>
-                    <img src="images/person_7.jpg" alt="Image" className="img-fluid" />
+                    <img src="images/3.jpg" alt="Image" className="img-fluid" />
                   </figure>
                   <div className="p-2">
-                    <h5 style={{color: '#000'}}>Nguyễn Hoài Thanh Tân</h5>
+                    <h5 style={{color: '#000'}}>Thanh Tân</h5>
                     <span className="position">Backend Developer</span>
                   </div>
                 </div>
@@ -266,10 +266,10 @@ class AboutUs extends Component {
                       <li><a href="#"><span><FaLinkedinIn/></span></a></li>
                       <li><a href="#"><span><FaInstagram/></span></a></li>
                     </ul>
-                    <img src="images/person_7.jpg" alt="" className="img-fluid" />
+                    <img src="images/4.jpg" alt="" className="img-fluid" />
                   </figure>
                   <div className="p-2">
-                    <h5 style={{color: '#000'}}>Nguyễn Xuân Tân</h5>
+                    <h5 style={{color: '#000'}}>Xuân Tân</h5>
                     <span className="position">FullStack Developer</span>
                   </div>
                 </div>
@@ -284,10 +284,10 @@ class AboutUs extends Component {
                       <li><a href="#"><span><FaLinkedinIn/></span></a></li>
                       <li><a href="#"><span><FaInstagram/></span></a></li>
                     </ul>
-                    <img src="images/person_7.jpg" alt="" className="img-fluid" />
+                    <img src="images/5.jpg" alt="" className="img-fluid" />
                   </figure>
                   <div className="p-2">
-                    <h5 style={{color: '#000'}}>Phan Văn Tấn</h5>
+                    <h5 style={{color: '#000'}}>Văn Tấn</h5>
                     <span className="position">Frontend Developer</span>
                   </div>
                 </div>
