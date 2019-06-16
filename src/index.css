@@ -3195,7 +3195,7 @@ a.site-menu-focus {
 /* -------------------------------------------- LOGIN ------------------------------------------------- */
 
 
-@font-face {
+/* @font-face {
   font-family: 'Source Sans Pro';
   font-style: normal;
   font-weight: 200;
@@ -3206,7 +3206,7 @@ a.site-menu-focus {
   font-style: normal;
   font-weight: 300;
   src: local('Source Sans Pro Light'), local('SourceSansPro-Light'), url(https://fonts.gstatic.com/s/sourcesanspro/v12/6xKydSBYKcSV-LCoeQqfX1RYOo3ik4zwlxdr.ttf) format('truetype');
-}
+} */
 /* * {
   box-sizing: border-box;
   margin: 0;
@@ -3214,7 +3214,8 @@ a.site-menu-focus {
   font-weight: 300;
 } */
 .container-form {
-  font-family: 'Source Sans Pro', sans-serif;
+  /* font-family: 'Source Sans Pro', sans-serif; */
+  font-family: 'Roboto', sans-serif;
   color: white;
   font-weight: 300;
   box-sizing: border-box;
@@ -3223,27 +3224,31 @@ a.site-menu-focus {
 }
 .container-form ::-webkit-input-placeholder {
   /* WebKit browsers */
-  font-family: 'Source Sans Pro', sans-serif;
+  /* font-family: 'Source Sans Pro', sans-serif; */
+  font-family: 'Roboto', sans-serif;
   color: white;
   font-weight: 300;
 }
 .container-form :-moz-placeholder {
   /* Mozilla Firefox 4 to 18 */
-  font-family: 'Source Sans Pro', sans-serif;
+  /* font-family: 'Source Sans Pro', sans-serif; */
+  font-family: 'Roboto', sans-serif;
   color: white;
   opacity: 1;
   font-weight: 300;
 }
 .container-form ::-moz-placeholder {
   /* Mozilla Firefox 19+ */
-  font-family: 'Source Sans Pro', sans-serif;
+  /* font-family: 'Source Sans Pro', sans-serif; */
+  font-family: 'Roboto', sans-serif;
   color: white;
   opacity: 1;
   font-weight: 300;
 }
 .container-form :-ms-input-placeholder {
   /* Internet Explorer 10+ */
-  font-family: 'Source Sans Pro', sans-serif;
+  /* font-family: 'Source Sans Pro', sans-serif; */
+  font-family: 'Roboto', sans-serif;
   color: white;
   font-weight: 300;
 }

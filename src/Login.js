@@ -13,8 +13,8 @@ class Login extends Component {
 
     validate = data => {
         const errors = {};
-        if (!Validator.isEmail(data.email)) errors.email = "Invalid Email";
-        if (!data.password) errors.password = "Can't be blank";
+        if (!Validator.isEmail(data.email)) errors.email = "Email không hợp lệ";
+        if (!data.password) errors.password = "Mật khẩu không được trống";
         return errors;
     };
 
@@ -44,7 +44,7 @@ class Login extends Component {
                 res.json().then(response => {
                     console.log(response);
                     if(response === "fail"){
-                        alert("Login fail !!!");
+                        alert("Đăng nhập không thành công !!!");
                     }else{
                         localStorage.setItem('user_id', response.id);
                         localStorage.setItem('email', response.email);
@@ -72,19 +72,19 @@ class Login extends Component {
 
                 <div class="wrapper-login">
                     <div class="container-login">
-                        <h1>Welcome</h1>
+                        <h1>Đăng nhập</h1>
                         
                         <form class="form-login" onSubmit={this.onSubmit}>
-                            {errors.email && <div style={{color: '#ae5856'}}>{errors.email}</div>}
+                            {errors.email && <div style={{color: '#ae5856', fontSize: '14px'}}>{errors.email}</div>}
                             <input className={email} type="email" id="email" name="email" placeholder="Email" value={data.email} onChange={this.onChange}/>
 
-                            {errors.password && <div style={{color: '#ae5856'}}>{errors.password}</div>}
-                            <input className={password} type="password" id="password" name="password" placeholder="Password" value={data.password} onChange={this.onChange}/>
-                            <Button className="submit" variant="primary" onClick={()=>this.onSubmit()}>Sign In</Button>
+                            {errors.password && <div style={{color: '#ae5856', fontSize: '14px'}}>{errors.password}</div>}
+                            <input className={password} type="password" id="password" name="password" placeholder="Mật khẩu" value={data.password} onChange={this.onChange}/>
+                            <Button className="submit" variant="primary" onClick={()=>this.onSubmit()}>Đăng nhập</Button>
                             <div style={{marginTop: '30px', fontSize: '18px'}}>
-                                <span>Don't have account?&nbsp;</span>
+                                <span>Bạn chưa có tài khoản?&nbsp;</span>
                                 <a variant="primary" href="/register">
-                                    Sign Up
+                                    Đăng kí
                                 </a>
                             </div>
                         </form>

@@ -193,9 +193,9 @@ class History extends Component{
               <li><Link to="/history" className="site-menu-focus history">Lịch sử</Link></li>
               <li>
               <NavDropdown title={<FaUserAlt style={{ fontSize: '16px', marginBottom: '5px' }} />} className="basic-nav-dropdown">
-                <NavDropdown.Item href="#" onClick={()=>this.props.history.push('/profile')}>Profile</NavDropdown.Item>
+                <NavDropdown.Item href="#" onClick={()=>this.props.history.push('/profile')}>Thông tin cá nhân</NavDropdown.Item>
                 <NavDropdown.Divider />
-                <NavDropdown.Item href="#" onClick={() => this.logout()}>Log out</NavDropdown.Item>
+                <NavDropdown.Item href="#" onClick={() => this.logout()}>Đăng xuất</NavDropdown.Item>
               </NavDropdown>
               </li>
             </ul>
@@ -219,9 +219,9 @@ class History extends Component{
                     <li><Link to="/history" className="site-menu-focus history">Lịch sử</Link></li>
                     <li>
                       <NavDropdown title={<FaUserAlt style={{ fontSize: '16px', marginBottom: '5px' }} />} className="basic-nav-dropdown">
-                        <NavDropdown.Item href="#" onClick={()=>this.props.history.push('/profile')}>Profile</NavDropdown.Item>
+                        <NavDropdown.Item href="#" onClick={()=>this.props.history.push('/profile')}>Thông tin cá nhân</NavDropdown.Item>
                         <NavDropdown.Divider />
-                        <NavDropdown.Item href="#" onClick={() => this.logout()}>Log out</NavDropdown.Item>
+                        <NavDropdown.Item href="#" onClick={() => this.logout()}>Đăng xuất</NavDropdown.Item>
                       </NavDropdown>
                     </li>
                   </ul>
