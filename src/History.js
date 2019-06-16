@@ -1,5 +1,6 @@
 
 import React, {Component} from 'react';
+import $ from "jquery";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { FaTimes, FaList, FaUserAlt } from 'react-icons/fa';
 import { NavDropdown } from 'react-bootstrap';
@@ -67,6 +68,113 @@ class History extends Component{
 
 
   render(){
+    $(document).ready(function() {
+      $('.sticky-wrapper').addClass('is-sticky');
+      $('.js-sticky-header').addClass('shrink');
+      $(window).bind('scroll', function(e) {
+        var top = $(window).scrollTop();
+        if(top < 100) {
+          $('.sticky-wrapper').addClass('is-sticky');
+          $('.js-sticky-header').addClass('shrink');
+        }
+      });
+
+      $('.site-menu a').bind('mouseover', function(e) {
+        if(!$(this).hasClass('site-menu-focus')) {
+          $(this).addClass('nav-hover');
+        }
+      });
+      
+      $('.site-menu a').bind('mouseout', function(e) {
+        $(this).removeClass('nav-hover');
+      }); 
+
+      $('.basic-nav-dropdown').bind('mouseover', function(e) {
+        $('.site-menu svg path').addClass('user-hover');
+      });
+      
+      $('.basic-nav-dropdown').bind('mouseout', function(e) {
+        $('.site-menu svg path').removeClass('user-hover');
+      });
+
+      var siteMenuClone = function() {
+        // $('.js-clone-nav').each(function() {
+        //   var $this = $(this);
+        //   $this.clone().attr('class', 'site-nav-wrap').appendTo('.site-mobile-menu-body');
+        // });
+    
+    
+        setTimeout(function() {
+          
+          var counter = 0;
+          $('.site-mobile-menu .has-children').each(function(){
+            var $this = $(this);
+            
+            $this.prepend('<span class="arrow-collapse collapsed">');
+    
+            $this.find('.arrow-collapse').attr({
+              'data-toggle' : 'collapse',
+              'data-target' : '#collapseItem' + counter,
+            });
+    
+            $this.find('> ul').attr({
+              'class' : 'collapse',
+              'id' : 'collapseItem' + counter,
+            });
+    
+            counter++;
+    
+          });
+    
+        }, 1000);
+    
+        $('body').on('click', '.arrow-collapse', function(e) {
+          var $this = $(this);
+          if ( $this.closest('li').find('.collapse').hasClass('show') ) {
+            $this.removeClass('active');
+          } else {
+            $this.addClass('active');
+          }
+          e.preventDefault();  
+          
+        });
+    
+        $(window).resize(function() {
+          var $this = $(this),
+            w = $this.width();
+    
+          if ( w > 768 ) {
+            if ( $('body').hasClass('offcanvas-menu') ) {
+              $('body').removeClass('offcanvas-menu');
+            }
+          }
+        })
+    
+        $('body').on('click', '.js-menu-toggle', function(e) {
+          var $this = $(this);
+          e.preventDefault();
+    
+          if ( $('body').hasClass('offcanvas-menu') ) {
+            $('body').removeClass('offcanvas-menu');
+            $this.removeClass('active');
+          } else {
+            $('body').addClass('offcanvas-menu');
+            $this.addClass('active');
+          }
+        }) 
+    
+        // click outisde offcanvas
+        $(document).mouseup(function(e) {
+          var container = $(".site-mobile-menu");
+          if (!container.is(e.target) && container.has(e.target).length === 0) {
+            if ( $('body').hasClass('offcanvas-menu') ) {
+              $('body').removeClass('offcanvas-menu');
+            }
+          }
+        });
+      }; 
+      siteMenuClone();
+    });
     return(
       <div className="site-wrap">
          <div className="site-mobile-menu site-navbar-target">
@@ -75,7 +183,23 @@ class History extends Component{
               <span><FaTimes className="icon-close2 js-menu-toggle"/></span>
             </div>
           </div>
-          <div className="site-mobile-menu-body" />
+          {/* <div className="site-mobile-menu-body" /> */}
+          <div className="site-mobile-menu-body">
+            <ul className="site-nav-wrap">
+              <li><Link to="/homepage">Trang chủ</Link></li>
+              <li><Link to="/aboutus">Chúng tôi</Link></li>
+              <li><Link to="/game">Trò chơi</Link></li>
+              <li><Link to="/contact">Liên hệ</Link></li>
+              <li><Link to="/history" className="site-menu-focus history">Lịch sử</Link></li>
+              <li>
+              <NavDropdown title={<FaUserAlt style={{ fontSize: '16px', marginBottom: '5px' }} />} className="basic-nav-dropdown">
+                <NavDropdown.Item href="#" onClick={()=>this.props.history.push('/profile')}>Profile</NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item href="#" onClick={() => this.logout()}>Log out</NavDropdown.Item>
+              </NavDropdown>
+              </li>
+            </ul>
+          </div>
         </div>
         <div id="sticky-wrapper" className="sticky-wrapper">
         <header className="site-navbar py-4 js-sticky-header site-navbar-target" role="banner"
@@ -91,15 +215,15 @@ class History extends Component{
                     <li><Link to="/homepage">Trang chủ</Link></li>
                     <li><Link to="/aboutus">Chúng tôi</Link></li>
                     <li><Link to="/game">Trò chơi</Link></li>
-                    <li><Link to="/contact" className="site-menu-focus contact">Liên hệ</Link></li>
-                    <li><Link to="/history">Lịch sử</Link></li>
+                    <li><Link to="/contact">Liên hệ</Link></li>
+                    <li><Link to="/history" className="site-menu-focus history">Lịch sử</Link></li>
                     <li>
-                      <NavDropdown title={<FaUserAlt style={{ fontSize: '16px', marginBottom: '5px' }} />} id="basic-nav-dropdown">
+                      <NavDropdown title={<FaUserAlt style={{ fontSize: '16px', marginBottom: '5px' }} />} className="basic-nav-dropdown">
                         <NavDropdown.Item href="#" onClick={()=>this.props.history.push('/profile')}>Profile</NavDropdown.Item>
                         <NavDropdown.Divider />
                         <NavDropdown.Item href="#" onClick={() => this.logout()}>Log out</NavDropdown.Item>
                       </NavDropdown>
-                      </li>
+                    </li>
                   </ul>
                 </nav>
               </div>

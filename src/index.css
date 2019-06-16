@@ -3958,3 +3958,7 @@ button{
 .site-mobile-menu-body .site-menu-focus {
   color: #5569a2 !important;
 }
+
+.Collapsible span {
+  cursor: pointer;
+}

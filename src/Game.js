@@ -342,7 +342,7 @@ class Game extends Component {
                       <li><Link to="/contact">Liên hệ</Link></li>
                       <li><Link to="/history">Lịch sử</Link></li>
                       <li>
-                      <NavDropdown title={<FaUserAlt style={{ fontSize: '16px', marginBottom: '5px' }} />} id="basic-nav-dropdown" className="basic-nav-dropdown">
+                      <NavDropdown title={<FaUserAlt style={{ fontSize: '16px', marginBottom: '5px' }} />} className="basic-nav-dropdown">
                         <NavDropdown.Item href="#" onClick={()=>this.props.history.push('/profile')}>Profile</NavDropdown.Item>
                         <NavDropdown.Divider />
                         <NavDropdown.Item href="#" onClick={() => this.logout()}>Log out</NavDropdown.Item>
@@ -368,7 +368,7 @@ class Game extends Component {
                             <li><Link to="/contact">Liên hệ</Link></li>
                             <li><Link to="/history">Lịch sử</Link></li>
                             <li>
-                              <NavDropdown title={<FaUserAlt style={{ fontSize: '16px', marginBottom: '5px' }} />} id="basic-nav-dropdown" className="basic-nav-dropdown">
+                              <NavDropdown title={<FaUserAlt style={{ fontSize: '16px', marginBottom: '5px' }} />} className="basic-nav-dropdown">
                                 <NavDropdown.Item href="#" onClick={()=>this.props.history.push('/profile')}>Profile</NavDropdown.Item>
                                 <NavDropdown.Divider />
                                 <NavDropdown.Item href="#" onClick={() => this.logout()}>Log out</NavDropdown.Item>
