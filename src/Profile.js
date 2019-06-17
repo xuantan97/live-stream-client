@@ -220,13 +220,13 @@ class Profile extends Component {
                 <div className="site-mobile-menu-body">
                   <ul className="site-nav-wrap">
                     <li><Link to="/homepage">Trang chủ</Link></li>
-                    <li><Link to="/aboutus" className="site-menu-focus aboutus">Chúng tôi</Link></li>
+                    <li><Link to="/aboutus">Chúng tôi</Link></li>
                     <li><Link to="/game">Trò chơi</Link></li>
                     <li><Link to="/contact">Liên hệ</Link></li>
                     <li><Link to="/history">Lịch sử</Link></li>
                     <li>
                     <NavDropdown title={<FaUserAlt style={{ fontSize: '16px', marginBottom: '5px' }} />} className="basic-nav-dropdown">
-                      <NavDropdown.Item href="#" onClick={()=>this.props.history.push('/profile')}>Thông tin cá nhân</NavDropdown.Item>
+                      <NavDropdown.Item href="#" onClick={()=>this.props.history.push('/profile')} className="site-menu-focus">Thông tin cá nhân</NavDropdown.Item>
                       <NavDropdown.Divider />
                       <NavDropdown.Item href="#" onClick={() => this.logout()}>Đăng xuất &nbsp; <FaSignOutAlt/></NavDropdown.Item>
                     </NavDropdown>
@@ -246,13 +246,13 @@ class Profile extends Component {
                       <nav className="site-navigation position-relative text-right" role="navigation">
                         <ul className="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
                           <li><Link to="/homepage">Trang chủ</Link></li>
-                          <li><Link to="/aboutus" className="site-menu-focus aboutus">Chúng tôi</Link></li>
+                          <li><Link to="/aboutus">Chúng tôi</Link></li>
                           <li><Link to="/game">Trò chơi</Link></li>
                           <li><Link to="/contact">Liên hệ</Link></li>
                           <li><Link to="/history">Lịch sử</Link></li>
                           <li>
                           <NavDropdown title={<FaUserAlt style={{ fontSize: '16px', marginBottom: '5px' }} />} className="basic-nav-dropdown">
-                            <NavDropdown.Item href="#" onClick={()=>this.props.history.push('/profile')}>Thông tin cá nhân</NavDropdown.Item>
+                            <NavDropdown.Item href="#" onClick={()=>this.props.history.push('/profile')} className="site-menu-focus">Thông tin cá nhân</NavDropdown.Item>
                             <NavDropdown.Divider />
                             <NavDropdown.Item href="#" onClick={() => this.logout()}>Đăng xuất &nbsp; <FaSignOutAlt/></NavDropdown.Item>
                           </NavDropdown>
