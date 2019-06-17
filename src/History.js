@@ -65,6 +65,11 @@ class History extends Component{
     return result;
   }
 
+  logout() {
+    localStorage.clear();
+    this.props.history.push('/');
+  }
+
 
   render(){
     $(document).ready(function() {

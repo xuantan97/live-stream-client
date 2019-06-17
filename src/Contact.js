@@ -46,6 +46,11 @@ class Contact extends Component {
       }
     }
 
+    logout() {
+      localStorage.clear();
+      this.props.history.push('/');
+    }
+
 
     
     render() {
