@@ -172,8 +172,12 @@ class Game extends Component {
                 isTrue: false
               });
             }
-            this.openModalSummary();
+            //Unable close popup when click away
             this.setState({checkStatus: false});
+            //wait 4s and show summary
+            setTimeout(()=>{
+              this.setState({ visible_summary : true });
+            }, 4000);
     
             var dataSum = await [this.state.id, this.state.isTrue];
             await this.socket.emit("SUMMARY", dataSum);
