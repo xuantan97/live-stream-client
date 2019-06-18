@@ -73,7 +73,7 @@ class WebRTCVideo extends React.Component {
                         // width={400}
                         // width={this.props.width}
                         width="100%"
-                        height={360}
+                        height={530}
                         controls
                     ></video>
                 }

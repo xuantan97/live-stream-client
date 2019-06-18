@@ -4,8 +4,9 @@ import WebRTCVideo from './WebRTC';
 import $ from "jquery";
 import io from 'socket.io-client';
 import { NavDropdown } from 'react-bootstrap';
-import { FaUserAlt, FaPaperPlane, FaCheck, FaTimes, FaList, FaSignOutAlt } from 'react-icons/fa';
+import { FaUserAlt, FaPaperPlane, FaCheck, FaTimes, FaList, FaSignOutAlt, FaArrowAltCircleLeft } from 'react-icons/fa';
 import Footer from './Footer';
+import Modal from 'react-awesome-modal';
 
 
 class Game extends Component {
@@ -29,11 +30,35 @@ class Game extends Component {
           image_path: ""
         };
       }
+
+      openModal() {
+        this.setState({
+            visible : true
+        });
+      }
+
+      closeModal() {
+        this.setState({
+            visible : false
+        });
+      }
+
+      openModalSummary() {
+        this.setState({
+            visible_summary : true
+        });
+      }
+
+      closeModalSummary() {
+        this.setState({
+            visible_summary : false
+        });
+      }
     
     
       async componentDidMount() {
-        $('.question-content').hide();
-        $('.summary').hide();
+        // $('.question-content').hide();
+        // $('.summary').hide();
         $('.win').hide();
 
         $('button.btn-answer').mouseover(function () {
@@ -49,8 +74,9 @@ class Game extends Component {
     
         //listen event server broadcast question and show
         this.socket.on('BROADCAST_QUESTION_TO_CLIENT', (dataAPI) => {
-          $('.summary').hide();
-          $('.question-content').show();
+          // $('.summary').hide();
+          // $('.question-content').show();
+          this.openModal();
           $('.countdown').show();
           $('button.btn-answer').removeClass('button-focus');
           $('button.btn-answer').removeClass('right-answer');
@@ -103,7 +129,9 @@ class Game extends Component {
             $('#time').html(count);
               update(count);
             
-            if(count === 0) clearInterval(myCounter);
+            if(count === 0) {
+              clearInterval(myCounter);
+            }
           }, 1000);
         })
     
@@ -324,7 +352,6 @@ class Game extends Component {
                       <span><FaTimes className="icon-close2 js-menu-toggle"/></span>
                     </div>
                   </div>
-                  {/* <div className="site-mobile-menu-body" /> */}
                   <div className="site-mobile-menu-body">
                     <ul className="site-nav-wrap">
                       <li><Link to="/homepage">Trang chủ</Link></li>
@@ -373,32 +400,9 @@ class Game extends Component {
                   </div>
                 </header>
                 </div>
+
                 <section className="site-section game-section" id="contact-section">
                   <div className="container-full">
-                    <div className="summary-container">
-                      <div className="countdown">
-                        <div className="pie degree">
-                          <span className="block"></span>
-                          <span id="time">10</span>
-                        </div>
-                      </div>
-
-                      <div className="summary">
-                        <div className="summary-title">Tổng kết câu {this.state.program_id}</div>
-                        <div className="summary-content">
-                          <div>
-                              {/* <label>Total correct: </label> */}
-                              <span style={{color: '#31d106'}}><FaCheck/>&nbsp;</span>
-                              <span id="summary-correct" style={{color: '#31d106', fontWeight: '700'}}>113</span>
-                          </div>
-                          <div>
-                              {/* <label>Total incorrect: </label> */}
-                              <span style={{color: '#f00'}}><FaTimes/>&nbsp;</span>
-                              <span id="summary-incorrect" style={{color: '#f00', fontWeight: '700'}}>113</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
                     <div className="video-container"><WebRTCVideo/> <img src={this.state.image_path} alt=""/></div>
                     <div className="chat-container">
                       <div style={{width: '100%', height: '100%'}}>
@@ -410,28 +414,63 @@ class Game extends Component {
                           <span id="btnChat" onClick={() => this.sendMessage([$("#txtChat").val(), localStorage.getItem('username')])}><FaPaperPlane/></span>
                         </div>
                       </div>
-                    </div>
-                    <div className="question-container">
-                      <div className="question-content">
-                        <div>
-                          Câu {this.state.program_id}:
-                        </div>
-                        {this.state.title}
-                      </div>
-                    </div>
-                    <div className="answer-container">
-                      <div className="row-answer">
-                        <button onClick={(event) => this.submitAnswer(event)} value="A" className="btn-answer">A. {this.state.A}</button>
-                        <button onClick={(event) => this.submitAnswer(event)} value="B" className="btn-answer">B. {this.state.B}</button>
-                      </div>
-                      <div className="row-answer">
-                        <button onClick={(event) => this.submitAnswer(event)} value="C" className="btn-answer">C. {this.state.C}</button>
-                        <button onClick={(event) => this.submitAnswer(event)} value="D" className="btn-answer">D. {this.state.D}</button>
-                      </div>
-                    </div>                    
+                    </div>                   
                   </div>
-
+                  <input type="button" value="Open" onClick={() => this.openModal()} />
+                  <input type="button" value="Summary" onClick={() => this.openModalSummary()} />
                 </section>
+
+                 
+                <Modal visible={this.state.visible} width="1000" height="600" effect="fadeInUp" onClickAway={() => this.closeModal()}>
+                    <div className="modal-container">
+                      <div className="question-number">Q{this.state.program_id}/10</div>
+                      <div className="countdown">
+                        <div className="pie degree">
+                          <span className="block"></span>
+                          <span id="time">10</span>
+                        </div>  
+                      </div>
+
+                      <div className="question-answer">
+                   
+                      <div className="question-container">
+                        <div className="question-content">
+                          {/* <div>
+                            Câu {this.state.program_id}:
+                          </div> */}
+                          {this.state.title}
+                        </div>
+                      </div>
+                      <div className="answer-container">
+                        <div className="row-answer">
+                          <button onClick={(event) => this.submitAnswer(event)} value="A" className="btn-answer">A. {this.state.A}</button>
+                          <button onClick={(event) => this.submitAnswer(event)} value="B" className="btn-answer">B. {this.state.B}</button>
+                        </div>
+                        <div className="row-answer">
+                          <button onClick={(event) => this.submitAnswer(event)} value="C" className="btn-answer">C. {this.state.C}</button>
+                          <button onClick={(event) => this.submitAnswer(event)} value="D" className="btn-answer">D. {this.state.D}</button>
+                        </div>
+                      </div>
+
+                      </div>
+                    </div>
+                </Modal>
+
+                <Modal visible={this.state.visible_summary} width="500" height="300" effect="fadeInUp" onClickAway={() => this.closeModalSummary()}>
+                      <div className="summary">
+                        <div className="summary-title">Tổng kết câu {this.state.program_id}</div>
+                        <div className="summary-content">
+                          <div>
+                               <span style={{color: '#31d106'}}><FaCheck/>&nbsp;</span>
+                              <span id="summary-correct" style={{color: '#31d106', fontWeight: '700'}}>113</span>
+                          </div>
+                          <div> 
+                               <span style={{color: '#f00'}}><FaTimes/>&nbsp;</span>
+                              <span id="summary-incorrect" style={{color: '#f00', fontWeight: '700'}}>113</span>
+                          </div>
+                        </div>
+                      </div>    
+                </Modal>
 
 
                 <Footer/>
