@@ -4,10 +4,9 @@ import WebRTCVideo from './WebRTC';
 import $ from "jquery";
 import io from 'socket.io-client';
 import { NavDropdown } from 'react-bootstrap';
-import { FaUserAlt, FaPaperPlane, FaCheck, FaTimes, FaList, FaSignOutAlt, FaArrowAltCircleLeft } from 'react-icons/fa';
+import { FaUserAlt, FaPaperPlane, FaCheck, FaTimes, FaList, FaSignOutAlt } from 'react-icons/fa';
 import Footer from './Footer';
 import Modal from 'react-awesome-modal';
-
 
 
 class Game extends Component {
@@ -28,7 +27,7 @@ class Game extends Component {
           isTrue: false,
           isWin: 10,
           program_id: 0,
-          image_path: ""
+          checkStatus: true
         };
       }
 
@@ -55,6 +54,12 @@ class Game extends Component {
             visible_summary : false
         });
       }
+
+      handleClose() {
+        this.setState({
+          visible : this.state.checkStatus
+        });
+      }
     
     
       async componentDidMount() {
@@ -71,14 +76,12 @@ class Game extends Component {
           $(this).removeClass('hover-' + x);
         });
 
-        
-    
         //listen event server broadcast question and show
         this.socket.on('BROADCAST_QUESTION_TO_CLIENT', (dataAPI) => {
-          // $('.summary').hide();
-          // $('.question-content').show();
           this.closeModalSummary();
           this.openModal();
+          this.setState({checkStatus: true});
+
           $('.countdown').show();
           $('button.btn-answer').removeClass('button-focus');
           $('button.btn-answer').removeClass('right-answer');
@@ -170,6 +173,7 @@ class Game extends Component {
               });
             }
             this.openModalSummary();
+            this.setState({checkStatus: false});
     
             var dataSum = await [this.state.id, this.state.isTrue];
             await this.socket.emit("SUMMARY", dataSum);
@@ -198,7 +202,6 @@ class Game extends Component {
     
         this.socket.on('END_GAME_TO_CLIENT', (dataEndGame) => {
           $(".question").hide();
-          // $(".countdown").hide();
     
           console.log(dataEndGame);
           $('.win').append(`<style>.win:before{content:'CONGRATULATIONS!!! \\A YOU WIN ${dataEndGame[2]}$' !important} 
@@ -421,12 +424,10 @@ class Game extends Component {
                       </div>
                     </div>                   
                   </div>
-                  <input type="button" value="Open" onClick={() => this.openModal()} />
-                  <input type="button" value="Summary" onClick={() => this.openModalSummary()} />
                 </section>
 
                  
-                <Modal visible={this.state.visible} width="1000" height="600" effect="fadeInUp"  onClickAway={() => this.closeModal()}>
+                <Modal visible={this.state.visible} width="1000" height="600" effect="fadeInUp"  onClickAway={() => this.handleClose()}>
                     <div className="modal-container" style={{backgroundImage: 'url(/images/background.gif)'}}>
                       <div className="question-number">Q{this.state.program_id}/10</div>
                       <div className="countdown">
