@@ -2758,7 +2758,8 @@ a.site-menu-focus {
 .modal-container {
   width: 100%;
   height: 100%;
-  background: #008afc;
+  /* background: #50a3a2;
+  background: linear-gradient(to bottom right, #50a3a2 0%, #53e3a6 100%); */
   display: grid;
   grid-template-columns: 100px auto 100px;
   grid-template-rows: 60px 40px auto;

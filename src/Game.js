@@ -9,6 +9,7 @@ import Footer from './Footer';
 import Modal from 'react-awesome-modal';
 
 
+
 class Game extends Component {
     
     constructor(props) {
@@ -76,6 +77,7 @@ class Game extends Component {
         this.socket.on('BROADCAST_QUESTION_TO_CLIENT', (dataAPI) => {
           // $('.summary').hide();
           // $('.question-content').show();
+          this.closeModalSummary();
           this.openModal();
           $('.countdown').show();
           $('button.btn-answer').removeClass('button-focus');
@@ -103,7 +105,7 @@ class Game extends Component {
             D: dataAPI.response.body.D,
             answering: "",
             program_id: dataAPI.program_id,
-            image_path: dataAPI.response.thumbnail_base_url
+            image_path: dataAPI.response.thumbnail_base_url + dataAPI.response.thumbnail_path
           });
           localStorage.setItem('idQuestion', dataAPI.response.id);
     
@@ -143,6 +145,7 @@ class Game extends Component {
     
     
         this.socket.on('CLOSE_QUESTION', () => {
+          this.closeModal();
           $('button.btn-answer').removeClass('hover-A hover-B hover-C');
           $('button.btn-answer').prop('disabled', true);
           $(`button[value!="${this.state.answering}"]`).addClass('disable-color');
@@ -150,6 +153,7 @@ class Game extends Component {
     
     
         this.socket.on('RESPONSE_ANSWER_TO_CLIENT', async (data) => {
+          this.openModal();
           if (data.response.id === this.state.id) {
             if (data.response.answer === this.state.answering) {
               $(`button[value="${data.response.answer}"]`).addClass('right-answer');
@@ -165,6 +169,7 @@ class Game extends Component {
                 isTrue: false
               });
             }
+            this.openModalSummary();
     
             var dataSum = await [this.state.id, this.state.isTrue];
             await this.socket.emit("SUMMARY", dataSum);
@@ -403,7 +408,7 @@ class Game extends Component {
 
                 <section className="site-section game-section" id="contact-section">
                   <div className="container-full">
-                    <div className="video-container"><WebRTCVideo/> <img src={this.state.image_path} alt=""/></div>
+                    <div className="video-container"><WebRTCVideo/></div>
                     <div className="chat-container">
                       <div style={{width: '100%', height: '100%'}}>
                         <div className="chat-content">
@@ -421,8 +426,8 @@ class Game extends Component {
                 </section>
 
                  
-                <Modal visible={this.state.visible} width="1000" height="600" effect="fadeInUp" onClickAway={() => this.closeModal()}>
-                    <div className="modal-container">
+                <Modal visible={this.state.visible} width="1000" height="600" effect="fadeInUp"  onClickAway={() => this.closeModal()}>
+                    <div className="modal-container" style={{backgroundImage: 'url(/images/background.gif)'}}>
                       <div className="question-number">Q{this.state.program_id}/10</div>
                       <div className="countdown">
                         <div className="pie degree">
@@ -435,12 +440,13 @@ class Game extends Component {
                    
                       <div className="question-container">
                         <div className="question-content">
-                          {/* <div>
-                            Câu {this.state.program_id}:
-                          </div> */}
                           {this.state.title}
                         </div>
                       </div>
+                      {/* <div className="image-question">
+                          <img scr={this.state.image_path} alt="" width="200" height="200"/>
+                      </div>  */}
+
                       <div className="answer-container">
                         <div className="row-answer">
                           <button onClick={(event) => this.submitAnswer(event)} value="A" className="btn-answer">A. {this.state.A}</button>
