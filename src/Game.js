@@ -68,12 +68,14 @@ class Game extends Component {
         $('.win').hide();
 
         $('button.btn-answer').mouseover(function () {
-          var x = $(this).val();
-          $(this).addClass('hover-' + x);
+          // var x = $(this).val();
+          // $(this).addClass('hover-' + x);
+          $(this).addClass('hover');
         });
         $('button.btn-answer').mouseout(function () {
-          var x = $(this).val();
-          $(this).removeClass('hover-' + x);
+          // var x = $(this).val();
+          // $(this).removeClass('hover-' + x);
+          $(this).removeClass('hover');
         });
 
         //listen event server broadcast question and show
@@ -90,12 +92,14 @@ class Game extends Component {
           $('button.btn-answer').prop('disabled', false);
 
           $('button.btn-answer').mouseover(function () {
-            var x = $(this).val();
-            $(this).addClass('hover-' + x);
+            // var x = $(this).val();
+            // $(this).addClass('hover-' + x);
+            $(this).addClass('hover');
           });
           $('button.btn-answer').mouseout(function () {
-            var x = $(this).val();
-            $(this).removeClass('hover-' + x);
+            // var x = $(this).val();
+            // $(this).removeClass('hover-' + x);
+            $(this).removeClass('hover');
           });
 
           dataAPI.response.body = JSON.parse(dataAPI.response.body);
@@ -149,7 +153,8 @@ class Game extends Component {
     
         this.socket.on('CLOSE_QUESTION', () => {
           this.closeModal();
-          $('button.btn-answer').removeClass('hover-A hover-B hover-C');
+          // $('button.btn-answer').removeClass('hover-A hover-B hover-C');
+          $('button.btn-answer').removeClass('hover');
           $('button.btn-answer').prop('disabled', true);
           $(`button[value!="${this.state.answering}"]`).addClass('disable-color');
         });
@@ -243,7 +248,8 @@ class Game extends Component {
         await this.setState({
           answering: event.target.value,
         });
-        $('button.btn-answer').removeClass('hover-A hover-B hover-C');
+        // $('button.btn-answer').removeClass('hover-A hover-B hover-C');
+        $('button.btn-answer').removeClass('hover');
         $(`button[value="${this.state.answering}"]`).unbind('mouseover');
         $(`button[value!="${this.state.answering}"]`).addClass('disable-color');
         $('button.btn-answer').prop('disabled', true);
@@ -433,7 +439,7 @@ class Game extends Component {
 
                  
                 <Modal visible={this.state.visible} width="1000" height="600" effect="fadeInUp"  onClickAway={() => this.handleClose()}>
-                    <div className="modal-container" style={{backgroundImage: 'url(/images/background.gif)'}}>
+                    <div className="modal-container">
                       <div className="question-number">Q{this.state.program_id}/10</div>
                       <div className="countdown">
                         <div className="pie degree">
@@ -468,7 +474,7 @@ class Game extends Component {
                     </div>
                 </Modal>
 
-                <Modal visible={this.state.visible_summary} width="500" height="300" effect="fadeInUp" onClickAway={() => this.closeModalSummary()}>
+                <Modal visible={this.state.visible_summary} width="400" height="300" effect="fadeInUp" onClickAway={() => this.closeModalSummary()}>
                       <div className="summary">
                         <div className="summary-title">Tổng kết câu {this.state.program_id}</div>
                         <div className="summary-content">
