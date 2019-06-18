@@ -251,6 +251,7 @@ class Game extends Component {
         // $('button.btn-answer').removeClass('hover-A hover-B hover-C');
         $('button.btn-answer').removeClass('hover');
         $(`button[value="${this.state.answering}"]`).unbind('mouseover');
+        $(`button[value="${this.state.answering}"]`).addClass('button-focus');
         $(`button[value!="${this.state.answering}"]`).addClass('disable-color');
         $('button.btn-answer').prop('disabled', true);
       }
