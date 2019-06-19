@@ -2766,12 +2766,10 @@ a.site-menu-focus {
   grid-gap: 20px;
   box-sizing: border-box;
   padding: 20px;
-  background: #99aab5;
-  /* background: url(/images/background.gif);
+  /* background: #99aab5; */
+  background: url('/images/bg.gif');
   background-position: center;
-  background-size: cover; */
-  /* position: relative;
-  background: #333; */
+  background-size: cover;
 }
 
 /* .star {
@@ -3046,8 +3044,7 @@ a.site-menu-focus {
     grid-column: 2;
   }
 }
-
-@media (max-width: 1000px) {
+@media (max-width: 1000px), (min-height: 1000px) {
   .container-full {
     display: grid;
     grid-template-columns: 1fr;
