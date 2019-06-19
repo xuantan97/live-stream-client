@@ -183,7 +183,7 @@ class Game extends Component {
               this.setState({ visible_summary : true });
               //Unable close popup when click away
               this.setState({checkStatus: false});
-            }, 4000);
+            }, 3000);
     
             var dataSum = await [this.state.id, this.state.isTrue];
             await this.socket.emit("SUMMARY", dataSum);
@@ -441,7 +441,7 @@ class Game extends Component {
                  
                 <Modal visible={this.state.visible} width="1000" height="600" effect="fadeInUp"  onClickAway={() => this.handleClose()}>
                     <div className="modal-container">
-                      <div className="question-number">Q{this.state.program_id}/10</div>
+                      <div className="question-number">Q.{this.state.program_id}/10</div>
                       <div className="countdown">
                         <div className="pie degree">
                           <span className="block"></span>
