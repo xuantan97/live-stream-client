@@ -2971,7 +2971,9 @@ a.site-menu-focus {
   background: #74bc20 !important;
 } */
 
-
+.btn-answer:active {
+  outline: none;
+}
 
 .button-focus {
   border-color: #3b5998 !important;
