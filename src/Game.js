@@ -214,13 +214,13 @@ class Game extends Component {
           $(".question").hide();
     
           console.log(dataEndGame);
-          $('.win').append(`<style>.win:before{content:'CONGRATULATIONS!!! \\A YOU WIN ${dataEndGame[2]}$' !important} 
-                                  .win:after{content:'CONGRATULATIONS!!! \\A YOU WIN ${dataEndGame[2]}$' !important}</style>`);
+          $('.win').append(`<style>.win:before{content:'CHÚC MỪNG!!! \\A BẠN ĐÃ THẮNG ${dataEndGame[2]}$' !important} 
+                                  .win:after{content:'CHÚC MỪNG!!! \\A BẠN ĐÃ THẮNG ${dataEndGame[2]}$' !important}</style>`);
           if(this.state.isWin === 0) {
             $('.win').show();
             setTimeout(function() {
               $('.win').fadeOut("slow");
-            }, 15000);
+            }, 10000);
           }
         });
       }
@@ -395,7 +395,7 @@ class Game extends Component {
                   <div className="container">
                     <div className="row align-items-center">
                       <div className="col-6 col-xl-2">
-                        <h1 className="mb-0 site-logo"><Link className="h2 mb-0" to="/homepage">Trivia<span>Game</span></Link></h1>
+                        <h1 className="mb-0 site-logo"><Link className="h2 mb-0" to="/homepage">ST<span>Game</span></Link></h1>
                       </div>
                       <div className="col-12 col-md-10 d-none d-xl-block">
                         <nav className="site-navigation position-relative text-right" role="navigation">
@@ -473,6 +473,7 @@ class Game extends Component {
 
                       </div>
                     </div>
+                    
                 </Modal>
 
                 <Modal visible={this.state.visible_summary} width="400" height="300" effect="fadeInUp" onClickAway={() => this.closeModalSummary()}>
@@ -488,7 +489,7 @@ class Game extends Component {
                               <span id="summary-incorrect" style={{color: '#f00', fontWeight: '700'}}>113</span>
                           </div>
                         </div>
-                      </div>    
+                      </div>   
                 </Modal>
 
 

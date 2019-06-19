@@ -2654,6 +2654,7 @@ a.site-menu-focus {
   display: flex;
   justify-content: center;
   grid-column: 2;
+  border-radius: 1rem;
 }
 
 /* ----------------------------- CHAT ----------------------------- */
@@ -2661,31 +2662,28 @@ a.site-menu-focus {
 .chat-container {
   width: 100%;
   height: 100%;
-  background: #f0f;
   border-left: 0.5px solid #f2f2f2;
   border-top: 0.5px solid #f2f2f2;
   grid-column: 3;
   box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+  border-radius: 1rem;
+  overflow: hidden;
 }
 
 .chat-content {
   background: #fff;
   padding: 20px;
-  height: 88%;
+  height: 87%;
   overflow-y: auto;
   word-wrap: break-word;
   text-align: left;
   border-right: 1px solid #f2f2f2;
   width: 100%;
-  /* border: 1px solid #aaa; */
 }
 
 .input-content {
-  /* display: grid;
-  grid-template-columns: 5fr 1fr; */
   width: 100%;
-  /* grid-column-gap: 10px; */
-  height: 12%;
+  height: 13%;
   padding: 10px 0;
   background: #eee;
 }
@@ -2695,38 +2693,30 @@ a.site-menu-focus {
 }
 
 .input-content #txtChat {
-  /* grid-column: 1; */
-  width: calc(100% - 44px);
+  width: calc(100% - 40px - 20px);
   padding: 0.5rem;
   border: none;
   border-bottom: 1.2px solid #ccc;
   outline: none;
-  /* background: transparent; */
+  margin: 0 10px;
 }
 
 .input-content #btnChat {
-  /* grid-column: 2; */
-  width: 44px;
-  background: #f7f7f7;
+  width: 40px;
   border: none;
   outline: none;
   transition: 0.2s ease;
-  background: #25a042;
-  color: #7c7c7d;
-  border-radius: 2px;
-  color: #fff;
-  /* line-height: 25px; */
-  /* padding: 0 12px; */
-  padding: 11px 14px 12px;
+  color: #0078FF;
+  font-size: 25px;
+  padding: 0 2px;
 }
 
 .input-content #btnChat:hover {
-  background: #008afc;
-  color: #fff;
+  color: #00C6FF;
 }
 
 .input-content #btnChat:active {
-  background: #006fcb;
+  color: #0078FF;
 }
 
 /* ----------------------------- SUMMARY ----------------------------- */
@@ -2891,7 +2881,9 @@ a.site-menu-focus {
   align-items: center;
   box-sizing: border-box;
   padding: 20px;
-  border-radius: 2px;
+  border-top-left-radius: 2rem;
+  border-bottom-right-radius: 2rem;
+
 }
 
 .question-content {
@@ -2930,7 +2922,7 @@ a.site-menu-focus {
   height: 100%;
   border: none;
   outline: none;
-  border-radius: 8px;
+  border-radius: 1rem;
   font-size: 20px;
   color: #fff;
   background: #3b5998;
@@ -2939,7 +2931,7 @@ a.site-menu-focus {
 }
 
 .hover {
-  border-radius: 8px;
+  border-radius: 1rem;
   background: #577fd3;
 }
 
@@ -2986,30 +2978,31 @@ a.site-menu-focus {
   background-color: #3b5998 !important;
   color: #fff !important;
   cursor: default !important;
-  border-radius: 2px;
+  border-radius: 1rem;
 }
 
 .disable-color {
   border-color: #ccc !important;
   background-color: #ccc !important;
   cursor: default;
-  color: #777;
+  color: #666;
 }
 
 .wrong-answer {
   background: #f00 !important;
   border-color: #f00 !important;
   color: #fff !important;
-  border-radius: 8px;
+  border-radius: 1rem;
 }
 
 .right-answer {
   background: #0d0 !important;
   border-color: #0d0 !important;
+  color: #fff !important;
   /* transition: 0.5s ease; */
   animation: right-answer 1.5s linear;
   animation-iteration-count: 2;
-  border-radius: 8px;
+  border-radius: 1rem;
 }
 
 @keyframes right-answer {
@@ -3113,18 +3106,10 @@ a.site-menu-focus {
     grid-column: 1 / span 2;
     grid-row: 2;
   }
-
-  .question-container {
-    /* width: 100%;
-    height: 100%; */
-    /* grid-column: 1;
-    grid-row: 3; */
+  .question-content {
+    font-size: 18px;
   }
   .answer-container {
-    /* width: 100%;
-    height: 100%; */
-    /* grid-column: 1;
-    grid-row: 4; */
   height: calc(100% - 150px);
   }
   .row-answer {
@@ -3169,7 +3154,7 @@ a.site-menu-focus {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 1000;
+  z-index: 20000;
   animation: bounceIn 2s linear;
   letter-spacing: 5px;
   font-size: 60px;
@@ -3179,7 +3164,7 @@ a.site-menu-focus {
 }
 
 .win:before {
-  content: 'CONGRATULATIONS!!! \A YOU WIN';
+  content: 'CHÚC MỪNG!!! \A BẠN ĐÃ THẮNG';
   white-space: pre;
   position: fixed;
   -webkit-text-stroke-width: 0.5px;
@@ -3187,12 +3172,13 @@ a.site-menu-focus {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 1000;
+  z-index: 20000;
   color: #ff0;
+  font-family: 'Roboto', sans-serif;
 }
 
 .win:after {
-  content: 'CONGRATULATIONS!!! \A YOU WIN';
+  content: 'CHÚC MỪNG!!! \A BẠN ĐÃ THẮNG';
   white-space: pre;
   letter-spacing: 5px;
   position: fixed;
@@ -3202,7 +3188,9 @@ a.site-menu-focus {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 900;
+  z-index: 19999;
+  font-family: 'Roboto', sans-serif;
+
 }
 
 @-webkit-keyframes bounceIn {

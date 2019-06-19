@@ -159,7 +159,7 @@ class Homepage extends Component {
           <div className="container">
             <div className="row align-items-center">
               <div className="col-6 col-xl-2">
-                <h1 className="mb-0 site-logo"><Link className="h2 mb-0" to="/homepage">Trivia<span>Game</span></Link></h1>
+                <h1 className="mb-0 site-logo"><Link className="h2 mb-0" to="/homepage">ST<span>Game</span></Link></h1>
               </div>
               <div className="col-12 col-md-10 d-none d-xl-block">
                 <nav className="site-navigation position-relative text-right" role="navigation">
@@ -188,7 +188,7 @@ class Homepage extends Component {
           <div className="container">
             <div className="row">
               <div className="col-md-6 mt-lg-5 ml-auto text-left align-self-end align-self-md-center">
-                <h1 className="main-title">Trivia Game</h1>
+                <h1 className="main-title">ST Game</h1>
                 <h1 className="main-title">Thách thức hiểu biết</h1>
                 <p className="mb-4"><Link className="btn btn-primary mr-2 mb-2 button-start" to="/game">Bắt đầu chơi</Link></p>
               </div>

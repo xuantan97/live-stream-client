@@ -240,7 +240,7 @@ class Profile extends Component {
                 <div className="container">
                   <div className="row align-items-center">
                     <div className="col-6 col-xl-2">
-                      <h1 className="mb-0 site-logo"><Link className="h2 mb-0" to="/homepage">Trivia<span>Game</span></Link></h1>
+                      <h1 className="mb-0 site-logo"><Link className="h2 mb-0" to="/homepage">ST<span>Game</span></Link></h1>
                     </div>
                     <div className="col-12 col-md-10 d-none d-xl-block">
                       <nav className="site-navigation position-relative text-right" role="navigation">
