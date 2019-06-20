@@ -39,6 +39,7 @@ class Login extends Component {
                         localStorage.setItem('email', response.email);
                         localStorage.setItem('username', response.username);
                         localStorage.setItem('token', response.token);
+                        localStorage.setItem('loggedIn', true);
                         this.props.history.push('/homepage');
                     }
                 })
