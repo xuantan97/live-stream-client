@@ -2933,6 +2933,7 @@ a.site-menu-focus {
 .hover {
   border-radius: 1rem;
   background: #577fd3;
+  transform: scale(1.02);
 }
 
 /* .btn-answer[value="A"] {
@@ -4103,4 +4104,52 @@ button{
 
 .site-footer {
   padding: 2em 0 1em !important;
+}
+
+/* //////////////////////////////// PAGE NOT FOUND /////////////////////////////////// */
+
+@import url('https://fonts.googleapis.com/css?family=Merriweather');
+
+.abc {
+  /* width: 100vw; */
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background: linear-gradient(to right top, #0f1011, #031120, #00112e, #000e39, #120541);
+  font-family: 'Merriweather', serif;
+  color: #fff;
+}
+
+.title-page-not-found {
+  font-size: 130px;
+  margin-top: 40px;
+}
+
+p.content-page-not-found {
+  font-size: 20px;
+}
+
+.abc button {
+  padding: 10px 30px;
+  border: none;
+  background-color: #880000;
+  color: #fff;
+  font-size: 18px;
+  letter-spacing: 2px;
+  outline: none;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: 0.3s;
+  font-family: 'Merriweather', serif;
+}
+
+.abc button:hover {
+  background-color: #660000;
+}
+
+.abc button:active {
+  transform: scale(1.1);
 }
