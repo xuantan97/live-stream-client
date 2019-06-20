@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import {Button} from 'react-bootstrap';
 import Validator from 'validator';
+import { Link } from "react-router-dom";
 
 class Register extends Component {
     state = {
@@ -30,7 +31,6 @@ class Register extends Component {
         const errors = this.validate(this.state.data);
         this.setState({errors});
 
-        // console.log(this.state.data);
         var FormData = require('form-data');
         var account = new FormData();
         account.append('username',this.state.data.username);
@@ -40,10 +40,6 @@ class Register extends Component {
         fetch('http://bonddemo.tk/v1/system/sign-up',{
             method: 'POST',
             headers: {},
-            // body: JSON.stringify({
-            //     email: this.state.data.email,
-            //     password: this.state.data.password
-            // })
             body: account
         })
             .then(res => {
@@ -52,7 +48,6 @@ class Register extends Component {
                     if(response === "fail"){
                         alert("Đăng kí không thành công !!!");
                     }else{
-                        // localStorage.setItem('token',response);
                         this.props.history.push('/');
                     }
                 })
@@ -101,9 +96,7 @@ class Register extends Component {
                             <Button className="submit" variant="primary" onClick={()=>this.onSubmit()}>Đăng kí</Button>
                             <div style={{marginTop: '30px', fontSize: '18px'}}>
                                 <span>Bạn đã có tài khoản?&nbsp;</span>
-                                <a variant="primary" href="/">
-                                    Đăng nhập
-                                </a>
+                                <Link to="/">Đăng nhập</Link>
                             </div>
                         </form>
                     </div>
@@ -113,47 +106,6 @@ class Register extends Component {
                         <li></li> <li></li> <li></li> <li></li> <li></li>
                     </ul>
                 </div>
-
-                {/* <div className="container">
-
-                    <Form onSubmit={this.onSubmit}>
-                        <h1>
-                            Register
-                        </h1>
-
-                        <Form.Group>
-                            <Form.Label>Username</Form.Label>
-                            {errors.username && <span style={{color: '#ae5856', float: 'right'}}>{errors.username}</span>}
-                            <Form.Control className={userName} type="text" id="username" name="username" placeholder="Love_cat" value={data.username} onChange={this.onChange}/>
-                            
-                        </Form.Group>
-
-                        <Form.Group>
-                            <Form.Label>Email address</Form.Label>
-                            {errors.email && <span style={{color: '#ae5856', float: 'right'}}>{errors.email}</span>}
-                            <Form.Control className={email} type="email" id="email" name="email" placeholder="abc@gmail.com" value={data.email} onChange={this.onChange}/>
-                            
-                        </Form.Group>
-
-                        <Form.Group>
-                            <Form.Label>Password</Form.Label>
-                            {errors.password && <span style={{color: '#ae5856', float: 'right'}}>{errors.password}</span>}
-                            <Form.Control className={password} type="password" id="password" name="password" placeholder="123456" value={data.password} onChange={this.onChange}/>
-                            
-                        </Form.Group>
-
-                        <Form.Group>
-                            <Form.Label>Password Confirmation</Form.Label>
-                            {errors.passwordConfirm && <span style={{color: '#ae5856', float: 'right'}}>{errors.passwordConfirm}</span>}
-                            <Form.Control className={passwordConfirm} type="password" id="passwordConfirm" name="passwordConfirm" placeholder="enter password" value={data.passwordConfirm} onChange={this.onChange}/>
-                            
-                        </Form.Group>
-
-                        <Button className="submit" variant="primary" onClick={()=>this.onSubmit()}>
-                            Sign Up
-                        </Button>
-                    </Form>
-                </div> */}
             </div>
         )
     }
