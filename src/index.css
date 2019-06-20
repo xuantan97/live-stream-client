@@ -4110,8 +4110,7 @@ button{
 
 @import url('https://fonts.googleapis.com/css?family=Merriweather');
 
-.abc {
-  /* width: 100vw; */
+.page-not-found {
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -4125,14 +4124,14 @@ button{
 
 .title-page-not-found {
   font-size: 130px;
-  margin-top: 40px;
+  /* margin-top: 40px; */
 }
 
 p.content-page-not-found {
   font-size: 20px;
 }
 
-.abc button {
+.page-not-found button {
   padding: 10px 30px;
   border: none;
   background-color: #880000;
@@ -4146,10 +4145,20 @@ p.content-page-not-found {
   font-family: 'Merriweather', serif;
 }
 
-.abc button:hover {
+.page-not-found button:hover {
   background-color: #660000;
 }
 
-.abc button:active {
+.page-not-found button:active {
   transform: scale(1.1);
+}
+
+@media (max-width: 350px) {
+  .title-page-not-found {
+    font-size: 110px;
+  }
+  
+  p.content-page-not-found {
+    font-size: 18px;
+  }
 }
