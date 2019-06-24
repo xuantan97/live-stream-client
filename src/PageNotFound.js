@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import $ from "jquery";
+import { Link } from "react-router-dom";
 
 class PageNotFound extends Component {
 
@@ -8,7 +8,7 @@ class PageNotFound extends Component {
             <div className="page-not-found">
                 <div className="title-page-not-found">404!</div>     
                 <p className="content-page-not-found">Trang bạn đang tìm kiếm không tồn tại</p>
-                <button>Quay lại</button>
+                <Link to="/homepage"><button>Quay lại</button></Link>
             </div>
         )
     }
