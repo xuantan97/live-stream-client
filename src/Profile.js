@@ -295,8 +295,8 @@ class Profile extends Component {
                           <label htmlFor="username">Tên</label>
                           </div>
                           <div className="grid-65">
-                          <input type="text" id="username" tabIndex={1}/>
-                          <span className="edit-user" title="Chỉnh sửa tên"><FaEdit/></span>
+                          <input type="text" id="username" tabIndex={1} style={{width: 'calc(65% + 38px)'}}/>
+                          {/* <span className="edit-user" title="Chỉnh sửa tên"><FaEdit/></span> */}
                           </div>
                       </fieldset>
                       {/* Email */}
@@ -305,8 +305,8 @@ class Profile extends Component {
                           <label htmlFor="email">Email</label>
                           </div>
                           <div className="grid-65">
-                          <input type="email" id="email" tabIndex={2}/>
-                          <span className="edit-email" title="Chỉnh sửa email"><FaEdit/></span>
+                          <input type="email" id="email" tabIndex={2} disabled style={{width: 'calc(65% + 38px)'}}/>
+                          {/* <span className="edit-email" title="Chỉnh sửa email"><FaEdit/></span> */}
                           </div>
                       </fieldset>
                       {/* School */}
