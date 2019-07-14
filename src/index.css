@@ -4167,3 +4167,73 @@ p.content-page-not-found {
     font-size: 18px;
   }
 }
+
+/* /////////////////////////////////////////// EMOTION ICON /////////////////////////////////// */
+
+.width-1 {
+  width: 15px;
+}
+
+.width-2 {
+  width: 25px;
+}
+
+.width-3 {
+  width: 35px;
+}
+
+.width-4 {
+  width: 40px;
+}
+
+.width-5 {
+  width: 50px;
+}
+
+.width-6 {
+  width: 60px;
+}
+
+.time-1 {
+  animation-duration: 3s !important;
+}
+
+.time-2 {
+  animation-duration: 4s !important;
+}
+
+.time-3 {
+  animation-duration: 3s !important;
+}
+
+.time-4 {
+  animation-duration: 4s !important;
+}
+
+.time-5 {
+  animation-duration: 5s !important;
+}
+
+.time-6 {
+  animation-duration: 6s !important;
+}
+
+#emoticon img {
+  /* width: 60px; */
+  z-index: 1;
+  position: absolute;
+  top: 0;
+  animation: float 3s linear;
+}
+
+@keyframes float {
+  0% {
+    top: 110%;
+    display: none !important;
+  }
+
+  100% {
+    top: -10%;
+    display: none !important;
+  }
+}

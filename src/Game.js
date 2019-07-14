@@ -217,13 +217,34 @@ class Game extends Component {
 
         this.socket.on('SEND_ICON_TO_CLIENT', (value) => {
           if(value === "1") {
-            alert("Tim");
+            // alert("Tim");
+            for(let i = 0; i < 50; i++) {
+              $(`<img src="images/heart.gif" className="emoticon"/>`)
+              .css({'left': `${(Math.random() * 10) * 10}%`})
+              .addClass(`width-${Math.floor(Math.random() * 6) + 1}`)
+              .addClass(`time-${Math.floor(Math.random() * 6) + 1}`)
+              .appendTo('#emoticon').bind('animationend webkitAnimationEnd oAnimationEnd MSAnimationEnd', function(e) { $(this).remove(); });
+            }
           }
           else if(value === "2") {
-            alert("haha");
+            // alert("haha");
+            for(let i = 0; i < 50; i++) {
+              $(`<img src="images/haha.gif" className="emoticon"/>`)
+              .css({'left': `${(Math.random() * 10) * 10}%`})
+              .addClass(`width-${Math.floor(Math.random() * 6) + 1}`)
+              .addClass(`time-${Math.floor(Math.random() * 6) + 1}`)
+              .appendTo('#emoticon').bind('animationend webkitAnimationEnd oAnimationEnd MSAnimationEnd', function(e) { $(this).remove(); });
+            }
           }
           else {
-            alert("Sad");
+            // alert("Sad");
+            for(let i = 0; i < 50; i++) {
+              $(`<img src="images/sad.gif" className="emoticon"/>`)
+              .css({'left': `${(Math.random() * 10) * 10}%`})
+              .addClass(`width-${Math.floor(Math.random() * 6) + 1}`)
+              .addClass(`time-${Math.floor(Math.random() * 6) + 1}`)
+              .appendTo('#emoticon').bind('animationend webkitAnimationEnd oAnimationEnd MSAnimationEnd', function(e) { $(this).remove(); });
+            }          
           }
         });
       }
@@ -423,6 +444,8 @@ class Game extends Component {
                   </div>
                 </header>
                 </div>
+                <div id="emoticon"></div>
+
 
                 <section className="site-section game-section" id="contact-section">
                   <div className="container-full">
@@ -495,9 +518,7 @@ class Game extends Component {
                       </div>   
                 </Modal>
 
-
                 <Footer/>
-
                 <div className="win">
                   <css-doodle grid="5">
                   {`
