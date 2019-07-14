@@ -30,39 +30,33 @@ class History extends Component{
         .then(res => res.json())
         .then(response => {
           console.log(response);
-            // this.setState({
-            //  objs: response,
-            // });
+          this.setState({
+            objs: response
+          });
         })
         .catch(error => console.log(error));
   }
 
   getDataTable(objs) {
-    const columns = [
-      {
-        dataField: 'username',
-        text: 'Họ Tên'
-      }, 
-      {
-        dataField: 'email',
-        text: 'Email'
-      }, 
-      {
-        dataField: 'money',
-        text: 'Tiền thưởng ($)'
-      }
-    ];
-
     var result = [];
-    objs.map((obj) => {
+    if(objs.length === 0) {
       result.push(
-        <div style={{backgroundColor: '#528B8B', marginTop: '1px', color: '#fff', padding: '1rem 0'}}>
-          <Collapsible trigger={ obj.program.name_program } >
-              <BootstrapTable keyField='id' data={ obj.user } columns={ columns } />
-          </Collapsible>
+        <div style={{ marginTop: '1px', color: '#f00', padding: '1rem 0', fontSize: 30}}>
+          Chưa có dữ liệu lịch sử
         </div>
       );
-    })
+    }
+    else {
+      objs.map((obj) => {
+        result.push(
+          <div style={{backgroundColor: '#528B8B', marginTop: '1px', color: '#fff', padding: '1rem 0'}}>
+            <Collapsible trigger={ obj.name  - obj.money} >
+            </Collapsible>
+          </div>
+        );
+      })
+    }
+    
     return result;
   }
 
