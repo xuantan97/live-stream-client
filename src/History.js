@@ -50,7 +50,7 @@ class History extends Component{
       objs.map((obj) => {
         result.push(
           <div style={{backgroundColor: '#528B8B', marginTop: '1px', color: '#fff', padding: '1rem 0'}}>
-            <Collapsible trigger={ obj.name + "  -  "+   obj.money} >
+            <Collapsible trigger={ obj.name + "   -   "+   obj.money + "$"} >
             </Collapsible>
           </div>
         );
@@ -229,7 +229,7 @@ class History extends Component{
           <div className="container">
             <div className="row mb-5">
               <div className="col-12 text-center">
-                <h2 className="section-title mb-3" style={{marginTop: '-1rem', paddingBottom: '2rem'}}>Lịch sử</h2>
+                <h2 className="section-title mb-3" style={{marginTop: '-1rem', paddingBottom: '2rem'}}>Lịch sử chiến thắng</h2>
                   {this.getDataTable(this.state.objs)}
               </div>
             </div>
