@@ -42,7 +42,7 @@ class History extends Component{
     if(objs.length === 0) {
       result.push(
         <div style={{ marginTop: '1px', color: '#f00', padding: '1rem 0', fontSize: 30}}>
-          Chưa có dữ liệu lịch sử
+          Chưa có dữ liệu lịch sử chiến thắng
         </div>
       );
     }
@@ -50,7 +50,7 @@ class History extends Component{
       objs.map((obj) => {
         result.push(
           <div style={{backgroundColor: '#528B8B', marginTop: '1px', color: '#fff', padding: '1rem 0'}}>
-            <Collapsible trigger={ obj.name  - obj.money} >
+            <Collapsible trigger={ obj.name + "  -  "+   obj.money} >
             </Collapsible>
           </div>
         );
