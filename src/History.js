@@ -20,7 +20,8 @@ class History extends Component{
   }
 
   componentDidMount() {
-     fetch('http://bonddemo.tk/v1/user/program-user', {
+    var user_id = localStorage.getItem('user_id');
+     fetch('http://bonddemo.tk/v1/user/user-programs?id=' + user_id, {
             method: 'GET',
             headers: {
                 'Authorization': 'Bearer lyWyy7-2EqXt6JOjKXnQV90Ghv94ie_5vO20rHFP',
@@ -29,9 +30,9 @@ class History extends Component{
         .then(res => res.json())
         .then(response => {
           console.log(response);
-            this.setState({
-             objs: response,
-            });
+            // this.setState({
+            //  objs: response,
+            // });
         })
         .catch(error => console.log(error));
   }

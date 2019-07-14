@@ -13,6 +13,7 @@ class Game extends Component {
     
     constructor(props) {
         super(props);
+        // this.socket = io("localhost:1235");
         this.socket = io("103.89.85.105:1235");
         this.state = {
           id: "",
@@ -63,18 +64,12 @@ class Game extends Component {
     
     
       async componentDidMount() {
-        // $('.question-content').hide();
-        // $('.summary').hide();
         $('.win').hide();
 
         $('button.btn-answer').mouseover(function () {
-          // var x = $(this).val();
-          // $(this).addClass('hover-' + x);
           $(this).addClass('hover');
         });
         $('button.btn-answer').mouseout(function () {
-          // var x = $(this).val();
-          // $(this).removeClass('hover-' + x);
           $(this).removeClass('hover');
         });
 
@@ -92,13 +87,9 @@ class Game extends Component {
           $('button.btn-answer').prop('disabled', false);
 
           $('button.btn-answer').mouseover(function () {
-            // var x = $(this).val();
-            // $(this).addClass('hover-' + x);
             $(this).addClass('hover');
           });
           $('button.btn-answer').mouseout(function () {
-            // var x = $(this).val();
-            // $(this).removeClass('hover-' + x);
             $(this).removeClass('hover');
           });
 
@@ -153,7 +144,6 @@ class Game extends Component {
     
         this.socket.on('CLOSE_QUESTION', () => {
           this.closeModal();
-          // $('button.btn-answer').removeClass('hover-A hover-B hover-C');
           $('button.btn-answer').removeClass('hover');
           $('button.btn-answer').prop('disabled', true);
           $(`button[value!="${this.state.answering}"]`).addClass('disable-color');
@@ -207,7 +197,7 @@ class Game extends Component {
         this.socket.on("STATISTIC", (statistic) => {
           $('#summary-correct').html(statistic.right);
           $('#summary-incorrect').html(statistic.wrong);
-      });
+        });
     
     
         this.socket.on('END_GAME_TO_CLIENT', (dataEndGame) => {
@@ -221,6 +211,19 @@ class Game extends Component {
             setTimeout(function() {
               $('.win').fadeOut("slow");
             }, 10000);
+          }
+        });
+
+
+        this.socket.on('SEND_ICON_TO_CLIENT', (value) => {
+          if(value === "1") {
+            alert("Tim");
+          }
+          else if(value === "2") {
+            alert("haha");
+          }
+          else {
+            alert("Sad");
           }
         });
       }
